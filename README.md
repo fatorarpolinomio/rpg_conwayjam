@@ -8,11 +8,11 @@ O tema da Game Jam é "Espaço".
 
 ### C++17 - Linguagem base.
 
-### (Raylib - Renderização gráfica, gerenciamento de áudio e input.)[https://www.raylib.com/]
+### [Raylib - Renderização gráfica, gerenciamento de áudio e input.](https://www.raylib.com/)
 
-### (Raygui - Criação rápida de interfaces de usuário (UI).)[https://github.com/raysan5/raygui]
+### [Raygui - Criação rápida de interfaces de usuário (UI).](https://github.com/raysan5/raygui)
 
-### (nlohmann/json - Serialização de dados e balanceamento (leitura de status, HP e danos via .json).)[https://github.com/nlohmann/json]
+### [nlohmann/json - Serialização de dados e balanceamento (leitura de status, HP e danos via .json).](https://github.com/nlohmann/json)
 
 # Setup e Execução (Linux)
 
