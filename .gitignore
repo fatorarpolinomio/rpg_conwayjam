@@ -18,3 +18,5 @@ meu_rpg
 *.obj
 *~
 .DS_Store
+
+.vs/
