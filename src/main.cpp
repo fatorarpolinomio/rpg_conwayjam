@@ -11,13 +11,17 @@ int main() {
 	
 	InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"RPG");
 
+	InitAudioDevice();  
+	if(!IsAudioDeviceReady()){
+		std::cout << "ERROR: Dispositivo de som não foi inicializado" << endl;
+	}             
+
 	Protagonista violeta(Vector2{20,20});
 
 	while (!WindowShouldClose())
 	{
 		
 		violeta.Update();
-		
 
 		BeginDrawing();
 			ClearBackground(WHITE);
@@ -26,8 +30,7 @@ int main() {
 		EndDrawing();
 	}
 	
-	std::cout << "teste";
-
+	CloseAudioDevice();               
 	CloseWindow();
 	return 0;
 }

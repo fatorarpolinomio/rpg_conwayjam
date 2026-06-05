@@ -6,22 +6,32 @@
 
 
 Protagonista::Protagonista(Vector2 pos) {
-	spritesheet = LoadTexture("../assets/photo_4978753491874548696_w.png");
-
+	spritesheet = LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
+ 	passos = LoadSound("../assets/audio/sfx/caminhando.wav");
+    SetMasterVolume(100.0f); 
+	PlaySound(passos);     
+	
+	
 	// Animações
 	andarCima = {
-		Rectangle{0,64,64,64},
-		Rectangle{64,64,64,64},
-	};
-	andarDireita = {
 		Rectangle{0,128,64,64},
 		Rectangle{64,128,64,64},
+		Rectangle{128,128,64,64},
+	};
+	andarDireita = {
+		Rectangle{0,192,64,64},
+		Rectangle{64,192,64,64},
+		Rectangle{128,192,64,64},
 	};
 	andarEsquerda = {
-		Rectangle{128,0,-64,64},
+		Rectangle{0,64,64,64},
+		Rectangle{64,64,64,64},
+		Rectangle{128,64,64,64},
 	};
 	andarBaixo = {
 		Rectangle{0,0,64,64},
+		Rectangle{64,0,64,64},
+		Rectangle{128,0,64,64},
 	};
 	idle = {
 		Rectangle{0,0,64,64},
@@ -41,14 +51,18 @@ Protagonista::Protagonista(Vector2 pos) {
 
 void Protagonista::Update(){
 	
+	if(!IsSoundPlaying(passos)){
+		PlaySound(passos);
+	}
+
 	andando = false;
 
 	if(tempoAteProxSprite <= 0){
 		frameAtual++;
 		if(frameAtual >= AnimacaoAtual.size()){
-			frameAtual = 0;
+			frameAtual = 1;
 		}
-		tempoAteProxSprite = .5f;			
+		tempoAteProxSprite = .35f;			
 	}
 		
 	if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
@@ -78,12 +92,19 @@ void Protagonista::Update(){
 
 	if(andando){
 		tempoAteProxSprite -= GetFrameTime();
+		ResumeSound(passos);
+	}else{
+
+		PauseSound(passos);	
 	}
 
 }
 
 void Protagonista::Draw(){
 
+	if(!andando){
+		frameAtual = 0;
+	}
 	DrawTextureRec(spritesheet, AnimacaoAtual[frameAtual], getPosicao(), WHITE);
 
 }

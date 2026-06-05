@@ -30,6 +30,10 @@ class Protagonista {
 		vector<Rectangle> andarEsquerda;
 		vector<Rectangle> andarDireita;
 
+
+		// Audio
+		Sound passos;
+
 		double tempoAteProxSprite;
 		int frameAtual = 0;
 
@@ -48,8 +52,8 @@ class Protagonista {
 
 		void setPosicao(Vector2 pos){ posicao = pos; }
 		
-		void Update();
-		void Draw();
+		void Update(); // Atualização do player a cada frame
+		void Draw(); // Desenha o player a cada frame
 
 		void setIntegridade(int novaIntegridade) {integridade = novaIntegridade;}
 
