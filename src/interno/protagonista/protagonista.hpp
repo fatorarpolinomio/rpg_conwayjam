@@ -3,6 +3,10 @@
 
 #include <cstdlib>
 #include <string>
+#include <raylib.h>
+#include <vector>
+
+using namespace std;
 
 class Protagonista {
 
@@ -10,9 +14,33 @@ class Protagonista {
 		int integridade;
 		int oxigenio;
 		int nivelInfeccao;
+		double velocidade = .02f;
+		Vector2 posicao;
+
+		bool andando = false;
+
+		// Variaveis da animação
+		Texture2D spritesheet;
+		vector<Rectangle> AnimacaoAtual;
+		
+
+		vector<Rectangle> idle;
+		vector<Rectangle> andarCima;
+		vector<Rectangle> andarBaixo;
+		vector<Rectangle> andarEsquerda;
+		vector<Rectangle> andarDireita;
+
+
+		// Audio
+		Sound passos;
+
+		double tempoAteProxSprite;
+		int frameAtual = 0;
 
 	public:
-		Protagonista();
+		Protagonista(Vector2 pos);
+
+		Vector2 getPosicao(){ return posicao; }
 
 		bool diminuirIntegridade(int dano);
 		bool diminuirOxigenio(int vazamento);
@@ -22,17 +50,22 @@ class Protagonista {
 		void aumentarOxigenio(int recuperacao);
 		bool aumentarNivelInfeccao(int dano);
 
-		void Protagonista::setIntegridade(int novaIntegridade) {integridade = novaIntegridade;}
+		void setPosicao(Vector2 pos){ posicao = pos; }
+		
+		void Update(); // Atualização do player a cada frame
+		void Draw(); // Desenha o player a cada frame
 
-		void Protagonista::setOxigenio(int novoOxigenio) {oxigenio = novoOxigenio;}
+		void setIntegridade(int novaIntegridade) {integridade = novaIntegridade;}
 
-		void Protagonista::setInfeccao(int novoNivelInfeccao) {nivelInfeccao = novoNivelInfeccao;}
+		void setOxigenio(int novoOxigenio) {oxigenio = novoOxigenio;}
 
-		int Protagonista::getIntegridade() {return integridade;}
+		void setInfeccao(int novoNivelInfeccao) {nivelInfeccao = novoNivelInfeccao;}
 
-		int Protagonista::getOxigenio() {return oxigenio;}
+		int getIntegridade() {return integridade;}
 
-		int Protagonista::getInfeccao() {return nivelInfeccao;}
+		int getOxigenio() {return oxigenio;}
+
+		int getInfeccao() {return nivelInfeccao;}
 
 };
 
