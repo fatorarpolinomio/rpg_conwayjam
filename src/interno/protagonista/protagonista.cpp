@@ -1,10 +1,36 @@
 #include <cstdlib>
 #include <string>
+#include <raylib.h>
 
 #include "protagonista.hpp"
 
 
-Protagonista::Protagonista() {
+Protagonista::Protagonista(Vector2 pos) {
+	spritesheet = LoadTexture("../assets/photo_4978753491874548696_w.png");
+
+	// Animações
+	andarCima = {
+		Rectangle{0,64,64,64},
+		Rectangle{64,64,64,64},
+	};
+	andarDireita = {
+		Rectangle{0,128,64,64},
+		Rectangle{64,128,64,64},
+	};
+	andarEsquerda = {
+		Rectangle{128,0,-64,64},
+	};
+	andarBaixo = {
+		Rectangle{0,0,64,64},
+	};
+	idle = {
+		Rectangle{0,0,64,64},
+	};
+	AnimacaoAtual = idle;
+	
+
+
+	posicao = pos;
 	integridade = 100;
 	oxigenio = 100;
 	nivelInfeccao = 0;
@@ -12,6 +38,55 @@ Protagonista::Protagonista() {
 
 
 // funcoes ------------------------------------
+
+void Protagonista::Update(){
+	
+	andando = false;
+
+	if(tempoAteProxSprite <= 0){
+		frameAtual++;
+		if(frameAtual >= AnimacaoAtual.size()){
+			frameAtual = 0;
+		}
+		tempoAteProxSprite = .5f;			
+	}
+		
+	if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
+		posicao.x += velocidade;
+		AnimacaoAtual = andarDireita;
+
+		andando = true;
+	}
+	if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
+		posicao.x -= velocidade;
+		AnimacaoAtual = andarEsquerda;
+		
+		andando = true;
+	}
+	if(IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)){
+		posicao.y -= velocidade;
+		AnimacaoAtual = andarCima;
+		
+		andando = true;
+	}
+	if(IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
+		posicao.y += velocidade;
+		AnimacaoAtual = andarBaixo;
+		
+		andando = true;
+	}
+
+	if(andando){
+		tempoAteProxSprite -= GetFrameTime();
+	}
+
+}
+
+void Protagonista::Draw(){
+
+	DrawTextureRec(spritesheet, AnimacaoAtual[frameAtual], getPosicao(), WHITE);
+
+}
 
 bool Protagonista::diminuirIntegridade(int dano) {
 	integridade -= integridade - dano;
