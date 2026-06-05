@@ -10,30 +10,6 @@ Protagonista::Protagonista() {
 	nivelInfeccao = 0;
 }
 
-// getters e setters ------------------------------------
-void Protagonista::setIntegridade(int novaIntegridade) {
-	integridade = novaIntegridade;
-}
-
-void Protagonista::setOxigenio(int novoOxigenio) {
-	oxigenio = novoOxigenio;
-}
-
-void Protagonista::setInfeccao(int novoNivelInfeccao) {
-	nivelInfeccao = novoNivelInfeccao;
-}
-
-int Protagonista::getIntegridade() {
-	return integridade;
-}
-
-int Protagonista::getOxigenio() {
-	return oxigenio;
-}
-
-int Protagonista::getInfeccao() {
-	return nivelInfeccao;
-}
 
 // funcoes ------------------------------------
 
