@@ -15,7 +15,8 @@ add_executable(rpg src/main.cpp)
 include(FetchContent)
 FetchContent_Declare(
     raylib
-    URL https://github.com/raysan5/raylib/archive/refs/tags/4.5.0.tar.gz
+    GIT_REPOSITORY https://github.com/raysan5/raylib.git
+    GIT_TAG master
 )
 # Desativa a construção de exemplos da Raylib para compilar mais rápido
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
