@@ -9,10 +9,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(${CMAKE_SOURCE_DIR}/lib)
 
 # Cria o executável
-add_executable(rpg 
+add_executable(rpg
     src/main.cpp
-    src/interno/protagonista/protagonista.cpp
-    src/interno/itens/itens.cpp)
+    src/interno/entidades/protagonista/protagonista.cpp
+    src/interno/entidades/itens/itens.cpp)
 
 # Baixa a Raylib automaticamente do GitHub na primeira vez que o CMake rodar
 include(FetchContent)
