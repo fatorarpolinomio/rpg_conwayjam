@@ -28,6 +28,6 @@ public:
     void SetRegeneracao(double newReg) {regeneracao = newReg;}
     void SetAlvo(std::string newAlvo) {alvo = newAlvo;}
 
-    void Use(Item item, Protagonista protagonista, Inimigo inimigo);
+    void Use();
 };
 #endif

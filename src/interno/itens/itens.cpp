@@ -58,13 +58,13 @@ Item Ferramentas() {
 }
 
 
-void Item::Use(Item item, Protagonista& protagonista, Inimigo& inimigo) {
+void usarItem(Item item, Protagonista& protagonista, Inimigo& inimigo) {
     if (item.GetTipo() == "Consumível") {
         if (item.GetAlvo() == "Protagonista") {
             protagonista.aumentarIntegridade(item.GetRegeneracao());
         }
         else if (item.GetAlvo() == "Capacete") {
-			Item capacete = Capacete();
+            Item capacete = Capacete();
             capacete.SetDurabilidade(capacete.GetDurabilidade() + item.GetRegeneracao());
         }
         else if (item.GetAlvo() == "Oxigênio") {
