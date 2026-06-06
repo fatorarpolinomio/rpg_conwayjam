@@ -12,7 +12,7 @@ include_directories(${CMAKE_SOURCE_DIR}/lib)
 add_executable(rpg 
     src/main.cpp
     src/interno/protagonista/protagonista.cpp
-    )
+    src/interno/itens/itens.cpp)
 
 # Baixa a Raylib automaticamente do GitHub na primeira vez que o CMake rodar
 include(FetchContent)
