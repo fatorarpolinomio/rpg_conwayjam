@@ -1,0 +1,17 @@
+{
+	"Dialogo": 
+	[
+		{
+			"remetente": "TRIPULANTE",
+			"Texto": [
+				"pô, Violeta, você é a única que tranca a porta do quarto toda noite, por quê?"
+			]
+		},
+		{
+			"remetente": "VIOLETA",
+			"Texto": [
+				"Minha mãe sempre me dava bronca quando eu não dava duas voltas na tranca, então peguei o hábito"
+			]
+		}
+	]
+}

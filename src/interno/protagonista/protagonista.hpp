@@ -30,12 +30,12 @@ class Protagonista {
 		vector<Rectangle> andarEsquerda;
 		vector<Rectangle> andarDireita;
 
+		double tempoAteProxSprite;
+		int frameAtual = 0;
 
 		// Audio
 		Sound passos;
 
-		double tempoAteProxSprite;
-		int frameAtual = 0;
 
 	public:
 		Protagonista(Vector2 pos);
