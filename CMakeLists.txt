@@ -13,7 +13,12 @@ include_directories(${CMAKE_SOURCE_DIR}/lib)
 add_executable(rpg
     src/main.cpp
     src/interno/sistemas/camera.cpp
+    src/interno/entidades/inimigos/Inimigos.cpp
     src/interno/entidades/protagonista/protagonista.cpp
+    src/interno/entidades/inimigos/Tripulante/Tripulante.cpp
+    src/interno/entidades/inimigos/Amalgama/Amalgama.cpp
+    src/interno/entidades/inimigos/Tentaculo/Tentaculo.cpp
+    src/interno/entidades/inimigos/Smilinguido/Smilinguido.cpp
     src/interno/entidades/itens/itens.cpp)
 
 # Baixa a Raylib automaticamente do GitHub na primeira vez que o CMake rodar
