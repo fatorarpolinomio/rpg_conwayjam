@@ -14,7 +14,8 @@ add_executable(rpg
     src/main.cpp
     src/interno/sistemas/camera.cpp
     src/interno/entidades/protagonista/protagonista.cpp
-    src/interno/entidades/itens/itens.cpp)
+    src/interno/entidades/itens/itens.cpp
+    src/interno/sistemas/trilhaSonora.cpp)
 
 # Baixa a Raylib automaticamente do GitHub na primeira vez que o CMake rodar
 include(FetchContent)
