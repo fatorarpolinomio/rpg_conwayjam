@@ -6,13 +6,12 @@
 class Globais{
     private:
         static Protagonista *violeta;
-        static Inimigo *gerenciaInimigos;
 
     public:
-        Globais(Protagonista *player, Inimigo *inimigos);
-        Globais();
+        static vector<Inimigo*> Inimigos;
+        Globais(Protagonista *player);
+        Globais(){}
 
         static Protagonista* GetPlayer(){return violeta;}
-        static Inimigo* GetGerenciadorInimigos(){return gerenciaInimigos;}
 
 };

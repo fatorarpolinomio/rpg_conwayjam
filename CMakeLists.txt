@@ -12,6 +12,7 @@ include_directories(${CMAKE_SOURCE_DIR}/lib)
 # Cria o executável
 add_executable(rpg
     src/main.cpp
+    src/interno/sistemas/globais.cpp
     src/interno/sistemas/camera.cpp
     src/interno/entidades/inimigos/Inimigos.cpp
     src/interno/entidades/protagonista/protagonista.cpp
@@ -19,7 +20,7 @@ add_executable(rpg
     src/interno/entidades/inimigos/Amalgama/Amalgama.cpp
     src/interno/entidades/inimigos/Tentaculo/Tentaculo.cpp
     src/interno/entidades/inimigos/Smilinguido/Smilinguido.cpp
-    src/interno/entidades/itens/itens.cpp)
+    src/interno/entidades/itens/itens.cpp
     src/interno/entidades/itens/itens.cpp
     src/interno/sistemas/trilhaSonora.cpp)
 

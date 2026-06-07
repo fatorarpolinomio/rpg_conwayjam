@@ -1,9 +1,8 @@
 #include "globais.hpp"
 
 Protagonista* Globais::violeta;
-Inimigo* Globais::gerenciaInimigos;
+vector<Inimigo*> Globais::Inimigos;
 
-Globais::Globais(Protagonista *player, Inimigo *inimigos){
+Globais::Globais(Protagonista *player){
     violeta = player;
-    gerenciaInimigos = inimigos;
 }

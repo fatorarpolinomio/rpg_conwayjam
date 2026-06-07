@@ -10,8 +10,6 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 400
 
-
-
 int main() {
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "RPG");
@@ -35,16 +33,18 @@ int main() {
   	Protagonista violeta(Vector2{20,20});
 	Inimigo inimigoManager;
 
-	Globais globais(&violeta, &inimigoManager);
+	Globais globais(&violeta);
 
+	// TESTE
 	Tripulante inimigoTeste(100,0,0,0);
-	inimigoTeste.setPosicao(Vector2{50,50});
+	inimigoTeste.setPosicao(Vector2{250,50});
 
 	Tripulante inimigoTeste2(100,0,0,0);
-	inimigoTeste2.setPosicao(Vector2{50,150});
+	inimigoTeste2.setPosicao(Vector2{250,150});
 
 	Tripulante inimigoTeste3(100,0,0,0);
-	inimigoTeste3.setPosicao(Vector2{150,50});
+	inimigoTeste3.setPosicao(Vector2{350,50});
+	
 	// Camera
 
   	MainCamera camera(&violeta, Vector2{ WINDOW_WIDTH/2, WINDOW_HEIGHT/2}, 0, 1.0f);
@@ -61,7 +61,6 @@ int main() {
 				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
 
 				violeta.Draw();
-			EndMode2D();
 				inimigoManager.Draw();
 			EndMode2D();	
 		EndDrawing();

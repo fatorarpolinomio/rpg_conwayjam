@@ -14,13 +14,10 @@ class Inimigo : public Entidade{
         double TaxaRegen;
         double TaxaInfec;
         double Dano;
-        double MaxVelocidade = 2;
+        double MaxVelocidade = .005f;
         double Velocidade = 2;
 
     public:
-
-        static vector<Inimigo*> Inimigos;
-
         Inimigo(double max, double regen, double infec, double dano);
         Inimigo() = default;
         virtual ~Inimigo() = default;
@@ -31,6 +28,7 @@ class Inimigo : public Entidade{
         double GetDano(){return Dano;}
         double GetMax(){return MaxVelocidade;}
         double GetVelocidade(){return Velocidade;}
+        double GetMaxVelocidade(){return MaxVelocidade;}
         
         void SetVelocidade(double newVel){ Velocidade = newVel;}
 
