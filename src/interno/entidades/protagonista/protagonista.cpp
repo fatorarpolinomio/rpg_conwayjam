@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <raylib.h>
 #include <string>
+#include <iostream>
 
 #include "protagonista.hpp"
 
@@ -153,4 +154,8 @@ bool Protagonista::aumentarNivelInfeccao(int dano) {
   if (nivelInfeccao >= 100)
     return false;
   return true;
+}
+
+Vector2 Protagonista::GetTargetPosicao(){
+    return Vector2{getPosicao().x+32, getPosicao().y+32};
 }
