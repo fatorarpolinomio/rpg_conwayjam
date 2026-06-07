@@ -1,6 +1,7 @@
 #include "interno/entidades/protagonista/protagonista.hpp"
+#include "interno/sistemas/trilhaSonora.hpp"
+#include "interno/estados/estados.hpp"
 #include "raylib.h"
-#include <cstdlib>
 #include <iostream>
 #include "interno/sistemas/camera.hpp"
 #include "interno/entidades/inimigos/Tripulante/Tripulante.hpp"
@@ -8,6 +9,7 @@
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 400
+
 
 
 int main() {
@@ -19,6 +21,16 @@ int main() {
 		std::cout << "ERROR: Dispositivo de som não foi inicializado" << endl;
 	}
 
+	std::vector<Music> trilha = {LoadMusicStream("../assets/audio/musica/tema0.ogg"),
+	                              LoadMusicStream("../assets/audio/musica/tema1.ogg"),
+	                              LoadMusicStream("../assets/audio/musica/tema2.ogg")};
+
+	// Definindo estados com Enum declarado em estados.hpp
+	GameState estadoAtual = ACT_0;
+	GameState estadoAnterior = ACT_0;
+
+	// Colocando a trilha do ato 0 para rodar
+	PlayMusicStream(trilha[0]);
 
   	Protagonista violeta(Vector2{20,20});
 	Inimigo inimigoManager;
@@ -39,6 +51,7 @@ int main() {
 	while (!WindowShouldClose())
 	{
 		violeta.Update();
+		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
 		camera.Update();
 		inimigoManager.Update();
 
@@ -48,12 +61,16 @@ int main() {
 				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
 
 				violeta.Draw();
+			EndMode2D();
 				inimigoManager.Draw();
 			EndMode2D();	
 		EndDrawing();
 	}
-	
-	CloseAudioDevice();               
+
+	UnloadMusicStream(trilha[0]);
+	UnloadMusicStream(trilha[1]);
+	UnloadMusicStream(trilha[2]);
+	CloseAudioDevice();
 	CloseWindow();
 	return 0;
 }

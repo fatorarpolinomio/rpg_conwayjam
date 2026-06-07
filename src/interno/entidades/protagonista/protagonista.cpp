@@ -13,7 +13,7 @@ Protagonista::Protagonista(Vector2 pos) {
   spritesheet =
       LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
   passos = LoadSound("../assets/audio/sfx/caminhando.wav");
-  SetMasterVolume(0.5f);
+  SetMasterVolume(0.3f);
   PlaySound(passos);
 
   // Animações
