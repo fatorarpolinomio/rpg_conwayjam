@@ -5,33 +5,16 @@
 #include <string>
 #include <raylib.h>
 #include <vector>
+#include "../entidade.hpp"
 
 using namespace std;
 
-class Protagonista {
+class Protagonista : public Entidade {
 
 	private:
 		int integridade;
 		int oxigenio;
 		int nivelInfeccao;
-		double velocidade = .02f;
-		Vector2 posicao;
-
-		bool andando = false;
-
-		// Variaveis da animação
-		Texture2D spritesheet;
-		vector<Rectangle> AnimacaoAtual;
-		
-
-		vector<Rectangle> idle;
-		vector<Rectangle> andarCima;
-		vector<Rectangle> andarBaixo;
-		vector<Rectangle> andarEsquerda;
-		vector<Rectangle> andarDireita;
-
-		double tempoAteProxSprite;
-		int frameAtual = 0;
 
 		// Audio
 		Sound passos;
@@ -40,8 +23,6 @@ class Protagonista {
 	public:
 		Protagonista(Vector2 pos);
 
-		Vector2 getPosicao(){ return posicao; }
-
 		bool diminuirIntegridade(int dano);
 		bool diminuirOxigenio(int vazamento);
 		void diminuirNivelInfeccao(int recuperacao);
@@ -49,11 +30,6 @@ class Protagonista {
 		void aumentarIntegridade(int recuperacao);
 		void aumentarOxigenio(int recuperacao);
 		bool aumentarNivelInfeccao(int dano);
-
-		void setPosicao(Vector2 pos){ posicao = pos; }
-		
-		void Update(); // Atualização do player a cada frame
-		void Draw(); // Desenha o player a cada frame
 
 		void setIntegridade(int novaIntegridade) {integridade = novaIntegridade;}
 
@@ -67,6 +43,9 @@ class Protagonista {
 
 		int getInfeccao() {return nivelInfeccao;}
 
+		void Update() override;
+		void Draw() override;
+
 };
 
-#endif 
+#endif

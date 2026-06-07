@@ -5,6 +5,10 @@
 #include "protagonista.hpp"
 
 Protagonista::Protagonista(Vector2 pos) {
+
+    velocidade = .02f;
+    frameAtual = 0;
+
   spritesheet =
       LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
   passos = LoadSound("../assets/audio/sfx/caminhando.wav");

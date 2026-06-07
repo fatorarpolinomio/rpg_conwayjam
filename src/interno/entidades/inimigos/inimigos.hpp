@@ -1,8 +1,10 @@
 #ifndef INIMIGOS_H
 #define INIMIGOS_H
 
+#include "../entidade.hpp"
 
-class Inimigo{
+
+class Inimigo : public Entidade{
     private:
         double MaxVida;
         double Vida;
@@ -11,7 +13,7 @@ class Inimigo{
         double Dano;
         double MaxVelocidade = 2;
         double Velocidade = 2;
-    
+
     public:
         Inimigo(double max, double regen, double infec, double dano);
 
