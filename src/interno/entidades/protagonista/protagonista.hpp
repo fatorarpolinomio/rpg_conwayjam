@@ -1,6 +1,8 @@
 #ifndef PERSONAGEM_H
 #define PERSONAGEM_H
 
+#include "../../sistemas/camera.hpp"
+
 #include <cstdlib>
 #include <string>
 #include <raylib.h>
@@ -8,7 +10,7 @@
 
 using namespace std;
 
-class Protagonista {
+class Protagonista : public CameraTarget{
 
 	private:
 		int integridade;
@@ -39,6 +41,8 @@ class Protagonista {
 
 	public:
 		Protagonista(Vector2 pos);
+
+		Vector2 GetTargetPosicao() override;
 
 		Vector2 getPosicao(){ return posicao; }
 

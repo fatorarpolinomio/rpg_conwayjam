@@ -11,6 +11,7 @@ include_directories(${CMAKE_SOURCE_DIR}/lib)
 # Cria o executável
 add_executable(rpg
     src/main.cpp
+    src/interno/sistemas/camera.cpp
     src/interno/entidades/protagonista/protagonista.cpp
     src/interno/entidades/itens/itens.cpp)
 
