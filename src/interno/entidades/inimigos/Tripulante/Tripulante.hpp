@@ -2,6 +2,8 @@
 #define TRIPULANTE_H
 
 #include "../inimigos.hpp"
+#include "../../protagonista/protagonista.hpp"
+
 
 class Tripulante : public Inimigo{
 

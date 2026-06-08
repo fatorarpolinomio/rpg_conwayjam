@@ -6,6 +6,7 @@
 #include "interno/sistemas/camera.hpp"
 #include "interno/entidades/inimigos/Tripulante/Tripulante.hpp"
 #include "interno/sistemas/globais.hpp"
+#include "interno/cenario/cenario.hpp"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 400
@@ -45,25 +46,34 @@ int main() {
 
 	Tripulante inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{350,50});
-	
-	// Camera
 
+	Espaco espaco;
+
+	// Camera
+	int x = 400;
   	MainCamera camera(&violeta, Vector2{ WINDOW_WIDTH/2, WINDOW_HEIGHT/2}, 0, 1.0f);
 	while (!WindowShouldClose())
 	{
+	    // Lidando com eventos #TODO
+
+	    // Atualizações
 		violeta.Update();
 		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
 		camera.Update();
 		inimigoManager.Update();
 
+		// Desenhando
 		BeginDrawing();
 			BeginMode2D(camera.GetCamera());
-				ClearBackground(WHITE);
+				ClearBackground(BLACK);
 				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
+				espaco.adiciona_estrela();
+				espaco.atualiza_estrelas();
+
 
 				violeta.Draw();
 				inimigoManager.Draw();
-			EndMode2D();	
+			EndMode2D();
 		EndDrawing();
 	}
 
