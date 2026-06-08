@@ -13,6 +13,7 @@
 int main() {
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "RPG");
+	SetTargetFPS(60);
 
 	InitAudioDevice();
 	if (!IsAudioDeviceReady()) {

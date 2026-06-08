@@ -2,10 +2,15 @@
 #include <algorithm>
 #include "../../../sistemas/globais.hpp"
 #include <raymath.h>
+#include <iostream>
+
+using namespace std;
 
 Tripulante::Tripulante(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
-        velocidade = .005f;
+        SetMaxVelocidade(0.5f);
+        SetVelocidade(0.5f);
+        
 
         spritesheet = LoadTexture("../assets/Spritesheets/Inimigos/spriteTemporario.png");
 
@@ -36,65 +41,77 @@ Tripulante::Tripulante(double max, double regen, double infec, double dano)
     }
 
 void Tripulante::Morrer(){
-    Globais::Inimigos.erase(remove(Globais::Inimigos.begin(), Globais::Inimigos.end(), this));
+    Inimigo::Morrer();
     //Animação de morte e logica também
 }
 
 void Tripulante::Update(){
+    Entidade::Update();
+
     if(GetVida() <= 0){
         Morrer();
     }
 
-    if (tempoAteProxSprite <= 0) {
-        frameAtual++;
-        if (frameAtual >= AnimacaoAtual.size()) {
-          frameAtual = 1;
-        }
-        tempoAteProxSprite = .35f;
-    }
 
     Protagonista *player = Globais::GetPlayer();
     
     // Seguir player
-    Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(),player->getPosicao(),velocidade);
+
+    if(getEstado() != STUNNED){
+        SeguirPlayer(player);
+    }
+
+    // Atacar se chegar perto
+    if(CheckCollisionRecs(caixaDeColisao, player->getCaixaColisao())){
+        player->diminuirIntegridade(20);
+        setEstadoPor(STUNNED, 5);
+    }
+
+    float distPlayer = Vector2Distance(player->getPosicao(), getPosicao());
+    if(distPlayer < 100.0f) Ataque();
+    else {
+        setVelocidade(GetMaxVelocidade());
+        setEstadoPor(ANDANDO,0);
+    }
+
+    if(getEstado() == ATACANDO){
+        tempoAteProxSprite -= GetFrameTime() * velocidade * 100;
+    }
+}
+
+void Tripulante::SeguirPlayer(Protagonista *player)
+{
+    Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(), player->getPosicao(), velocidade);
     setPosicao(seguindoPlayer);
 
     // Mudar animação de acordo com sa posição do player
     Vector2 Offset = Vector2Subtract(player->getPosicao(), getPosicao());
 
-    if(Offset.x > 0.0f){
-        AnimacaoAtual = andarDireita;
-    }else{
-        AnimacaoAtual = andarEsquerda;
-    }
-
-    if(Offset.y > 80.0f){
+    if (Offset.y > 0)
+    {
         AnimacaoAtual = andarBaixo;
-    }else if(Offset.y < -80.0f){
+    }
+    else
+    {
         AnimacaoAtual = andarCima;
     }
 
-
-    // Atacar se chegar perto
-    if(Vector2Distance(player->getPosicao(), getPosicao()) < 100.0f) Ataque();
-    else setVelocidade(GetMaxVelocidade());
-
-
-    andando = true;
-    if (andando) {
-        tempoAteProxSprite -= GetFrameTime() * velocidade * 100;
+    if (Offset.x > 40.0f)
+    {
+        AnimacaoAtual = andarDireita;
+    }
+    else if (Offset.x < -40.0f)
+    {
+        AnimacaoAtual = andarEsquerda;
     }
 }
 
 void Tripulante::Draw(){
-  if (!andando) {
-    frameAtual = 0;
-  }
-  DrawTextureRec(spritesheet, AnimacaoAtual[frameAtual], getPosicao(), WHITE);
+    Entidade::Draw();
 }
 
 void Tripulante::Ataque(){
-
-    setVelocidade(0.05f);
+    setEstadoPor(ATACANDO,0);
+    setVelocidade(3.5f);
 
 }

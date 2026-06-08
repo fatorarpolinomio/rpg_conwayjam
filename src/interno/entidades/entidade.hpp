@@ -5,18 +5,31 @@
 
 using namespace std;
 
+enum estadosEntidade{
+    PARADO,
+    ANDANDO,
+    ATACANDO,
+    DANO,
+    STUNNED // Não sei se precisa desse, talvez possa usar só o PARADO
+};
+
+// Talvez seja bom essa classe ficar com alguns atributos que funcionam igual para o player e os inimigos
+// A classe tomar dano acho que os dois usam
 class Entidade {
 protected:
   Vector2 posicao;
+  Rectangle caixaDeColisao;
   double velocidade;
 
-  bool andando = false;
+  estadosEntidade estado = PARADO; 
 
   vector<Rectangle> idle;
   vector<Rectangle> andarCima;
   vector<Rectangle> andarBaixo;
   vector<Rectangle> andarEsquerda;
   vector<Rectangle> andarDireita;
+
+  float timer = 0;
 
   // Variaveis da animação
   Texture2D spritesheet;
@@ -42,6 +55,8 @@ public:
   vector<Rectangle> getAndarEsquerda() { return andarEsquerda; }
   vector<Rectangle> getAndarDireita() { return andarDireita; }
   vector<Rectangle> getAnimacaoAtual() { return AnimacaoAtual; }
+  estadosEntidade getEstado(){ return estado;}
+  Rectangle getCaixaColisao(){ return caixaDeColisao;}
 
 
   // Setters
@@ -56,7 +71,9 @@ public:
   void setAndarEsquerda(vector<Rectangle> newAndarEsquerda) { this->andarEsquerda = newAndarEsquerda; }
   void setAndarDireita(vector<Rectangle> newAndarDireita) { this->andarDireita = newAndarDireita; }
   void setAnimacaoAtual(vector<Rectangle> newAnimacaoAtual) { this->AnimacaoAtual = newAnimacaoAtual; }
+  void setEstadoIntantaneo(estadosEntidade newEstado){estado = newEstado;} // Para quando querer mudar o estado imediatamente, sem se importar se acabou o tempo do estado anterior
+  void setEstadoPor(estadosEntidade newEstado, float tempo); // Mudar o estado por um tempo, ignora outras mudanças de estado se o tempo do estado não tiver acabado(a menos que use o setEstadoInstantaneo). Geralmente use esse com o tempo = 0
 
-  virtual void Update() = 0; // Atualização da entidade a cada frame
-  virtual void Draw() = 0;   // Desenha entidade a cada frame
+  virtual void Update(); // Atualização da entidade a cada frame
+  virtual void Draw();   // Desenha entidade a cada frame
 };

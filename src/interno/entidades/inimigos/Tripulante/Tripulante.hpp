@@ -10,6 +10,7 @@ class Tripulante : public Inimigo{
 
         void Morrer() override;
         void Update() override;
+        void SeguirPlayer(Protagonista *player);
         void Ataque() override;
         void Draw() override;
 

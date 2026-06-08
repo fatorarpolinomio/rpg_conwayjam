@@ -1,4 +1,5 @@
 #include "inimigos.hpp"
+#include <algorithm>
 
 #include <vector>
 #include "../../sistemas/globais.hpp"
@@ -13,9 +14,12 @@ Inimigo::Inimigo(double max, double regen, double infec, double dano)
     }
 
 
-void Inimigo::Morrer(){}
 void Inimigo::Ataque(){}
 void Inimigo::Ataque2(){}
+
+void Inimigo::Morrer(){
+    Globais::Inimigos.erase(remove(Globais::Inimigos.begin(), Globais::Inimigos.end(), this));
+}
 
 void Inimigo::Update(){
     for(Inimigo *i : Globais::Inimigos){

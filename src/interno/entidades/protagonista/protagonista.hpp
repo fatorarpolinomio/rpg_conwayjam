@@ -14,9 +14,9 @@ using namespace std;
 class Protagonista : public Entidade, public CameraTarget{
 
 	private:
-		int integridade;
-		int oxigenio;
-		int nivelInfeccao;
+		double integridade;
+		double oxigenio;
+		double nivelInfeccao;
 
 		// Audio
 		Sound passos;

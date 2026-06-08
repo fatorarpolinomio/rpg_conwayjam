@@ -6,8 +6,7 @@
 #include "protagonista.hpp"
 
 Protagonista::Protagonista(Vector2 pos) {
-
-    velocidade = .02f;
+    velocidade = 1.0f;
     frameAtual = 0;
 
   spritesheet =
@@ -51,65 +50,54 @@ Protagonista::Protagonista(Vector2 pos) {
 // funcoes ------------------------------------
 
 void Protagonista::Update() {
-
+  Entidade::Update();
   if (!IsSoundPlaying(passos)) {
     PlaySound(passos);
   }
 
-  andando = false;
 
-  if (tempoAteProxSprite <= 0) {
-    frameAtual++;
-    if (frameAtual >= AnimacaoAtual.size()) {
-      frameAtual = 1;
-    }
-    tempoAteProxSprite = .35f;
-  }
+  setEstadoPor(PARADO,0);
 
+  // Fazer um metodo pra Input?
   if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
     posicao.x += velocidade;
     AnimacaoAtual = andarDireita;
 
-    andando = true;
+    setEstadoPor(ANDANDO, 0);
   }
   if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
     posicao.x -= velocidade;
     AnimacaoAtual = andarEsquerda;
 
-    andando = true;
+    setEstadoPor(ANDANDO, 0);
   }
   if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
     posicao.y -= velocidade;
     AnimacaoAtual = andarCima;
 
-    andando = true;
+    setEstadoPor(ANDANDO, 0);
   }
   if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
     posicao.y += velocidade;
     AnimacaoAtual = andarBaixo;
 
-    andando = true;
+    setEstadoPor(ANDANDO, 0);
   }
 
-  if (andando) {
-    tempoAteProxSprite -= GetFrameTime();
+  if(getEstado() == ANDANDO) {
     ResumeSound(passos);
-  } else {
-
+  }else {
     PauseSound(passos);
   }
 }
 
 void Protagonista::Draw() {
-
-  if (!andando) {
-    frameAtual = 0;
-  }
-  DrawTextureRec(spritesheet, AnimacaoAtual[frameAtual], getPosicao(), WHITE);
+  Entidade::Draw();
 }
 
 bool Protagonista::diminuirIntegridade(int dano) {
   integridade -= integridade - dano;
+  setEstadoPor(DANO, 1);
 
   // retorna um estado caso sofra mais dado que deveria
   if (integridade <= 0)
@@ -157,5 +145,5 @@ bool Protagonista::aumentarNivelInfeccao(int dano) {
 }
 
 Vector2 Protagonista::GetTargetPosicao(){
-    return Vector2{getPosicao().x+32, getPosicao().y+32};
+  return Vector2{getPosicao().x+32, getPosicao().y+32};
 }

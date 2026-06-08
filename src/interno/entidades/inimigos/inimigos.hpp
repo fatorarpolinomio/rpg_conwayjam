@@ -31,6 +31,7 @@ class Inimigo : public Entidade{
         double GetMaxVelocidade(){return MaxVelocidade;}
         
         void SetVelocidade(double newVel){ Velocidade = newVel;}
+        void SetMaxVelocidade(double newVel){ MaxVelocidade = newVel;}
 
         void TomarDano(double dano){ Vida -= dano; }
 
