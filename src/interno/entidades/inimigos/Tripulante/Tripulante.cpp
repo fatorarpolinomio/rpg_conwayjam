@@ -8,11 +8,11 @@ using namespace std;
 
 Tripulante::Tripulante(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
-        SetMaxVelocidade(0.5f);
-        SetVelocidade(0.5f);
+        SetMaxVelocidade(0.2f);
+        SetVelocidade(0.2f);
         
 
-        spritesheet = LoadTexture("../assets/Spritesheets/Inimigos/spriteTemporario.png");
+        spritesheet = LoadTexture("../assets/Spritesheets/Inimigos/tripulanteInfectados.png");
 
         andarCima = {
             Rectangle{0, 128, 64, 64},
@@ -48,9 +48,6 @@ void Tripulante::Morrer(){
 void Tripulante::Update(){
     Entidade::Update();
 
-    if(GetVida() <= 0){
-        Morrer();
-    }
 
 
     Protagonista *player = Globais::GetPlayer();
@@ -58,7 +55,7 @@ void Tripulante::Update(){
     // Seguir player
 
     if(getEstado() != STUNNED){
-        SeguirPlayer(player);
+        Inimigo::SeguirPlayer(player);
     }
 
     // Atacar se chegar perto
@@ -68,43 +65,18 @@ void Tripulante::Update(){
     }
 
     float distPlayer = Vector2Distance(player->getPosicao(), getPosicao());
-    if(distPlayer < 100.0f) Ataque();
+    if(distPlayer < 150.0f) Ataque();
     else {
         setVelocidade(GetMaxVelocidade());
         setEstadoPor(ANDANDO,0);
     }
 
     if(getEstado() == ATACANDO){
-        tempoAteProxSprite -= GetFrameTime() * velocidade * 100;
+        tempoAteProxSprite -= GetFrameTime() * velocidade * 2;
     }
 }
 
-void Tripulante::SeguirPlayer(Protagonista *player)
-{
-    Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(), player->getPosicao(), velocidade);
-    setPosicao(seguindoPlayer);
 
-    // Mudar animação de acordo com sa posição do player
-    Vector2 Offset = Vector2Subtract(player->getPosicao(), getPosicao());
-
-    if (Offset.y > 0)
-    {
-        AnimacaoAtual = andarBaixo;
-    }
-    else
-    {
-        AnimacaoAtual = andarCima;
-    }
-
-    if (Offset.x > 40.0f)
-    {
-        AnimacaoAtual = andarDireita;
-    }
-    else if (Offset.x < -40.0f)
-    {
-        AnimacaoAtual = andarEsquerda;
-    }
-}
 
 void Tripulante::Draw(){
     Entidade::Draw();

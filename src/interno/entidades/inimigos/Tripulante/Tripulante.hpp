@@ -2,6 +2,7 @@
 #define TRIPULANTE_H
 
 #include "../inimigos.hpp"
+#include "../../protagonista/protagonista.hpp"
 
 class Tripulante : public Inimigo{
 
@@ -10,7 +11,6 @@ class Tripulante : public Inimigo{
 
         void Morrer() override;
         void Update() override;
-        void SeguirPlayer(Protagonista *player);
         void Ataque() override;
         void Draw() override;
 

@@ -3,6 +3,8 @@
 
 #include <vector>
 #include "../../sistemas/globais.hpp"
+#include "../protagonista/protagonista.hpp"
+#include <raymath.h>
 
 using namespace std;
 
@@ -18,7 +20,35 @@ void Inimigo::Ataque(){}
 void Inimigo::Ataque2(){}
 
 void Inimigo::Morrer(){
-    Globais::Inimigos.erase(remove(Globais::Inimigos.begin(), Globais::Inimigos.end(), this));
+    // Eles não morrer :P
+    // Globais::Inimigos.erase(remove(Globais::Inimigos.begin(), Globais::Inimigos.end(), this));
+}
+
+void Inimigo::SeguirPlayer(Protagonista *player)
+{
+    Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(), player->getPosicao(), velocidade);
+    setPosicao(seguindoPlayer);
+
+    // Mudar animação de acordo com sa posição do player
+    Vector2 Offset = Vector2Subtract(player->getPosicao(), getPosicao());
+
+    if (Offset.y > 0)
+    {
+        AnimacaoAtual = andarBaixo;
+    }
+    else
+    {
+        AnimacaoAtual = andarCima;
+    }
+
+    if (Offset.x > 40.0f)
+    {
+        AnimacaoAtual = andarDireita;
+    }
+    else if (Offset.x < -40.0f)
+    {
+        AnimacaoAtual = andarEsquerda;
+    }
 }
 
 void Inimigo::Update(){
