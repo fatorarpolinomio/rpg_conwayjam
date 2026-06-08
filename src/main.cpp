@@ -3,6 +3,7 @@
 #include "interno/estados/estados.hpp"
 #include "raylib.h"
 #include <iostream>
+#include <vector>
 #include "interno/sistemas/camera.hpp"
 #include "interno/entidades/inimigos/Tripulante/Tripulante.hpp"
 #include "interno/sistemas/globais.hpp"
@@ -67,8 +68,9 @@ int main() {
 			BeginMode2D(camera.GetCamera());
 				ClearBackground(BLACK);
 				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
-				espaco.adiciona_estrela();
-				espaco.atualiza_estrelas();
+				espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
+				atualiza_estrelas(espaco.getEstrelas());
+				remove_estrelas(violeta.getPosicao().x - 500, espaco.getEstrelas());
 
 
 				violeta.Draw();
