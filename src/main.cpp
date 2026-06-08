@@ -3,10 +3,12 @@
 #include "interno/estados/estados.hpp"
 #include "raylib.h"
 #include <iostream>
+#include <vector>
 #include "interno/sistemas/camera.hpp"
 #include "interno/entidades/inimigos/Tripulante/Tripulante.hpp"
 #include "interno/entidades/inimigos/Smilinguido/Smilinguido.hpp"
 #include "interno/sistemas/globais.hpp"
+#include "interno/cenario/cenario.hpp"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -52,26 +54,34 @@ int main() {
 
 	Tripulante inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{350,50});
-	
-	// Camera
 
+	Espaco espaco;
+
+	// Camera
+	int x = 400;
   	MainCamera camera(&violeta, Vector2{ VIRTUAL_WIDTH/2, VIRTUAL_HEIGHT/2}, 0, 1.0f);
 	while (!WindowShouldClose())
 	{
-		// Updates
+	    // Lidando com eventos #TODO
+
+	    // Atualizações
 		violeta.Update();
 		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
 		camera.Update();
 		inimigoManager.Update();
 
 
-		// Draws
+		// Desenhando
 		BeginTextureMode(canva);
 			ClearBackground(RAYWHITE);
 			
 			BeginMode2D(camera.GetCamera());
-				ClearBackground(WHITE);
+				ClearBackground(BLACK);
 				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
+				espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
+				atualiza_estrelas(espaco.getEstrelas());
+				remove_estrelas(violeta.getPosicao().x - 500, espaco.getEstrelas());
+
 
 				violeta.Draw();
 				inimigoManager.Draw();

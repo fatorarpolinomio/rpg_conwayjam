@@ -23,7 +23,8 @@ add_executable(rpg
     src/interno/entidades/inimigos/Smilinguido/Smilinguido.cpp
     src/interno/entidades/itens/itens.cpp
     src/interno/entidades/itens/itens.cpp
-    src/interno/sistemas/trilhaSonora.cpp)
+    src/interno/sistemas/trilhaSonora.cpp
+    src/interno/cenario/espaco.cpp)
 
 # Baixa a Raylib automaticamente do GitHub na primeira vez que o CMake rodar
 include(FetchContent)
