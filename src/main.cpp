@@ -10,6 +10,7 @@
 #include "interno/entidades/inimigos/Smilinguido/Smilinguido.hpp"
 #include "interno/sistemas/globais.hpp"
 #include "interno/cenario/cenario.hpp"
+#include "interno/cenario/mapa.hpp"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -41,7 +42,7 @@ int main() {
 	// Colocando a trilha do ato 0 para rodar
 	PlayMusicStream(trilha[0]);
 
-  	Protagonista violeta(Vector2{20,20});
+  	Protagonista violeta(Vector2{15,1075});
 	Inimigo inimigoManager;
 
 	Globais globais(&violeta);
@@ -65,6 +66,16 @@ int main() {
 	NPC npc5 = NPC("../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
 	NPC npc6 = NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
 	NPC npc7 = NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
+	
+	Mapa mapa;
+
+	// Carrega o que vai ser renderizado
+	Image mapaImage1 = LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png");
+	// Carrega o que vai ser usado para detectar colisão
+	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapaMontadoSemPortas.png");
+
+	mapa.carregarMapas(vector<Texture2D>{mapaTextura1});
+	mapa.carregarImagensDeColisao(vector<Image>{mapaImage1});
 
     Espaco espaco;
 
@@ -81,7 +92,6 @@ int main() {
 		camera.Update();
 		inimigoManager.Update();
 
-
 		// Desenhando
 		BeginTextureMode(canva);
 			ClearBackground(RAYWHITE);
@@ -97,6 +107,7 @@ int main() {
 					i->Draw();
 				}
 
+				mapa.Draw();
 				violeta.Draw();
 				inimigoManager.Draw();
 			EndMode2D();

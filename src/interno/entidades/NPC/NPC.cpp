@@ -27,7 +27,7 @@ NPC::NPC(const char *caminhoSpritesheet, Vector2 Posicao){
       Rectangle{128, 0, 64, 64},
     });
     setIdle({Rectangle{0, 0, 64, 64}});
-
+    
     setPosicao(Posicao);
     setAnimacaoAtual(getIdle());
 
