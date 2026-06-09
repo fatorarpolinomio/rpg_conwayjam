@@ -75,6 +75,10 @@ int main() {
 
     Espaco espaco;
 
+    for(int i = 0; i < 500; i++){
+        espaco.adiciona_estrela((std::rand() % (1000 -(-1000) + 1)), (rand() % (400 - (-400) + 1)));
+	}
+
 	// Camera
 	int x = 400;
   	MainCamera camera(&violeta, Vector2{ (float)VIRTUAL_WIDTH/2, (float)VIRTUAL_HEIGHT/2}, 0, 1.0f);
@@ -82,8 +86,6 @@ int main() {
 	{
 	    // Lidando com eventos #TODO
 
-		atualiza_estrelas(espaco.getEstrelas());
-		remove_estrelas(violeta.getPosicao().x - 500, espaco.getEstrelas());
 	    // Atualizações
 		if(estadoAtual == GameState::GAMEPLAY){
 		    if(IsKeyDown(KEY_ESCAPE)){
@@ -102,17 +104,18 @@ int main() {
 			ClearBackground(BLACK);
 
 			if(estadoAtual == GameState::GAME_MENU){
-                estadoAtual = menuPrincipal.desenhar(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+                atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
+
+                estadoAtual = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
 			} else if(estadoAtual == GameState::GAMEPLAY) {
                 DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
           		// Desenhando
           		BeginTextureMode(canva);
-         			ClearBackground(RAYWHITE);
 
          			BeginMode2D(camera.GetCamera());
             				ClearBackground(BLACK);
             				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
-            				espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
+                            atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
             				for(Entidade * i : Globais::NPCS){
            					i->Draw();
