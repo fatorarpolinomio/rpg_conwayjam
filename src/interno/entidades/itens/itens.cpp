@@ -77,3 +77,4 @@ void usarItem(Item item, Protagonista &protagonista, Inimigo &inimigo) {
   } else if (item.GetTipo() == "Arma") {
     inimigo.TomarDano(item.GetDano());
 }
+}
