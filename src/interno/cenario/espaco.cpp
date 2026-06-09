@@ -11,17 +11,14 @@ void Espaco::adiciona_estrela(double x, double y){
 
 }
 
-void atualiza_estrelas(std::vector<estrela>& estrelas){
+void atualiza_estrelas(std::vector<estrela>& estrelas, double largura_tela, double altura_tela){
     for(estrela &cada_estrela: estrelas){
         cada_estrela.posicao.x -= 2;
-        cada_estrela.desenhar();
-    }
-}
 
-void remove_estrelas(double limite_horizontal, std::vector<estrela>& estrelas){
-    for(int i = 0; i < estrelas.size(); i++){
-        if(estrelas[i].posicao.x < limite_horizontal){
-            estrelas.erase(estrelas.begin() + i);
+        if(cada_estrela.posicao.x < 0){
+            cada_estrela.posicao.x = largura_tela;
+            cada_estrela.posicao.y = GetRandomValue(0, int(altura_tela));
         }
+        cada_estrela.desenhar();
     }
 }
