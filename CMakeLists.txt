@@ -27,6 +27,8 @@ add_executable(rpg
     src/interno/cenario/espaco.cpp
     src/interno/cenario/mapa.cpp
     src/interno/entidades/NPC/NPC.cpp
+    src/interno/estados/estados.cpp
+    src/interno/estados/menu.cpp
     )
 
 # Baixa a Raylib automaticamente do GitHub na primeira vez que o CMake rodar

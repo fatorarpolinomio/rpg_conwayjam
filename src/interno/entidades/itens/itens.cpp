@@ -5,13 +5,13 @@
 #include "../protagonista/protagonista.hpp"
 #include "itens.hpp"
 
-Item::Item() {}
+Item::Item() : nome(""), tipo(""), dano(0.0), regeneracao(0.0), alvo("") {}
 
 Item Xarope() {
   Item xarope;
   xarope.SetTipo("Consumível");
-  xarope.SetRegeneracao(20);
-  xarope.SetAlvo("Protagonista");
+  xarope.SetRegeneracao(50);
+  xarope.SetAlvo("Infecção");
   return xarope;
 }
 
@@ -25,8 +25,9 @@ Item Tanque() {
 
 Item Capacete() {
   Item capacete;
-  capacete.SetTipo("Equipável");
-  capacete.SetDurabilidade(100);
+  capacete.SetTipo("Consumível");
+  capacete.SetRegeneracao(100);
+  capacete.SetAlvo("Integridade");
   return capacete;
 }
 
@@ -34,7 +35,7 @@ Item SilverTape() {
   Item silverTape;
   silverTape.SetTipo("Consumível");
   silverTape.SetRegeneracao(20);
-  silverTape.SetAlvo("Capacete");
+  silverTape.SetAlvo("Integridade");
   return silverTape;
 }
 
@@ -43,6 +44,13 @@ Item Martelo() {
   martelo.SetTipo("Arma");
   martelo.SetDano(20);
   return martelo;
+}
+
+Item Taser() {
+    Item taser;
+    taser.SetTipo("Arma");
+    taser.SetDano(50);
+    return taser;
 }
 
 Item Chave() {
@@ -59,19 +67,13 @@ Item Ferramentas() {
 
 void usarItem(Item item, Protagonista &protagonista, Inimigo &inimigo) {
   if (item.GetTipo() == "Consumível") {
-    if (item.GetAlvo() == "Protagonista") {
-      protagonista.aumentarIntegridade(item.GetRegeneracao());
-    } else if (item.GetAlvo() == "Capacete") {
-      Item capacete = Capacete();
-      capacete.SetDurabilidade(capacete.GetDurabilidade() +
-                               item.GetRegeneracao());
+    if (item.GetAlvo() == "Infecção") {
+      protagonista.diminuirNivelInfeccao(item.GetRegeneracao());
+    } else if (item.GetAlvo() == "Integridade") {
+        protagonista.aumentarIntegridade(item.GetRegeneracao());
     } else if (item.GetAlvo() == "Oxigênio") {
       protagonista.aumentarOxigenio(item.GetRegeneracao());
     }
   } else if (item.GetTipo() == "Arma") {
     inimigo.TomarDano(item.GetDano());
-  } else if (item.GetTipo() == "Equipável") {
-    protagonista.setIntegridade(protagonista.getIntegridade() +
-                                item.GetDurabilidade());
-  }
 }

@@ -13,14 +13,14 @@ void update_trilha_sonora(GameState estadoAnterior, GameState estadoAtual, const
         StopMusicStream(trilha[1]);
         StopMusicStream(trilha[2]);
 
-        if(estadoAtual == ACT_0) PlayMusicStream(trilha[0]);
-        if(estadoAtual == ACT_1) PlayMusicStream(trilha[1]);
-        if(estadoAtual == ACT_2) PlayMusicStream(trilha[2]);
+        if(estadoAtual == GameState::ACT_0) PlayMusicStream(trilha[0]);
+        if(estadoAtual == GameState::ACT_1) PlayMusicStream(trilha[1]);
+        if(estadoAtual == GameState::ACT_2) PlayMusicStream(trilha[2]);
 
         estadoAnterior = estadoAtual;
     }
 
-    if(estadoAtual == ACT_0) UpdateMusicStream(trilha[0]);
-    if(estadoAtual == ACT_1) UpdateMusicStream(trilha[1]);
-    if(estadoAtual == ACT_2) UpdateMusicStream(trilha[2]);
+    if(estadoAtual == GameState::ACT_0) UpdateMusicStream(trilha[0]);
+    if(estadoAtual == GameState::ACT_1) UpdateMusicStream(trilha[1]);
+    if(estadoAtual == GameState::ACT_2) UpdateMusicStream(trilha[2]);
 }

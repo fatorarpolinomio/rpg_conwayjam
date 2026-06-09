@@ -2,7 +2,12 @@
 #include "interno/entidades/NPC/NPC.hpp"
 #include "interno/sistemas/trilhaSonora.hpp"
 #include "interno/estados/estados.hpp"
+#include "interno/estados/menu.hpp"
 #include "raylib.h"
+
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
+
 #include <iostream>
 #include <vector>
 #include "interno/sistemas/camera.hpp"
@@ -22,6 +27,7 @@ int main() {
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "RPG");
 	SetTargetFPS(60);
+	GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
 	RenderTexture2D canva = LoadRenderTexture(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
@@ -35,9 +41,10 @@ int main() {
 	                              LoadMusicStream("../assets/audio/musica/tema1.ogg"),
 	                              LoadMusicStream("../assets/audio/musica/tema2.ogg")};
 
-	// Definindo estados com Enum declarado em estados.hpp
-	GameState estadoAtual = ACT_0;
-	GameState estadoAnterior = ACT_0;
+	// Definindo Menu e estado atual
+	Menu menuPrincipal;
+	GameState estadoAnterior = GameState::GAME_MENU; // Isso aqui vai bugar a trilha sonora
+	GameState estadoAtual = GameState::GAME_MENU;
 
 	// Colocando a trilha do ato 0 para rodar
 	PlayMusicStream(trilha[0]);
@@ -82,30 +89,45 @@ int main() {
 	// Camera
 	int x = 400;
   	MainCamera camera(&violeta, Vector2{ (float)VIRTUAL_WIDTH/2, (float)VIRTUAL_HEIGHT/2}, 0, 1.0f);
-	while (!WindowShouldClose())
+	while (estadoAtual != GameState::GAME_EXIT && !WindowShouldClose())
 	{
 	    // Lidando com eventos #TODO
 
+		atualiza_estrelas(espaco.getEstrelas());
+		remove_estrelas(violeta.getPosicao().x - 500, espaco.getEstrelas());
 	    // Atualizações
-		violeta.Update();
-		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
-		camera.Update();
-		inimigoManager.Update();
+		if(estadoAtual == GameState::GAMEPLAY){
+		    if(IsKeyDown(KEY_ESCAPE)){
+				estadoAtual = GameState::GAME_MENU;
+			}
+    		violeta.Update();
+    		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
+    		camera.Update();
+    		inimigoManager.Update();
+		}
 
-		// Desenhando
-		BeginTextureMode(canva);
-			ClearBackground(RAYWHITE);
-			
-			BeginMode2D(camera.GetCamera());
-				ClearBackground(BLACK);
-				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
-				espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
-				atualiza_estrelas(espaco.getEstrelas());
-				remove_estrelas(violeta.getPosicao().x - 500, espaco.getEstrelas());
 
-				for(Entidade * i : Globais::NPCS){
-					i->Draw();
-				}
+
+		// Desenha
+		BeginDrawing();
+			ClearBackground(BLACK);
+
+			if(estadoAtual == GameState::GAME_MENU){
+                estadoAtual = menuPrincipal.desenhar(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+			} else if(estadoAtual == GameState::GAMEPLAY) {
+                DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
+          		// Desenhando
+          		BeginTextureMode(canva);
+         			ClearBackground(RAYWHITE);
+
+         			BeginMode2D(camera.GetCamera());
+            				ClearBackground(BLACK);
+            				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
+            				espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
+
+            				for(Entidade * i : Globais::NPCS){
+           					i->Draw();
+            				}
 
 				mapa.Draw();
 				violeta.Draw();
@@ -135,4 +157,3 @@ int main() {
 	CloseWindow();
 	return 0;
 }
-
