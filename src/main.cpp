@@ -1,4 +1,5 @@
 #include "interno/entidades/protagonista/protagonista.hpp"
+#include "interno/entidades/NPC/NPC.hpp"
 #include "interno/sistemas/trilhaSonora.hpp"
 #include "interno/estados/estados.hpp"
 #include "raylib.h"
@@ -55,11 +56,21 @@ int main() {
 	Tripulante inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{350,50});
 
-	Espaco espaco;
+	// TESTE, MAS COM NPCS
+	// Entidade generica
+	NPC npc1 = NPC("../assets/Spritesheets/NPCS/tripulante1.png",Vector2{-100,-100});
+	NPC npc2 = NPC("../assets/Spritesheets/NPCS/tripulante2.png",Vector2{-80,-100});
+	NPC npc3 = NPC("../assets/Spritesheets/NPCS/tripulante3.png",Vector2{-60,-100});
+	NPC npc4 = NPC("../assets/Spritesheets/NPCS/tripulante4.png",Vector2{-40,-100});
+	NPC npc5 = NPC("../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
+	NPC npc6 = NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
+	NPC npc7 = NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
+
+    Espaco espaco;
 
 	// Camera
 	int x = 400;
-  	MainCamera camera(&violeta, Vector2{ VIRTUAL_WIDTH/2, VIRTUAL_HEIGHT/2}, 0, 1.0f);
+  	MainCamera camera(&violeta, Vector2{ (float)VIRTUAL_WIDTH/2, (float)VIRTUAL_HEIGHT/2}, 0, 1.0f);
 	while (!WindowShouldClose())
 	{
 	    // Lidando com eventos #TODO
@@ -82,6 +93,9 @@ int main() {
 				atualiza_estrelas(espaco.getEstrelas());
 				remove_estrelas(violeta.getPosicao().x - 500, espaco.getEstrelas());
 
+				for(Entidade * i : Globais::NPCS){
+					i->Draw();
+				}
 
 				violeta.Draw();
 				inimigoManager.Draw();
@@ -110,3 +124,4 @@ int main() {
 	CloseWindow();
 	return 0;
 }
+

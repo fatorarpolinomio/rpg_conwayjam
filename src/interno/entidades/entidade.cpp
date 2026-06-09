@@ -1,4 +1,5 @@
 #include "entidade.hpp"
+#include <iostream>
 
 void Entidade::Update(){
     if (tempoAteProxSprite <= 0) {
@@ -10,11 +11,12 @@ void Entidade::Update(){
     }
 
     if (getEstado() == ANDANDO) {
-        tempoAteProxSprite -= 1 *GetFrameTime();
+        tempoAteProxSprite -= 1 * GetFrameTime();
     }
 
-    caixaDeColisao = Rectangle{getPosicao().x, getPosicao().y, 32,54};
-
+    Rectangle col = Rectangle{getPosicao().x + caixaDeColisao.x, getPosicao().y + caixaDeColisao.y, caixaDeColisao.width, caixaDeColisao.height};
+    caixaDeColisaoAtualizada = col;
+    
     if(timer > 0) timer -= 1 * GetFrameTime();
 }
 

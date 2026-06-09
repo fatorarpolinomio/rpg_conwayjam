@@ -9,6 +9,8 @@ class Globais{
 
     public:
         static vector<Inimigo*> Inimigos;
+        static vector<Entidade*> NPCS;
+
         Globais(Protagonista *player);
         Globais(){}
 

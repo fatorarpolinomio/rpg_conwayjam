@@ -32,25 +32,28 @@ void Inimigo::SeguirPlayer(Protagonista *player)
     // Mudar animação de acordo com sa posição do player
     Vector2 Offset = Vector2Subtract(player->getPosicao(), getPosicao());
 
-    if (Offset.y > 0)
+    if (Offset.x > 0.0f)
+    {
+        AnimacaoAtual = andarDireita;
+    }
+    else
+    {
+        AnimacaoAtual = andarEsquerda;
+    }
+
+    if (Offset.y > 80.0f)
     {
         AnimacaoAtual = andarBaixo;
     }
-    else
+    else if (Offset.y < -80.0f) 
     {
         AnimacaoAtual = andarCima;
     }
 
-    if (Offset.x > 40.0f)
-    {
-        AnimacaoAtual = andarDireita;
-    }
-    else if (Offset.x < -40.0f)
-    {
-        AnimacaoAtual = andarEsquerda;
-    }
+    
 }
 
+// Passar para globais? faz sentido? (pra poder colocar um que desenha TODAS as entidades)
 void Inimigo::Update(){
     for(Inimigo *i : Globais::Inimigos){
         i->Update();

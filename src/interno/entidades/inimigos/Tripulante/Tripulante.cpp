@@ -38,6 +38,8 @@ Tripulante::Tripulante(double max, double regen, double infec, double dano)
             Rectangle{0,0,64,64}
         };
         AnimacaoAtual = andarBaixo;
+
+        setCaixaColisao(Rectangle{0,32,64,32});
     }
 
 void Tripulante::Morrer(){
@@ -59,7 +61,7 @@ void Tripulante::Update(){
     }
 
     // Atacar se chegar perto
-    if(CheckCollisionRecs(caixaDeColisao, player->getCaixaColisao())){
+    if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao())){
         player->diminuirIntegridade(20);
         setEstadoPor(STUNNED, 5);
     }

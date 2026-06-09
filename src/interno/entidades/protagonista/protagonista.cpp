@@ -41,10 +41,14 @@ Protagonista::Protagonista(Vector2 pos) {
   };
   AnimacaoAtual = idle;
 
+
   posicao = pos;
   integridade = 100;
   oxigenio = 100;
   nivelInfeccao = 0;
+
+  setCaixaColisao(Rectangle{20,32,20,32});
+
 }
 
 // funcoes ------------------------------------
