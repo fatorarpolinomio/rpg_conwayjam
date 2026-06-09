@@ -109,30 +109,27 @@ int main() {
 
 
 		// Desenha
-		BeginDrawing();
-			ClearBackground(BLACK);
-
+		BeginTextureMode(canva);
+			ClearBackground(RAYWHITE);
 			if(estadoAtual == GameState::GAME_MENU){
                 estadoAtual = menuPrincipal.desenhar(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 			} else if(estadoAtual == GameState::GAMEPLAY) {
                 DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
           		// Desenhando
-          		BeginTextureMode(canva);
-         			ClearBackground(RAYWHITE);
+         		BeginMode2D(camera.GetCamera());
+					ClearBackground(BLACK);
+					DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
+					espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
 
-         			BeginMode2D(camera.GetCamera());
-            				ClearBackground(BLACK);
-            				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
-            				espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
+					for(Entidade * i : Globais::NPCS){
+					i->Draw();
+					}
+					mapa.Draw();
+					violeta.Draw();
+					inimigoManager.Draw();
+				EndMode2D();
 
-            				for(Entidade * i : Globais::NPCS){
-           					i->Draw();
-            				}
-
-				mapa.Draw();
-				violeta.Draw();
-				inimigoManager.Draw();
-			EndMode2D();
+			}
 		EndTextureMode();
 
 		// Estica a tela para a resolução desejada
@@ -156,4 +153,5 @@ int main() {
 	CloseAudioDevice();
 	CloseWindow();
 	return 0;
+	
 }
