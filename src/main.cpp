@@ -100,6 +100,7 @@ int main() {
 		// Estica a tela para a resolução desejada
 		BeginDrawing();
 			ClearBackground(BLACK);
+			violeta.DrawHUD();
 
 			if(estadoAtual == GameState::GAME_MENU){
                 estadoAtual = menuPrincipal.desenhar(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
@@ -122,6 +123,7 @@ int main() {
             				inimigoManager.Draw();
          			EndMode2D();
           		EndTextureMode();
+
     			DrawTexturePro(
     				canva.texture,
     				Rectangle{0,0,(float)VIRTUAL_WIDTH, (float)-VIRTUAL_HEIGHT},

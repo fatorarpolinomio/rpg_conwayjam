@@ -21,6 +21,7 @@ class Protagonista : public Entidade, public CameraTarget{
 		// Audio
 		Sound passos;
 
+		Texture2D hudTexture;
 
 	public:
 		Protagonista(Vector2 pos);
@@ -51,6 +52,7 @@ class Protagonista : public Entidade, public CameraTarget{
 
 		void Update() override;
 		void Draw() override;
+		void DrawHUD();
 
 };
 

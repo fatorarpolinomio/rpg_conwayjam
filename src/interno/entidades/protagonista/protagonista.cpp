@@ -12,6 +12,7 @@ Protagonista::Protagonista(Vector2 pos) {
   spritesheet =
       LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
   passos = LoadSound("../assets/audio/sfx/caminhando.wav");
+  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
   SetMasterVolume(0.3f);
   PlaySound(passos);
 
@@ -97,6 +98,17 @@ void Protagonista::Update() {
 
 void Protagonista::Draw() {
   Entidade::Draw();
+}
+
+void Protagonista::DrawHUD() {
+    float TamanhoBarraHUDX = 288;
+	float TamanhoBarraHUDY = 60;
+    float infeccaoTreze = 13 - ceil(Protagonista::getInfeccao() * 0.13f);
+	float integridadeTreze = 13 - ceil(Protagonista::getIntegridade() * 0.13f);
+	float oxigenioTreze = 13 - ceil(Protagonista::getOxigenio() * 0.13f);
+  DrawTextureRec(hudTexture, {0, TamanhoBarraHUDY * infeccaoTreze, TamanhoBarraHUDX, TamanhoBarraHUDY} , {20, 20}, WHITE);
+  DrawTextureRec(hudTexture, {288, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 100}, WHITE);
+  DrawTextureRec(hudTexture, {576, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 170}, WHITE);
 }
 
 bool Protagonista::diminuirIntegridade(int dano) {
