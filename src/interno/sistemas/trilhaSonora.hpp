@@ -4,4 +4,4 @@
 #include <vector>
 
 
-void update_trilha_sonora(GameState estadoAnterior, GameState estadoAtual, const std::vector<Music>& trilha);
+void update_trilha_sonora(HistoryState estadoAnterior, HistoryState estadoAtual, const std::vector<Music>& trilha);

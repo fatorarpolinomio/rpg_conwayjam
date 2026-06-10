@@ -138,7 +138,7 @@ int main() {
     				estadoAtual = GameState::PAUSE;
     			}
 				violeta.Update();
-				update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
+				//update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
 				camera.Update();
 				inimigoManager.Update();
 

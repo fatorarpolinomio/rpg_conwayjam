@@ -5,7 +5,7 @@
 #include "../estados/estados.hpp"
 
 
-void update_trilha_sonora(GameState estadoAnterior, GameState estadoAtual, const std::vector<Music>& trilha) {
+void update_trilha_sonora(HistoryState estadoAnterior, HistoryState estadoAtual, const std::vector<Music>& trilha) {
     SetMasterVolume(0.7f);
 
     if (estadoAtual != estadoAnterior){
@@ -13,14 +13,14 @@ void update_trilha_sonora(GameState estadoAnterior, GameState estadoAtual, const
         StopMusicStream(trilha[1]);
         StopMusicStream(trilha[2]);
 
-        if(estadoAtual == GameState::ACT_0) PlayMusicStream(trilha[0]);
-        if(estadoAtual == GameState::ACT_1) PlayMusicStream(trilha[1]);
-        if(estadoAtual == GameState::ACT_2) PlayMusicStream(trilha[2]);
+        if(estadoAtual == HistoryState::ACT_0) PlayMusicStream(trilha[0]);
+        if(estadoAtual == HistoryState::ACT_1) PlayMusicStream(trilha[1]);
+        if(estadoAtual == HistoryState::ACT_2) PlayMusicStream(trilha[2]);
 
         estadoAnterior = estadoAtual;
     }
 
-    if(estadoAtual == GameState::ACT_0) UpdateMusicStream(trilha[0]);
-    if(estadoAtual == GameState::ACT_1) UpdateMusicStream(trilha[1]);
-    if(estadoAtual == GameState::ACT_2) UpdateMusicStream(trilha[2]);
+    if(estadoAtual == HistoryState::ACT_0) UpdateMusicStream(trilha[0]);
+    if(estadoAtual == HistoryState::ACT_1) UpdateMusicStream(trilha[1]);
+    if(estadoAtual == HistoryState::ACT_2) UpdateMusicStream(trilha[2]);
 }
