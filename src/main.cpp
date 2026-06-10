@@ -163,7 +163,7 @@ int main() {
 		BeginDrawing();
 			ClearBackground(BLACK);
 			if(estadoAtual == GameState::GAME_MENU){
-				Dialogue("interfone");
+				Dialogue("id");
                 atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
                 GameState acaoMenu = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -203,8 +203,9 @@ int main() {
 				violeta.DrawHUD();
                 
 				if (estadoAtual == GameState::GAMEPLAY) {
-                    DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
 					violeta.DrawHUD();
+					if (IsDialogueActive && IsKeyPressed(KEY_C)) {IsDialogueActive = false;}
+					Dialogue("aperteC");
                 } else if (estadoAtual == GameState::PAUSE) {
                     GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
