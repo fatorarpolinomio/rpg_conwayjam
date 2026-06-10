@@ -9,7 +9,7 @@ class Globais{
 
     public:
         static vector<Inimigo*> Inimigos;
-        static vector<Entidade*>ListaDeRenderização;
+        static vector<Entidade*>ListaDeRenderizacao;
         static int listaRenderizacaoCount;
 
         Globais(Protagonista *player);
