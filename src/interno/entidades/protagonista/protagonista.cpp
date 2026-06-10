@@ -4,7 +4,6 @@
 #include <iostream>
 #include <cmath>
 #include "../../cenario/mapa.hpp"
-#include <cmath>
 #include "protagonista.hpp"
 
 Protagonista::Protagonista(Vector2 pos) {
