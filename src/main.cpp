@@ -112,7 +112,7 @@ int main() {
 	});
 
 	mapa.setMapa(3);
-	
+
     Espaco espaco;
 
     for(int i = 0; i < 500; i++){
@@ -198,7 +198,6 @@ int main() {
     				WHITE
     			);
 
-				violeta.DrawHUD();
 
 				if (estadoAtual == GameState::GAMEPLAY) {
 					violeta.DrawHUD();
@@ -213,7 +212,8 @@ int main() {
                         if(acaoMorte == GameState::GAMEPLAY) {
                             violeta.setIntegridade(100);
                             violeta.setOxigenio(100);
-                            violeta.setPosicao(Vector2{20, 20});
+                            violeta.setInfeccao(0);
+                            violeta.setPosicao(Vector2{15, 1075});
 
                             // Aqui, a gente reseta a posição dos inimigos
                         }
