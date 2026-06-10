@@ -18,11 +18,11 @@ class Protagonista : public Entidade, public CameraTarget{
 		double oxigenio;
 		double nivelInfeccao;
 
-		// Audio
-		Sound passos;
 
 
 	public:
+		// Audio
+		Sound passos;
 		Protagonista(Vector2 pos);
 
 		Vector2 GetTargetPosicao() override;
