@@ -15,7 +15,7 @@ bool IsDialogueActive = true;
 // Função de inicialização para carregar e redimensionar a imagem
 inline void InicializarDialogoAssets()
 {
-    CxDialogoImage = LoadImage("../../../assets/Spritesheets/UI/CaixaDeDialogo.png");
+    CxDialogoImage = LoadImage("../assets/Spritesheets/UI/CaixaDeDialogo.png");
     ImageResizeNN(&CxDialogoImage, 1280, 720);
     CxDialogoTexture = LoadTextureFromImage(CxDialogoImage);
     UnloadImage(CxDialogoImage);
