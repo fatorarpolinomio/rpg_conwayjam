@@ -101,10 +101,13 @@ void Smilinguido::Update(){
         Seguir(player->getPosicao());
     }
 
-    if(Vector2Distance(player->getPosicao(), getPosicao()) < 150.0f){
+    float distPlayer = Vector2Distance(player->getPosicao(), getPosicao());
+    if(distPlayer < 150.0f){
         Ataque();
-    }else{
+    }else if(distPlayer < 300.0f){
         setEstadoPor(ANDANDO,0);
+    }else{
+        setEstadoPor(PARADO,0);
     }
 }
 void Smilinguido::Draw() {

@@ -134,7 +134,7 @@ int main() {
 
                 // Se pressionar ESC novamente enquanto pausado, retorna ao gameplay
                 if (IsKeyPressed(KEY_ESCAPE)) {
-                estadoAtual = GameState::GAMEPLAY;
+                	estadoAtual = GameState::GAMEPLAY;
                 }
             } else if (estadoAtual == GameState::DEATH) {
 				// Garante que o som de passos não continue tocando no além
@@ -182,7 +182,7 @@ int main() {
     				WHITE
     			);
 				
-				violeta.DrawHUD(WINDOW_WIDTH,WINDOW_HEIGHT);
+				violeta.DrawHUD();
                 
 				if (estadoAtual == GameState::GAMEPLAY) {
                     DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
