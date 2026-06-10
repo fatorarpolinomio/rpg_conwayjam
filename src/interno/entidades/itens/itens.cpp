@@ -70,10 +70,11 @@ void usarItem(Item item, Protagonista &protagonista, Inimigo &inimigo) {
     if (item.GetAlvo() == "Infecção") {
       protagonista.diminuirNivelInfeccao(item.GetRegeneracao());
     } else if (item.GetAlvo() == "Integridade") {
-        protagonista.aumentarIntegridade(item.GetRegeneracao());
+      protagonista.aumentarIntegridade(item.GetRegeneracao());
     } else if (item.GetAlvo() == "Oxigênio") {
       protagonista.aumentarOxigenio(item.GetRegeneracao());
     }
   } else if (item.GetTipo() == "Arma") {
     inimigo.TomarDano(item.GetDano());
+  }
 }
