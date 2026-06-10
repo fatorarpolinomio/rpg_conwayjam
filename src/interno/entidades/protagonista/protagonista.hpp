@@ -54,7 +54,7 @@ class Protagonista : public Entidade, public CameraTarget{
 
 		void Update() override;
 		void Draw() override;
-		void DrawHUD(int screenWidth, int screenHeight);
+		void DrawHUD();
 
 };
 

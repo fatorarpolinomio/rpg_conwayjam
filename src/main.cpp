@@ -68,8 +68,11 @@ int main() {
 	Tripulante inimigoTeste(100,0,0,0);
 	inimigoTeste.setPosicao(Vector2{375,840});
 
-	Tentaculo inimigoTeste2(100,0,0,0);
+	Smilinguido inimigoTeste2(100,0,0,0);
 	inimigoTeste2.setPosicao(Vector2{375,700});
+
+	Tentaculo inimigoTeste4(100,0,0,0);
+	inimigoTeste2.setPosicao(Vector2{575,450});
 
 	Amalgama inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{374,450});
@@ -160,16 +163,16 @@ int main() {
                     atualiza_estrelas(espaco.getEstrelas(), VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
          			BeginMode2D(camera.GetCamera());
-                            mapa.Draw();
+						mapa.Draw();
 
-            				for(Entidade * i : Globais::NPCS){
-               					i->Draw();
-            				}
+						for(Entidade * i : Globais::NPCS){
+							i->Draw();
+						}
 
-            				violeta.Draw();
-            				inimigoManager.Draw();
+						violeta.Draw();
+						inimigoManager.Draw();
          			EndMode2D();
-          		EndTextureMode();
+				EndTextureMode();
     			DrawTexturePro(
     				canva.texture,
     				Rectangle{0,0,(float)VIRTUAL_WIDTH, (float)-VIRTUAL_HEIGHT},
@@ -178,9 +181,12 @@ int main() {
     				0.0f,
     				WHITE
     			);
-
-                if (estadoAtual == GameState::GAMEPLAY) {
+				
+				violeta.DrawHUD(WINDOW_WIDTH,WINDOW_HEIGHT);
+                
+				if (estadoAtual == GameState::GAMEPLAY) {
                     DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
+					violeta.DrawHUD();
                 } else if (estadoAtual == GameState::PAUSE) {
                     GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
