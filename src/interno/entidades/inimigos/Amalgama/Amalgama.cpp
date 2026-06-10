@@ -4,7 +4,7 @@
 
 Amalgama::Amalgama(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
-        setSpritesheet(LoadTexture("../assets/Spritesheets/Inimigos/amalgamo.png"));
+        setSpritesheet(LoadTexture("../../../../../assets/Spritesheets/Inimigos/amalgamo.png"));
         
         setIdle({
             Rectangle{0,0,128,64},
