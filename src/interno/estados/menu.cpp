@@ -2,7 +2,7 @@
 #include "estados.hpp"
 #include "raylib.h"
 #include "raygui.h"
-
+#include <cmath>
 #include <iostream>
 #include <thread> 
 #include <chrono>

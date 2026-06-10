@@ -92,10 +92,10 @@ int main() {
 
 	// Carrega o que vai ser renderizado
 	// Carrega o que vai ser usado para detectar colisão
-	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapaMontadoSemPortas.png");
-	Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapas normais escuros/mapa montado sem portas escuro.png");
+	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapa montado sem portas.png.png");
+	Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapas normais escuros/mapa c meteoro sem portas escuro.png.png");
 	Texture2D mapaTextura3 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado c sangue.png");
-	Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado sem portas escuro c sangue.png");
+	Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa sem portas c sangue meteoro.png");
 
 	mapa.carregarImagensDeColisao({
 		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),

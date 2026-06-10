@@ -74,5 +74,4 @@ bool Mapa::estaCollidindo(Vector2 Offset, Rectangle colisao){
 
 void Mapa::Draw(){
     DrawTextureV(mapasTextures[mapaAtual], Vector2{0,0}, WHITE);
-    DrawTextureV(mapasTextures[mapaAtual], Vector2{0,0}, WHITE);
 }
