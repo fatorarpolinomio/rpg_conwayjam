@@ -2,6 +2,8 @@
 #include <raylib.h>
 #include <string>
 #include <iostream>
+#include <cmath>
+#include "../../cenario/mapa.hpp"
 
 #include "protagonista.hpp"
 
@@ -15,21 +17,27 @@ Protagonista::Protagonista(Vector2 pos) {
   SetMasterVolume(0.3f);
 
 
+  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
+  itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/KeyCard.png");
+  ImageResizeNN(&itemAtualImage, 96, 96);
+  itemAtualTexture = LoadTextureFromImage(itemAtualImage);
+  UnloadImage(itemAtualImage);
+
   // Animações
   andarCima = {
+      Rectangle{128, 64, 64, 64},
+      Rectangle{192, 64, 64, 64},
       Rectangle{0, 128, 64, 64},
-      Rectangle{64, 128, 64, 64},
-      Rectangle{128, 128, 64, 64},
   };
   andarDireita = {
-      Rectangle{0, 192, 64, 64},
-      Rectangle{64, 192, 64, 64},
-      Rectangle{128, 192, 64, 64},
+      Rectangle{64, 128, 64, 64},
+      Rectangle{128, 128, 64, 64},
+      Rectangle{192, 128, 64, 64},
   };
   andarEsquerda = {
+      Rectangle{192, 0, 64, 64},
       Rectangle{0, 64, 64, 64},
-      Rectangle{64, 64, 64, 64},
-      Rectangle{128, 64, 64, 64},
+      Rectangle{64, 64, 64, 64}
   };
   andarBaixo = {
       Rectangle{0, 0, 64, 64},
@@ -47,7 +55,7 @@ Protagonista::Protagonista(Vector2 pos) {
   oxigenio = 100;
   nivelInfeccao = 0;
 
-  setCaixaColisao(Rectangle{20,32,20,32});
+  setCaixaColisao(Rectangle{10,32,40,32});
 
 }
 
@@ -63,25 +71,25 @@ void Protagonista::Update() {
   setEstadoPor(PARADO,0);
 
   // Fazer um metodo pra Input?
-  if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
+  if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+getCaixaColisao().width,getCaixaColisao().y+16})){
     posicao.x += velocidade;
     AnimacaoAtual = andarDireita;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
+  if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x,getCaixaColisao().y+16})) {
     posicao.x -= velocidade;
     AnimacaoAtual = andarEsquerda;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
+  if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+16,getCaixaColisao().y+20})){
     posicao.y -= velocidade;
     AnimacaoAtual = andarCima;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
+  if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+16,getCaixaColisao().y+getCaixaColisao().height})){
     posicao.y += velocidade;
     AnimacaoAtual = andarBaixo;
 
@@ -97,6 +105,19 @@ void Protagonista::Update() {
 
 void Protagonista::Draw() {
   Entidade::Draw();
+}
+
+void Protagonista::DrawHUD(int screenWidth, int screenHeight) {
+    float TamanhoBarraHUDX = 72* 3;
+	float TamanhoBarraHUDY = 15* 3;
+    float infeccaoTreze = 13 - ceil(Protagonista::getInfeccao() * 0.13f);
+	float integridadeTreze = 13 - ceil(Protagonista::getIntegridade() * 0.13f);
+	float oxigenioTreze = 13 - ceil(Protagonista::getOxigenio() * 0.13f);
+  DrawTextureRec(hudTexture, {0*TamanhoBarraHUDX, TamanhoBarraHUDY * infeccaoTreze, TamanhoBarraHUDX, TamanhoBarraHUDY} , {20, 20}, WHITE);
+  DrawTextureRec(hudTexture, {1*TamanhoBarraHUDX, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 70}, WHITE);
+  DrawTextureRec(hudTexture, {2*TamanhoBarraHUDX, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 120}, WHITE);
+
+  DrawTextureRec(Protagonista::itemAtualTexture, {0,0,96,96}, {(float)screenWidth-96-96, (float)screenHeight-96-96}, WHITE);
 }
 
 bool Protagonista::diminuirIntegridade(int dano) {

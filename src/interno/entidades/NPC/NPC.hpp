@@ -9,5 +9,5 @@ class NPC : public Entidade{
         NPC(const char *caminhoSpritesheet, Vector2 Posicao);
         ~NPC() = default;
         virtual void Update(); // Se precisar que ele ande
-        void Interajir();
+        void Interagir();
 };

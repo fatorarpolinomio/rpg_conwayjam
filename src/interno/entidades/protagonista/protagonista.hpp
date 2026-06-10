@@ -19,6 +19,9 @@ class Protagonista : public Entidade, public CameraTarget{
 		double nivelInfeccao;
 
 
+		Texture2D hudTexture;
+		Texture2D itemAtualTexture;
+		Image itemAtualImage;
 
 	public:
 		// Audio
@@ -51,6 +54,7 @@ class Protagonista : public Entidade, public CameraTarget{
 
 		void Update() override;
 		void Draw() override;
+		void DrawHUD(int screenWidth, int screenHeight);
 
 };
 
