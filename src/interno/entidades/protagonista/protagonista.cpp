@@ -16,9 +16,8 @@ Protagonista::Protagonista(Vector2 pos) {
   passos = LoadSound("../assets/audio/sfx/caminhando.wav");
   SetMasterVolume(0.3f);
 
-
-  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
-  itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/KeyCard.png");
+  hudTexture = LoadTexture("../assets/Spritesheets/UI/HUD.png");
+  itemAtualImage = LoadImage("../assets/Spritesheets/Itens/KeyCard.png");
   ImageResizeNN(&itemAtualImage, 96, 96);
   itemAtualTexture = LoadTextureFromImage(itemAtualImage);
   UnloadImage(itemAtualImage);
@@ -108,6 +107,8 @@ void Protagonista::Draw() {
 }
 
 void Protagonista::DrawHUD(int screenWidth, int screenHeight) {
+
+  DrawRectangle(100,1000,50,50,GREEN);
     float TamanhoBarraHUDX = 72* 3;
 	float TamanhoBarraHUDY = 15* 3;
     float infeccaoTreze = 13 - ceil(Protagonista::getInfeccao() * 0.13f);
@@ -121,7 +122,7 @@ void Protagonista::DrawHUD(int screenWidth, int screenHeight) {
 }
 
 bool Protagonista::diminuirIntegridade(int dano) {
-  integridade -= integridade - dano;
+  integridade -= dano;
   setEstadoPor(DANO, 1);
 
   // retorna um estado caso sofra mais dado que deveria

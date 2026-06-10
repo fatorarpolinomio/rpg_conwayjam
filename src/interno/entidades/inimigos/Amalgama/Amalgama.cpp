@@ -24,7 +24,7 @@ void Amalgama::Update(){
     Entidade::Update();
     Protagonista *player = Globais::GetPlayer();
     setEstadoPor(PARADO, 0);
-    if(Vector2Distance(player->getPosicao(), getPosicao()) < 75.0f && getEstado() != ATACANDO){
+    if(Vector2Distance(player->getPosicao(), getPosicao()) < 150.0f && getEstado() != ATACANDO){
         setEstadoPor(ATACANDO, 5, true);
         Ataque();
 

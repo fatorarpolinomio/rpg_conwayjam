@@ -61,7 +61,7 @@ void Tripulante::Update(){
     }
 
     // Atacar se chegar perto
-    if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao())){
+    if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao()) && getEstado() != STUNNED){
         player->diminuirIntegridade(20);
         setEstadoPor(STUNNED, 5);
     }
