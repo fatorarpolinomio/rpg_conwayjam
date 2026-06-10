@@ -3,11 +3,12 @@
 #include "../../../sistemas/globais.hpp"
 #include "../../../cenario/mapa.hpp"
 #include "raymath.h"
+#include <iostream>
 
 Smilinguido::Smilinguido(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
-        SetMaxVelocidade(1.0f);
-        setVelocidade(1.0f);
+        SetMaxVelocidade(.6f);
+        setVelocidade(.6f);
 
         spritesheet = LoadTexture("../assets/Spritesheets/Inimigos/smilinguido.png");
 
@@ -40,13 +41,18 @@ Smilinguido::Smilinguido(double max, double regen, double infec, double dano)
     }
 
 void Smilinguido::Seguir(Vector2 pos){
+    Vector2 posAnterior = getPosicao();
     Inimigo::Seguir(pos);
 
+    if(posAnterior == getPosicao() && getEstado() == ATACANDO){
+        std::cout << "BATEU" << std::endl;
+        setEstadoPor(STUNNED, 5, true);
+    }
     // FICAR STUNNED QUANDO BATER NA PAREDE
 }
 
 void Smilinguido::Ataque(){
-    if(getEstado() != ATACANDO){
+    if(getEstado() != ATACANDO && getEstado() != STUNNED){
         Vector2 dir = Vector2Subtract(Globais::GetPlayer()->getPosicao(), getPosicao());
         dir = Vector2Normalize(dir);
         SetDir(dir);
@@ -58,18 +64,19 @@ void Smilinguido::Update(){
     Entidade::Update();
 
     setEstadoPor(ANDANDO, 0);
+    std::cout << getEstado() << std::endl;
 
     Protagonista *player = Globais::GetPlayer();
 
     if(getEstado() == ATACANDO){
         setVelocidade(getVelocidade() + .2f);
-        Inimigo::Seguir(getPosicao() + GetDir() * velocidade);
+        Seguir(getPosicao() + GetDir() * velocidade);
     }else if(getEstado() != ATACANDO){
         setVelocidade(GetMaxVelocidade());
     }
     
     if(getEstado() == ANDANDO){
-        Inimigo::Seguir(player->getPosicao());
+        Seguir(player->getPosicao());
     }
 
     if(Vector2Distance(player->getPosicao(), getPosicao()) < 150.0f){

@@ -19,7 +19,7 @@ class Mapa{
 
         void carregarMapas(vector<Texture2D> mapas);
         void carregarImagensDeColisao(vector<Image> imagens);
-        void setMapa(int index) {mapaAtual = index;}
+        static void setMapa(int index) {mapaAtual = index;}
 
         void Draw();
 

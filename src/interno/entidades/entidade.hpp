@@ -76,6 +76,7 @@ public:
   void setAnimacaoAtual(vector<Rectangle> newAnimacaoAtual) { this->AnimacaoAtual = newAnimacaoAtual; }
   void setEstadoIntantaneo(estadosEntidade newEstado){estado = newEstado;} // Para quando querer mudar o estado imediatamente, sem se importar se acabou o tempo do estado anterior
   void setEstadoPor(estadosEntidade newEstado, float tempo); // Mudar o estado por um tempo, ignora outras mudanças de estado se o tempo do estado não tiver acabado(a menos que use o setEstadoInstantaneo). Geralmente use esse com o tempo = 0
+  void setEstadoPor(estadosEntidade newEstado, float tempo, bool override); // Mudar o estado por um tempo, ignora outras mudanças de estado se o tempo do estado não tiver acabado(a menos que use o override = true). Geralmente use esse com o tempo = 0
   void setCaixaColisao(Rectangle novaCaixa){ caixaDeColisao = novaCaixa;}
 
   virtual void Update(); // Atualização da entidade a cada frame
