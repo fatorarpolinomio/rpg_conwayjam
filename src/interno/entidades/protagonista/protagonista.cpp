@@ -13,9 +13,14 @@ Protagonista::Protagonista(Vector2 pos) {
   spritesheet =
       LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
   passos = LoadSound("../assets/audio/sfx/caminhando.wav");
-  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
   SetMasterVolume(0.3f);
   PlaySound(passos);
+
+  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
+  itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/KeyCard.png");
+  ImageResizeNN(&itemAtualImage, 96, 96);
+  itemAtualTexture = LoadTextureFromImage(itemAtualImage);
+  UnloadImage(itemAtualImage);
 
   // Animações
   andarCima = {
@@ -101,15 +106,17 @@ void Protagonista::Draw() {
   Entidade::Draw();
 }
 
-void Protagonista::DrawHUD() {
-    float TamanhoBarraHUDX = 288;
-	float TamanhoBarraHUDY = 60;
+void Protagonista::DrawHUD(int screenWidth, int screenHeight) {
+    float TamanhoBarraHUDX = 72* 3;
+	float TamanhoBarraHUDY = 15* 3;
     float infeccaoTreze = 13 - ceil(Protagonista::getInfeccao() * 0.13f);
 	float integridadeTreze = 13 - ceil(Protagonista::getIntegridade() * 0.13f);
 	float oxigenioTreze = 13 - ceil(Protagonista::getOxigenio() * 0.13f);
-  DrawTextureRec(hudTexture, {0, TamanhoBarraHUDY * infeccaoTreze, TamanhoBarraHUDX, TamanhoBarraHUDY} , {20, 20}, WHITE);
-  DrawTextureRec(hudTexture, {288, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 100}, WHITE);
-  DrawTextureRec(hudTexture, {576, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 170}, WHITE);
+  DrawTextureRec(hudTexture, {0*TamanhoBarraHUDX, TamanhoBarraHUDY * infeccaoTreze, TamanhoBarraHUDX, TamanhoBarraHUDY} , {20, 20}, WHITE);
+  DrawTextureRec(hudTexture, {1*TamanhoBarraHUDX, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 70}, WHITE);
+  DrawTextureRec(hudTexture, {2*TamanhoBarraHUDX, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 120}, WHITE);
+
+  DrawTextureRec(Protagonista::itemAtualTexture, {0,0,96,96}, {(float)screenWidth-96-96, (float)screenHeight-96-96}, WHITE);
 }
 
 bool Protagonista::diminuirIntegridade(int dano) {

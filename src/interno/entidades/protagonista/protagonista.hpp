@@ -22,6 +22,8 @@ class Protagonista : public Entidade, public CameraTarget{
 		Sound passos;
 
 		Texture2D hudTexture;
+		Texture2D itemAtualTexture;
+		Image itemAtualImage;
 
 	public:
 		Protagonista(Vector2 pos);
@@ -52,7 +54,7 @@ class Protagonista : public Entidade, public CameraTarget{
 
 		void Update() override;
 		void Draw() override;
-		void DrawHUD();
+		void DrawHUD(int screenWidth, int screenHeight);
 
 };
 

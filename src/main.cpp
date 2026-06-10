@@ -113,6 +113,7 @@ int main() {
 			ClearBackground(RAYWHITE);
 			if(estadoAtual == GameState::GAME_MENU){
                 estadoAtual = menuPrincipal.desenhar(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+				violeta.DrawHUD(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 			} else if(estadoAtual == GameState::GAMEPLAY) {
                 DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
           		// Desenhando
@@ -128,7 +129,6 @@ int main() {
 					violeta.Draw();
 					inimigoManager.Draw();
 				EndMode2D();
-				violeta.DrawHUD();
 			}
 		EndTextureMode();
 
