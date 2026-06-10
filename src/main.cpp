@@ -3,6 +3,7 @@
 #include "interno/sistemas/trilhaSonora.hpp"
 #include "interno/estados/estados.hpp"
 #include "interno/estados/menu.hpp"
+#include "interno/estados/pause.hpp"
 #include "raylib.h"
 
 #define RAYGUI_IMPLEMENTATION
@@ -28,6 +29,8 @@ int main() {
 	SetTargetFPS(60);
 	GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
+	SetExitKey(0);
+
 	RenderTexture2D canva = LoadRenderTexture(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
 
@@ -42,6 +45,7 @@ int main() {
 
 	// Definindo Menu e estado atual
 	Menu menuPrincipal;
+	Pause menuPause;
 	GameState estadoAnterior = GameState::GAME_MENU; // Isso aqui vai bugar a trilha sonora
 	GameState estadoAtual = GameState::GAME_MENU;
 
@@ -88,14 +92,22 @@ int main() {
 
 	    // Atualizações
 		if(estadoAtual == GameState::GAMEPLAY){
-		    if(IsKeyDown(KEY_ESCAPE)){
-				estadoAtual = GameState::GAME_MENU;
+			if (IsKeyPressed(KEY_ESCAPE)) {
+				estadoAtual = GameState::PAUSE;
 			}
     		violeta.Update();
     		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
     		camera.Update();
     		inimigoManager.Update();
-		}
+		} else if (estadoAtual == GameState::PAUSE) {
+            // Se o som de passos estiver ativo, silencia imediatamente para não travar em loop
+            PauseSound(violeta.passos);
+
+            // Se pressionar ESC novamente enquanto pausado, retorna ao gameplay
+            if (IsKeyPressed(KEY_ESCAPE)) {
+            estadoAtual = GameState::GAMEPLAY;
+            }
+        }
 
 
 
@@ -107,17 +119,16 @@ int main() {
                 atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
                 estadoAtual = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
-			} else if(estadoAtual == GameState::GAMEPLAY) {
-                DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
+			} else if(estadoAtual == GameState::GAMEPLAY|| estadoAtual == GameState::PAUSE) {
           		// Desenhando
           		BeginTextureMode(canva);
                     ClearBackground(BLACK);
-                    atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
+                    atualiza_estrelas(espaco.getEstrelas(), VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
          			BeginMode2D(camera.GetCamera());
 
             				for(Entidade * i : Globais::NPCS){
-           					i->Draw();
+               					i->Draw();
             				}
 
             				violeta.Draw();
@@ -132,6 +143,12 @@ int main() {
     				0.0f,
     				WHITE
     			);
+
+                if (estadoAtual == GameState::GAMEPLAY) {
+                    DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
+                } else if (estadoAtual == GameState::PAUSE) {
+                    estadoAtual = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+                }
 			}
 		EndDrawing();
 	}
