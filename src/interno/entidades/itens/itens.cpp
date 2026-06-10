@@ -9,23 +9,23 @@ Item::Item() : nome(""), tipo(""), dano(0.0), regeneracao(0.0), alvo("") {}
 
 Item Xarope() {
   Item xarope;
-  xarope.SetTipo("Consumível");
+  xarope.SetTipo("Consumï¿½vel");
   xarope.SetRegeneracao(50);
-  xarope.SetAlvo("Infecção");
+  xarope.SetAlvo("Infecï¿½ï¿½o");
   return xarope;
 }
 
 Item Tanque() {
   Item tanque;
-  tanque.SetTipo("Consumível");
+  tanque.SetTipo("Consumï¿½vel");
   tanque.SetRegeneracao(100);
-  tanque.SetAlvo("Oxigênio");
+  tanque.SetAlvo("Oxigï¿½nio");
   return tanque;
 }
 
 Item Capacete() {
   Item capacete;
-  capacete.SetTipo("Consumível");
+  capacete.SetTipo("Consumï¿½vel");
   capacete.SetRegeneracao(100);
   capacete.SetAlvo("Integridade");
   return capacete;
@@ -33,7 +33,7 @@ Item Capacete() {
 
 Item SilverTape() {
   Item silverTape;
-  silverTape.SetTipo("Consumível");
+  silverTape.SetTipo("Consumï¿½vel");
   silverTape.SetRegeneracao(20);
   silverTape.SetAlvo("Integridade");
   return silverTape;
@@ -66,12 +66,12 @@ Item Ferramentas() {
 }
 
 void usarItem(Item item, Protagonista &protagonista, Inimigo &inimigo) {
-  if (item.GetTipo() == "Consumível") {
-    if (item.GetAlvo() == "Infecção") {
+  if (item.GetTipo() == "Consumï¿½vel") {
+    if (item.GetAlvo() == "Infecï¿½ï¿½o") {
       protagonista.diminuirNivelInfeccao(item.GetRegeneracao());
     } else if (item.GetAlvo() == "Integridade") {
       protagonista.aumentarIntegridade(item.GetRegeneracao());
-    } else if (item.GetAlvo() == "Oxigênio") {
+    } else if (item.GetAlvo() == "OxigÃªnio") {
       protagonista.aumentarOxigenio(item.GetRegeneracao());
     }
   } else if (item.GetTipo() == "Arma") {

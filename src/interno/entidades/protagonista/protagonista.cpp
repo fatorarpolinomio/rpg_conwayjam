@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <string>
 #include <iostream>
+#include "../../cenario/mapa.hpp"
 
 #include "protagonista.hpp"
 
@@ -18,19 +19,19 @@ Protagonista::Protagonista(Vector2 pos) {
 
   // Animações
   andarCima = {
+      Rectangle{128, 64, 64, 64},
+      Rectangle{192, 64, 64, 64},
       Rectangle{0, 128, 64, 64},
-      Rectangle{64, 128, 64, 64},
-      Rectangle{128, 128, 64, 64},
   };
   andarDireita = {
-      Rectangle{0, 192, 64, 64},
-      Rectangle{64, 192, 64, 64},
-      Rectangle{128, 192, 64, 64},
+      Rectangle{64, 128, 64, 64},
+      Rectangle{128, 128, 64, 64},
+      Rectangle{192, 128, 64, 64},
   };
   andarEsquerda = {
+      Rectangle{192, 0, 64, 64},
       Rectangle{0, 64, 64, 64},
-      Rectangle{64, 64, 64, 64},
-      Rectangle{128, 64, 64, 64},
+      Rectangle{64, 64, 64, 64}
   };
   andarBaixo = {
       Rectangle{0, 0, 64, 64},
@@ -48,7 +49,7 @@ Protagonista::Protagonista(Vector2 pos) {
   oxigenio = 100;
   nivelInfeccao = 0;
 
-  setCaixaColisao(Rectangle{20,32,20,32});
+  setCaixaColisao(Rectangle{10,32,40,32});
 
 }
 
@@ -64,25 +65,25 @@ void Protagonista::Update() {
   setEstadoPor(PARADO,0);
 
   // Fazer um metodo pra Input?
-  if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
+  if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+getCaixaColisao().width,getCaixaColisao().y+16})){
     posicao.x += velocidade;
     AnimacaoAtual = andarDireita;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
+  if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x,getCaixaColisao().y+16})) {
     posicao.x -= velocidade;
     AnimacaoAtual = andarEsquerda;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
+  if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+16,getCaixaColisao().y+20})){
     posicao.y -= velocidade;
     AnimacaoAtual = andarCima;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
+  if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+16,getCaixaColisao().y+getCaixaColisao().height})){
     posicao.y += velocidade;
     AnimacaoAtual = andarBaixo;
 

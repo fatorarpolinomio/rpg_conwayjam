@@ -49,7 +49,6 @@ void Inimigo::SeguirPlayer(Protagonista *player)
     {
         AnimacaoAtual = andarCima;
     }
-
     
 }
 

@@ -15,6 +15,7 @@
 #include "interno/entidades/inimigos/Smilinguido/Smilinguido.hpp"
 #include "interno/sistemas/globais.hpp"
 #include "interno/cenario/cenario.hpp"
+#include "interno/cenario/mapa.hpp"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -48,7 +49,7 @@ int main() {
 	// Colocando a trilha do ato 0 para rodar
 	PlayMusicStream(trilha[0]);
 
-  	Protagonista violeta(Vector2{20,20});
+  	Protagonista violeta(Vector2{15,1075});
 	Inimigo inimigoManager;
 
 	Globais globais(&violeta);
@@ -72,6 +73,16 @@ int main() {
 	NPC npc5 = NPC("../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
 	NPC npc6 = NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
 	NPC npc7 = NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
+	
+	Mapa mapa;
+
+	// Carrega o que vai ser renderizado
+	Image mapaImage1 = LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png");
+	// Carrega o que vai ser usado para detectar colisão
+	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapaMontadoSemPortas.png");
+
+	mapa.carregarMapas(vector<Texture2D>{mapaTextura1});
+	mapa.carregarImagensDeColisao(vector<Image>{mapaImage1});
 
     Espaco espaco;
 
@@ -97,42 +108,41 @@ int main() {
 
 
 
-		// Estica a tela para a resolução desejada
-		BeginDrawing();
-			ClearBackground(BLACK);
-			violeta.DrawHUD();
-
+		// Desenha
+		BeginTextureMode(canva);
+			ClearBackground(RAYWHITE);
 			if(estadoAtual == GameState::GAME_MENU){
                 estadoAtual = menuPrincipal.desenhar(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 			} else if(estadoAtual == GameState::GAMEPLAY) {
                 DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
           		// Desenhando
-          		BeginTextureMode(canva);
-         			ClearBackground(RAYWHITE);
+         		BeginMode2D(camera.GetCamera());
+					ClearBackground(BLACK);
+					DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
+					espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
 
-         			BeginMode2D(camera.GetCamera());
-            				ClearBackground(BLACK);
-            				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
-            				espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
-
-            				for(Entidade * i : Globais::NPCS){
-           					i->Draw();
-            				}
-
-            				violeta.Draw();
-            				inimigoManager.Draw();
-         			EndMode2D();
-          		EndTextureMode();
-
-    			DrawTexturePro(
-    				canva.texture,
-    				Rectangle{0,0,(float)VIRTUAL_WIDTH, (float)-VIRTUAL_HEIGHT},
-    				Rectangle{0,0,(float)GetScreenWidth(), (float)GetScreenHeight()},
-    				Vector2{0,0},
-    				0.0f,
-    				WHITE
-    			);
+					for(Entidade * i : Globais::NPCS){
+					i->Draw();
+					}
+					mapa.Draw();
+					violeta.Draw();
+					inimigoManager.Draw();
+				EndMode2D();
+				violeta.DrawHUD();
 			}
+		EndTextureMode();
+
+		// Estica a tela para a resolução desejada
+		BeginDrawing();	
+			ClearBackground(BLACK);
+			DrawTexturePro(	
+				canva.texture,
+				Rectangle{0,0,(float)VIRTUAL_WIDTH, (float)-VIRTUAL_HEIGHT},
+				Rectangle{0,0,(float)GetScreenWidth(), (float)GetScreenHeight()},
+				Vector2{0,0},
+				0.0f,
+				WHITE
+			);
 		EndDrawing();
 	}
 
@@ -143,4 +153,5 @@ int main() {
 	CloseAudioDevice();
 	CloseWindow();
 	return 0;
+	
 }
