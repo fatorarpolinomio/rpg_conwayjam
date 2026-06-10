@@ -4,6 +4,7 @@
 #include "interno/estados/estados.hpp"
 #include "interno/estados/menu.hpp"
 #include "interno/estados/pause.hpp"
+#include "interno/estados/morte.hpp"
 #include "raylib.h"
 
 #define RAYGUI_IMPLEMENTATION
@@ -50,6 +51,7 @@ int main() {
 	// Definindo Menu e estado atual
 	Menu menuPrincipal;
 	Pause menuPause;
+	Morte telaMorte;
 	Transicao transicaoFade(7.0f);
 	GameState estadoAnterior = GameState::GAME_MENU; // Isso aqui vai bugar a trilha sonora
 	GameState estadoAtual = GameState::GAME_MENU;
@@ -122,6 +124,10 @@ int main() {
 				update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
 				camera.Update();
 				inimigoManager.Update();
+
+				if(!violeta.getOxigenio() || violeta.getInfeccao() >= 100){
+				    transicaoFade.Iniciar(GameState::DEATH);
+				}
     		} else if (estadoAtual == GameState::PAUSE) {
                 // Se o som de passos estiver ativo, silencia imediatamente para não travar em loop
                 PauseSound(violeta.passos);
@@ -130,7 +136,10 @@ int main() {
                 if (IsKeyPressed(KEY_ESCAPE)) {
                 estadoAtual = GameState::GAMEPLAY;
                 }
-            }
+            } else if (estadoAtual == GameState::DEATH) {
+				// Garante que o som de passos não continue tocando no além
+				PauseSound(violeta.passos);
+			}
         }
 
 		// Desenha
@@ -147,7 +156,7 @@ int main() {
                 }
 
 
-			} else if(estadoAtual == GameState::GAMEPLAY|| estadoAtual == GameState::PAUSE) {
+			} else if(estadoAtual == GameState::GAMEPLAY|| estadoAtual == GameState::PAUSE|| estadoAtual == GameState::DEATH) {
           		// Desenhando
           		BeginTextureMode(canva);
                     ClearBackground(BLACK);
@@ -177,10 +186,23 @@ int main() {
                 
 				if (estadoAtual == GameState::GAMEPLAY) {
                     DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
+					violeta.DrawHUD();
                 } else if (estadoAtual == GameState::PAUSE) {
                     GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
                         transicaoFade.Iniciar(acaoPause);
+                    }
+                } else if (estadoAtual == GameState::DEATH){
+                    GameState acaoMorte = telaMorte.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+                    if (acaoMorte != estadoAtual && !transicaoFade.IsAtiva()) {
+                        if(acaoMorte == GameState::GAMEPLAY) {
+                            violeta.setIntegridade(100);
+                            violeta.setOxigenio(100);
+                            violeta.setPosicao(Vector2{20, 20});
+
+                            // Aqui, a gente reseta a posição dos inimigos
+                        }
+                        transicaoFade.Iniciar(acaoMorte);
                     }
                 }
 			}

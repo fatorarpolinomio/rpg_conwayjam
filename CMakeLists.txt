@@ -31,6 +31,7 @@ add_executable(rpg
     src/interno/estados/estados.cpp
     src/interno/estados/menu.cpp
     src/interno/estados/pause.cpp
+    src/interno/estados/morte.cpp
     )
 
 # Baixa a Raylib automaticamente do GitHub na primeira vez que o CMake rodar
