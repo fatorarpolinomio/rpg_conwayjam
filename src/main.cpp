@@ -59,7 +59,7 @@ int main() {
 
 	// Colocando a trilha do ato 0 para rodar
 	PlayMusicStream(trilha[0]);
-
+		
   	Protagonista violeta(Vector2{15,1075});
 	Inimigo inimigoManager;
 
@@ -212,9 +212,10 @@ int main() {
                     GameState acaoMorte = telaMorte.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoMorte != estadoAtual && !transicaoFade.IsAtiva()) {
                         if(acaoMorte == GameState::GAMEPLAY) {
+                            violeta.setInfeccao(0);
                             violeta.setIntegridade(100);
                             violeta.setOxigenio(100);
-                            violeta.setPosicao(Vector2{20, 20});
+                            violeta.setPosicao(Vector2{15, 1075});
 
                             // Aqui, a gente reseta a posição dos inimigos
                         }

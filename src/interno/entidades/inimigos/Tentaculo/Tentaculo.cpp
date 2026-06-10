@@ -60,7 +60,7 @@ void Tentaculo::Update(){
     else setEstadoPor(PARADO,0);
 
 
-    if(Vector2Distance(player->getPosicao(), getPosicao()) < 225.0f){
+    if(Vector2Distance(player->getPosicao(), getPosicao()) < 180.0f){
         sumir = true;
         ativo = true;
     }else{
@@ -118,4 +118,14 @@ void Tentaculo::Draw(){
         if(frameAtual == 0) frameAtual = 1;
     }
     DrawTextureRec(spritesheet, AnimacaoAtual[frameAtual], {getPosicao().x, getPosicao().y-64}, WHITE);
+}
+
+void Tentaculo::Seguir(Vector2 pos){
+    Vector2 posAnterior = getPosicao();
+    Inimigo::Seguir(pos);
+
+    if(posAnterior == getPosicao() && getEstado() == ATACANDO){
+        setEstadoPor(STUNNED, 5, true);
+    }
+    
 }

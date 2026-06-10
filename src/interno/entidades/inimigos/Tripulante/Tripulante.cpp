@@ -70,6 +70,12 @@ void Tripulante::Update(){
     float distPlayer = Vector2Distance(player->getPosicao(), getPosicao());
     if(distPlayer < 100.0f) Ataque();
     else if(distPlayer < 300.0f){
+
+        int chance = rand() % 200;
+        if(chance < 1){
+            TocarAudio(grunir);
+        }
+    
         setVelocidade(GetMaxVelocidade());
         setEstadoPor(ANDANDO,0);
     }
@@ -80,7 +86,6 @@ void Tripulante::Update(){
 }
 
 
-
 void Tripulante::Draw(){
     Entidade::Draw();
 }
@@ -88,5 +93,9 @@ void Tripulante::Draw(){
 void Tripulante::Ataque(){
     setEstadoPor(ATACANDO,0);
     setVelocidade(3.5f);
+    
+    TocarAudio(scare);
+    SetSoundVolume(gritar,2.0f);
+    TocarAudio(gritar);
 
 }
