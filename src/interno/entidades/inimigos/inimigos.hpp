@@ -37,7 +37,7 @@ class Inimigo : public Entidade{
         void TomarDano(double dano){ Vida -= dano; }
 
         virtual void Morrer();
-        virtual void SeguirPlayer(Protagonista *player);
+        virtual void Seguir(Vector2 pos);
         virtual void Ataque();
         virtual void Ataque2();
 

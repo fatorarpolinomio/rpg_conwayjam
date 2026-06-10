@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 #include "../../cenario/mapa.hpp"
-
+#include <cmath>
 #include "protagonista.hpp"
 
 Protagonista::Protagonista(Vector2 pos) {
@@ -55,7 +55,7 @@ Protagonista::Protagonista(Vector2 pos) {
   oxigenio = 100;
   nivelInfeccao = 0;
 
-  setCaixaColisao(Rectangle{10,32,40,32});
+  setCaixaColisao(Rectangle{10,48,40,16});
 
 }
 
@@ -71,25 +71,25 @@ void Protagonista::Update() {
   setEstadoPor(PARADO,0);
 
   // Fazer um metodo pra Input?
-  if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+getCaixaColisao().width,getCaixaColisao().y+16})){
+  if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !Mapa::estaCollidindo(Vector2{(float)(1+velocidade),0}, getCaixaColisao())){
     posicao.x += velocidade;
     AnimacaoAtual = andarDireita;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x,getCaixaColisao().y+16})) {
+  if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && !Mapa::estaCollidindo(Vector2{(float)(-1-velocidade),0}, getCaixaColisao())) {
     posicao.x -= velocidade;
     AnimacaoAtual = andarEsquerda;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+16,getCaixaColisao().y+20})){
+  if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && !Mapa::estaCollidindo(Vector2{0,(float)(-1-velocidade)}, getCaixaColisao())){
     posicao.y -= velocidade;
     AnimacaoAtual = andarCima;
 
     setEstadoPor(ANDANDO, 0);
   }
-  if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && !Mapa::estaCollidindo(Vector2{getCaixaColisao().x+16,getCaixaColisao().y+getCaixaColisao().height})){
+  if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && !Mapa::estaCollidindo(Vector2{0,(float)(1+velocidade)}, getCaixaColisao())){
     posicao.y += velocidade;
     AnimacaoAtual = andarBaixo;
 

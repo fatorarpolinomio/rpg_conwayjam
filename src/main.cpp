@@ -62,10 +62,10 @@ int main() {
 
 	// TESTE
 	Tripulante inimigoTeste(100,0,0,0);
-	inimigoTeste.setPosicao(Vector2{250,50});
+	inimigoTeste.setPosicao(Vector2{375,840});
 
 	Smilinguido inimigoTeste2(100,0,0,0);
-	inimigoTeste2.setPosicao(Vector2{250,150});
+	inimigoTeste2.setPosicao(Vector2{375,700});
 
 	Tripulante inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{350,50});
@@ -127,8 +127,6 @@ int main() {
                 }
             }
         }
-
-
 
 		// Desenha
 		BeginDrawing();

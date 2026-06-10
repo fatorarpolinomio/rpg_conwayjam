@@ -1,6 +1,7 @@
 #include "Smilinguido.hpp"
 #include "../../protagonista/protagonista.hpp"
 #include "../../../sistemas/globais.hpp"
+#include "../../../cenario/mapa.hpp"
 #include "raymath.h"
 
 Smilinguido::Smilinguido(double max, double regen, double infec, double dano)
@@ -34,8 +35,15 @@ Smilinguido::Smilinguido(double max, double regen, double infec, double dano)
             Rectangle{0,0,64,64}
         };
         AnimacaoAtual = andarBaixo;
+
+        setCaixaColisao(Rectangle{20,48,28,16});
     }
 
+void Smilinguido::Seguir(Vector2 pos){
+    Inimigo::Seguir(pos);
+
+    // FICAR STUNNED QUANDO BATER NA PAREDE
+}
 
 void Smilinguido::Ataque(){
     if(getEstado() != ATACANDO){
@@ -55,16 +63,16 @@ void Smilinguido::Update(){
 
     if(getEstado() == ATACANDO){
         setVelocidade(getVelocidade() + .2f);
-        setPosicao(getPosicao() + GetDir()* velocidade);
+        Inimigo::Seguir(getPosicao() + GetDir() * velocidade);
     }else if(getEstado() != ATACANDO){
         setVelocidade(GetMaxVelocidade());
     }
     
     if(getEstado() == ANDANDO){
-        Inimigo::SeguirPlayer(player);
+        Inimigo::Seguir(player->getPosicao());
     }
 
-    if(Vector2Distance(player->getPosicao(), getPosicao()) < 200.0f){
+    if(Vector2Distance(player->getPosicao(), getPosicao()) < 150.0f){
         Ataque();
     }else{
         setEstadoPor(ANDANDO,0);

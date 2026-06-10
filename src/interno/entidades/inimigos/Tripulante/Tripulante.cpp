@@ -39,7 +39,7 @@ Tripulante::Tripulante(double max, double regen, double infec, double dano)
         };
         AnimacaoAtual = andarBaixo;
 
-        setCaixaColisao(Rectangle{0,32,64,32});
+        setCaixaColisao(Rectangle{16,48,32,16});
     }
 
 void Tripulante::Morrer(){
@@ -57,7 +57,7 @@ void Tripulante::Update(){
     // Seguir player
 
     if(getEstado() != STUNNED){
-        Inimigo::SeguirPlayer(player);
+        Inimigo::Seguir(player->getPosicao());
     }
 
     // Atacar se chegar perto
@@ -67,7 +67,7 @@ void Tripulante::Update(){
     }
 
     float distPlayer = Vector2Distance(player->getPosicao(), getPosicao());
-    if(distPlayer < 150.0f) Ataque();
+    if(distPlayer < 100.0f) Ataque();
     else {
         setVelocidade(GetMaxVelocidade());
         setEstadoPor(ANDANDO,0);
