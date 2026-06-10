@@ -15,7 +15,12 @@ Protagonista::Protagonista(Vector2 pos) {
       LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
   passos = LoadSound("../assets/audio/sfx/caminhando.wav");
   SetMasterVolume(0.3f);
-  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
+
+  hudTexture = LoadTexture("../assets/Spritesheets/UI/HUD.png");
+  itemAtualImage = LoadImage("../assets/Spritesheets/Itens/KeyCard.png");
+  ImageResizeNN(&itemAtualImage, 96, 96);
+  itemAtualTexture = LoadTextureFromImage(itemAtualImage);
+  UnloadImage(itemAtualImage);
 
   // Animações
   andarCima = {
@@ -114,7 +119,7 @@ void Protagonista::DrawHUD() {
 }
 
 bool Protagonista::diminuirIntegridade(int dano) {
-  integridade -= integridade - dano;
+  integridade -= dano;
   setEstadoPor(DANO, 1);
 
   // retorna um estado caso sofra mais dado que deveria
@@ -154,7 +159,7 @@ void Protagonista::aumentarOxigenio(int recuperacao) {
 }
 
 bool Protagonista::aumentarNivelInfeccao(int dano) {
-  nivelInfeccao += nivelInfeccao;
+  nivelInfeccao += dano - (integridade/10);
 
   // se passar de 100, envia um estado para morrer
   if (nivelInfeccao >= 100)

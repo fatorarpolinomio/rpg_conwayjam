@@ -14,23 +14,28 @@ Amalgama::Amalgama(double max, double regen, double infec, double dano)
 
         setAnimacaoAtual(getIdle());
 
+        setCaixaColisao(Rectangle{10,16,118,48});
+
     }
 
 void Amalgama::Ataque(){
-
+    for(Inimigo *i : Globais::Inimigos){
+        if(Vector2Distance(getPosicao(), i->getPosicao()) < 100.0f) break;;
+        i->setVelocidade(1.0f);
+        i->Seguir(Vector2{this->getPosicao().x+caixaDeColisao.width/2, this->getPosicao().y+caixaDeColisao.height/2});
+    }
 }
 
 void Amalgama::Update(){
     Entidade::Update();
     Protagonista *player = Globais::GetPlayer();
     setEstadoPor(PARADO, 0);
-    if(Vector2Distance(player->getPosicao(), getPosicao()) < 75.0f && getEstado() != ATACANDO){
+    if(Vector2Distance(player->getPosicao(), getPosicao()) < 100.0f && getEstado() != ATACANDO){
         setEstadoPor(ATACANDO, 5, true);
-        Ataque();
-
     }
 
     if(getEstado() == ATACANDO){
+        Ataque();
         tempoAteProxSprite -= GetFrameTime() * 3;
     }
 }

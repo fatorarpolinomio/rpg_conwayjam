@@ -2,8 +2,10 @@
 #include "../../protagonista/protagonista.hpp"
 #include "../../../sistemas/globais.hpp"
 #include "../../../cenario/mapa.hpp"
-#include "raymath.h"
 #include <iostream>
+#include <thread>
+#include "raymath.h"
+#include <chrono>
 
 Smilinguido::Smilinguido(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
@@ -45,29 +47,55 @@ void Smilinguido::Seguir(Vector2 pos){
     Inimigo::Seguir(pos);
 
     if(posAnterior == getPosicao() && getEstado() == ATACANDO){
-        std::cout << "BATEU" << std::endl;
         setEstadoPor(STUNNED, 5, true);
     }
-    // FICAR STUNNED QUANDO BATER NA PAREDE
+}
+
+bool Smilinguido::UpdateTimer(){
+    timer -=  1 * GetFrameTime();
+
+    if(timer <= 0) {
+        timerLiberado = true;
+        setVelocidade(10.0f);
+        setEstadoPor(ATACANDO, 3, true);
+        std::cout << ": " << getEstado() << std::endl;
+        return true;
+    }
+    else {
+        setEstadoPor(PARADO, 5);
+        return false;
+    }
+}
+
+void Smilinguido::setTimer(float time){
+    if(timerLiberado){
+        Vector2 dir = Vector2Subtract(Globais::GetPlayer()->getPosicao(), getPosicao());
+        dir = Vector2Normalize(dir);
+        SetDir(dir);
+        timer = time;
+        timerLiberado = false;
+    }
 }
 
 void Smilinguido::Ataque(){
     if(getEstado() != ATACANDO && getEstado() != STUNNED){
-        Vector2 dir = Vector2Subtract(Globais::GetPlayer()->getPosicao(), getPosicao());
-        dir = Vector2Normalize(dir);
-        SetDir(dir);
-        setVelocidade(10.0f);
-        setEstadoPor(ATACANDO, 1);
+        setTimer(2);
+        UpdateTimer();
     }
 }
 void Smilinguido::Update(){
     Entidade::Update();
 
     setEstadoPor(ANDANDO, 0);
-    std::cout << getEstado() << std::endl;
 
     Protagonista *player = Globais::GetPlayer();
 
+    if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao()) && getEstado() != STUNNED){
+        player->diminuirIntegridade(GetDano());
+        player->aumentarNivelInfeccao(GetInfec());
+        setEstadoPor(STUNNED, 1);
+    }
+    
     if(getEstado() == ATACANDO){
         setVelocidade(getVelocidade() + .2f);
         Seguir(getPosicao() + GetDir() * velocidade);
@@ -79,10 +107,13 @@ void Smilinguido::Update(){
         Seguir(player->getPosicao());
     }
 
-    if(Vector2Distance(player->getPosicao(), getPosicao()) < 150.0f){
+    float distPlayer = Vector2Distance(player->getPosicao(), getPosicao());
+    if(distPlayer < 150.0f){
         Ataque();
-    }else{
+    }else if(distPlayer < 300.0f){
         setEstadoPor(ANDANDO,0);
+    }else{
+        setEstadoPor(PARADO,0);
     }
 }
 void Smilinguido::Draw() {

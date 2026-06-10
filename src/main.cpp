@@ -38,8 +38,7 @@ int main() {
 	SetExitKey(0);
 
 	RenderTexture2D canva = LoadRenderTexture(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-	Font Kimberley = LoadFont("../assets/kimberley_bl.otf");
-
+	InicializarDialogoAssets();
 
 	InitAudioDevice();
 	if (!IsAudioDeviceReady()) {
@@ -67,11 +66,14 @@ int main() {
 	Globais globais(&violeta);
 
 	// TESTE
-	Tripulante inimigoTeste(100,0,0,0);
+	Tripulante inimigoTeste(100,0,20,10);
 	inimigoTeste.setPosicao(Vector2{375,840});
 
-	Tentaculo inimigoTeste2(100,0,0,0);
-	inimigoTeste2.setPosicao(Vector2{375,700});
+	Smilinguido inimigoTeste2(100,0,30,10);
+	inimigoTeste2.setPosicao(Vector2{675,450});
+
+	Tentaculo inimigoTeste4(100,0,0,0);
+	inimigoTeste4.setPosicao(Vector2{575,650});
 
 	Amalgama inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{374,450});
@@ -89,15 +91,29 @@ int main() {
 	Mapa mapa;
 
 	// Carrega o que vai ser renderizado
-	Image mapaImage1 = LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png");
 	// Carrega o que vai ser usado para detectar colisão
 	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapaMontadoSemPortas.png");
+	Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapas normais escuros/mapa montado sem portas escuro.png");
+	Texture2D mapaTextura3 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado c sangue.png");
+	Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado sem portas escuro c sangue.png");
 
-	InicializarDialogoAssets();
+	mapa.carregarImagensDeColisao({
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png")
+	});
+	mapa.carregarMapas({
+		mapaTextura1,
+		mapaTextura2,
+		mapaTextura3,
+		mapaTextura4,
+	});
 
-	mapa.carregarMapas(vector<Texture2D>{mapaTextura1});
-	mapa.carregarImagensDeColisao(vector<Image>{mapaImage1});
-
+	mapa.setMapa(3);
+	
     Espaco espaco;
 
     for(int i = 0; i < 500; i++){
@@ -135,7 +151,7 @@ int main() {
 
                 // Se pressionar ESC novamente enquanto pausado, retorna ao gameplay
                 if (IsKeyPressed(KEY_ESCAPE)) {
-                estadoAtual = GameState::GAMEPLAY;
+                	estadoAtual = GameState::GAMEPLAY;
                 }
             } else if (estadoAtual == GameState::DEATH) {
 				// Garante que o som de passos não continue tocando no além
@@ -165,16 +181,16 @@ int main() {
                     atualiza_estrelas(espaco.getEstrelas(), VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
          			BeginMode2D(camera.GetCamera());
-                            mapa.Draw();
+						mapa.Draw();
 
-            				for(Entidade * i : Globais::NPCS){
-               					i->Draw();
-            				}
+						for(Entidade * i : Globais::NPCS){
+							i->Draw();
+						}
 
-            				violeta.Draw();
-            				inimigoManager.Draw();
+						violeta.Draw();
+						inimigoManager.Draw();
          			EndMode2D();
-          		EndTextureMode();
+				EndTextureMode();
     			DrawTexturePro(
     				canva.texture,
     				Rectangle{0,0,(float)VIRTUAL_WIDTH, (float)-VIRTUAL_HEIGHT},
@@ -183,8 +199,10 @@ int main() {
     				0.0f,
     				WHITE
     			);
-
-                if (estadoAtual == GameState::GAMEPLAY) {
+				
+				violeta.DrawHUD();
+                
+				if (estadoAtual == GameState::GAMEPLAY) {
                     DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
 					violeta.DrawHUD();
                 } else if (estadoAtual == GameState::PAUSE) {

@@ -61,14 +61,15 @@ void Tripulante::Update(){
     }
 
     // Atacar se chegar perto
-    if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao())){
-        player->diminuirIntegridade(20);
+    if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao()) && getEstado() != STUNNED){
+        player->diminuirIntegridade(GetDano());
+        player->aumentarNivelInfeccao(GetInfec());
         setEstadoPor(STUNNED, 5);
     }
 
     float distPlayer = Vector2Distance(player->getPosicao(), getPosicao());
     if(distPlayer < 100.0f) Ataque();
-    else {
+    else if(distPlayer < 300.0f){
         setVelocidade(GetMaxVelocidade());
         setEstadoPor(ANDANDO,0);
     }
