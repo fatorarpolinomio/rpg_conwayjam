@@ -15,6 +15,7 @@ class Smilinguido : public Inimigo{
     void SetDir(Vector2 newDir){dir = newDir;}
     Vector2 GetDir(){return dir;}
 
+    void Seguir(Vector2 pos) override;
     void Ataque() override;
     void Update() override;
     void Draw() override;

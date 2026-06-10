@@ -24,15 +24,16 @@ void Inimigo::Morrer(){
     // Globais::Inimigos.erase(remove(Globais::Inimigos.begin(), Globais::Inimigos.end(), this));
 }
 
-void Inimigo::SeguirPlayer(Protagonista *player)
+void Inimigo::Seguir(Vector2 pos)
 {
-    Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(), player->getPosicao(), velocidade);
+    Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(), pos, velocidade);
     Vector2 offset = Vector2Subtract(seguindoPlayer, getPosicao());
     if(!Mapa::estaCollidindo(offset, getCaixaColisao())){
         setPosicao(seguindoPlayer);
     }
+    
     // Mudar animação de acordo com sa posição do player
-    Vector2 Offset = Vector2Subtract(player->getPosicao(), getPosicao());
+    Vector2 Offset = Vector2Subtract(pos, getPosicao());
 
     if (Offset.x > 0.0f)
     {
