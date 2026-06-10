@@ -72,7 +72,7 @@ int main() {
 	inimigoTeste2.setPosicao(Vector2{675,450});
 
 	Tentaculo inimigoTeste4(100,0,0,0);
-	inimigoTeste4.setPosicao(Vector2{575,600});
+	inimigoTeste4.setPosicao(Vector2{575,650});
 
 	Amalgama inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{374,450});
@@ -90,13 +90,29 @@ int main() {
 	Mapa mapa;
 
 	// Carrega o que vai ser renderizado
-	Image mapaImage1 = LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png");
 	// Carrega o que vai ser usado para detectar colisão
 	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapaMontadoSemPortas.png");
+	Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapas normais escuros/mapa montado sem portas escuro.png");
+	Texture2D mapaTextura3 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado c sangue.png");
+	Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado sem portas escuro c sangue.png");
 
-	mapa.carregarMapas(vector<Texture2D>{mapaTextura1});
-	mapa.carregarImagensDeColisao(vector<Image>{mapaImage1});
+	mapa.carregarImagensDeColisao({
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png")
+	});
+	mapa.carregarMapas({
+		mapaTextura1,
+		mapaTextura2,
+		mapaTextura3,
+		mapaTextura4,
+	});
 
+	mapa.setMapa(3);
+	
     Espaco espaco;
 
     for(int i = 0; i < 500; i++){

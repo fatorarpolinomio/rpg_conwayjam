@@ -6,8 +6,8 @@ Tentaculo::Tentaculo(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
         setSpritesheet(LoadTexture("../assets/Spritesheets/Inimigos/Tentaculo.png"));
 
-        SetMaxVelocidade(.6f);
-        setVelocidade(.6f);
+        SetMaxVelocidade(.8f);
+        setVelocidade(.8f);
 
         setIdle({
             Rectangle{0,0,0,0},
@@ -37,7 +37,7 @@ Tentaculo::Tentaculo(double max, double regen, double infec, double dano)
             Rectangle{128,0,64,128}
         });
 
-        setCaixaColisao(Rectangle{8, 96, 56,16});
+        setCaixaColisao(Rectangle{8, 48, 48,16});
         setAnimacaoAtual(getIdle());
     }
 
@@ -60,7 +60,7 @@ void Tentaculo::Update(){
     else setEstadoPor(PARADO,0);
 
 
-    if(Vector2Distance(player->getPosicao(), getPosicao()) < 100.0f){
+    if(Vector2Distance(player->getPosicao(), getPosicao()) < 225.0f){
         sumir = true;
         ativo = true;
     }else{
