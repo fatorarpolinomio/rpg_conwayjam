@@ -111,11 +111,10 @@ int main() {
                 DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
           		// Desenhando
           		BeginTextureMode(canva);
+                    ClearBackground(BLACK);
+                    atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
          			BeginMode2D(camera.GetCamera());
-            				ClearBackground(BLACK);
-            				DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
-                            atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
             				for(Entidade * i : Globais::NPCS){
            					i->Draw();
