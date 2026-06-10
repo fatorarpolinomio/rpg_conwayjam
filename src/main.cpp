@@ -65,14 +65,14 @@ int main() {
 	Globais globais(&violeta);
 
 	// TESTE
-	Tripulante inimigoTeste(100,0,0,0);
+	Tripulante inimigoTeste(100,0,20,10);
 	inimigoTeste.setPosicao(Vector2{375,840});
 
-	Smilinguido inimigoTeste2(100,0,0,0);
-	inimigoTeste2.setPosicao(Vector2{375,700});
+	Smilinguido inimigoTeste2(100,0,30,10);
+	inimigoTeste2.setPosicao(Vector2{675,450});
 
 	Tentaculo inimigoTeste4(100,0,0,0);
-	inimigoTeste2.setPosicao(Vector2{575,450});
+	inimigoTeste4.setPosicao(Vector2{575,600});
 
 	Amalgama inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{374,450});

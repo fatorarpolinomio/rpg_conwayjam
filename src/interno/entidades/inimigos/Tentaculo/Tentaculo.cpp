@@ -47,12 +47,18 @@ void Tentaculo::Ataque(){
 
 void Tentaculo::Update(){
     Entidade::Update();
+    
+    Protagonista *player = Globais::GetPlayer();
+    
+    if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao()) && getEstado() != STUNNED){
+        player->diminuirIntegridade(GetDano());
+        player->aumentarNivelInfeccao(GetInfec());
+        setEstadoPor(STUNNED, 2);
+    }
 
     if(ativo) setEstadoPor(ANDANDO,0);
     else setEstadoPor(PARADO,0);
-    
 
-    Protagonista *player = Globais::GetPlayer();
 
     if(Vector2Distance(player->getPosicao(), getPosicao()) < 100.0f){
         sumir = true;
@@ -63,6 +69,7 @@ void Tentaculo::Update(){
     }
 
     if(!ativo && sumir){
+        frameAtual = 1;
         setIdle({
             Rectangle{0,0,0,0},
             Rectangle{128,128,64,128},
@@ -77,6 +84,7 @@ void Tentaculo::Update(){
     }
 
     if(ativo && aparecer){
+        frameAtual = 1;
         setIdle({
             Rectangle{0,0,0,0},
             Rectangle{0,128,64,128},
@@ -104,5 +112,10 @@ void Tentaculo::Update(){
 }
 
 void Tentaculo::Draw(){
-    Entidade::Draw();
+    if (!getEstado() == ANDANDO) {
+        frameAtual = 0;
+    }else if(getEstado() == ANDANDO){ // Talvez tenha um jeito melhor, mas foi assim que eu tirei aquele delay antes de começar a animação
+        if(frameAtual == 0) frameAtual = 1;
+    }
+    DrawTextureRec(spritesheet, AnimacaoAtual[frameAtual], {getPosicao().x, getPosicao().y-64}, WHITE);
 }

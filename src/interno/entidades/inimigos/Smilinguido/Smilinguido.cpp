@@ -90,6 +90,12 @@ void Smilinguido::Update(){
 
     Protagonista *player = Globais::GetPlayer();
 
+    if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao()) && getEstado() != STUNNED){
+        player->diminuirIntegridade(GetDano());
+        player->aumentarNivelInfeccao(GetInfec());
+        setEstadoPor(STUNNED, 1);
+    }
+    
     if(getEstado() == ATACANDO){
         setVelocidade(getVelocidade() + .2f);
         Seguir(getPosicao() + GetDir() * velocidade);
