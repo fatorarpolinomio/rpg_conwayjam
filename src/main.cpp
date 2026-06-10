@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include "interno/sistemas/camera.hpp"
+#include "interno/sistemas/transicao.hpp"
 #include "interno/entidades/inimigos/Tripulante/Tripulante.hpp"
 #include "interno/entidades/inimigos/Smilinguido/Smilinguido.hpp"
 #include "interno/sistemas/globais.hpp"
@@ -46,6 +47,7 @@ int main() {
 	// Definindo Menu e estado atual
 	Menu menuPrincipal;
 	Pause menuPause;
+	Transicao transicaoFade(7.0f);
 	GameState estadoAnterior = GameState::GAME_MENU; // Isso aqui vai bugar a trilha sonora
 	GameState estadoAtual = GameState::GAME_MENU;
 
@@ -91,21 +93,27 @@ int main() {
 	    // Lidando com eventos #TODO
 
 	    // Atualizações
-		if(estadoAtual == GameState::GAMEPLAY){
-			if (IsKeyPressed(KEY_ESCAPE)) {
-				estadoAtual = GameState::PAUSE;
-			}
-    		violeta.Update();
-    		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
-    		camera.Update();
-    		inimigoManager.Update();
-		} else if (estadoAtual == GameState::PAUSE) {
-            // Se o som de passos estiver ativo, silencia imediatamente para não travar em loop
-            PauseSound(violeta.passos);
+		if (transicaoFade.IsAtiva()) {
+        // A transição assume o controle e altera o estadoAtual quando escurecer tudo
+        transicaoFade.Update(estadoAtual);
+        } else {
 
-            // Se pressionar ESC novamente enquanto pausado, retorna ao gameplay
-            if (IsKeyPressed(KEY_ESCAPE)) {
-            estadoAtual = GameState::GAMEPLAY;
+    		if(estadoAtual == GameState::GAMEPLAY){
+    			if (IsKeyPressed(KEY_ESCAPE)) {
+    				estadoAtual = GameState::PAUSE;
+    			}
+      		violeta.Update();
+      		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
+      		camera.Update();
+      		inimigoManager.Update();
+    		} else if (estadoAtual == GameState::PAUSE) {
+                // Se o som de passos estiver ativo, silencia imediatamente para não travar em loop
+                PauseSound(violeta.passos);
+
+                // Se pressionar ESC novamente enquanto pausado, retorna ao gameplay
+                if (IsKeyPressed(KEY_ESCAPE)) {
+                estadoAtual = GameState::GAMEPLAY;
+                }
             }
         }
 
@@ -118,7 +126,14 @@ int main() {
 			if(estadoAtual == GameState::GAME_MENU){
                 atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
-                estadoAtual = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+                GameState acaoMenu = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+                // Engatilha a transição se o jogador clicou em algum botão
+                if (acaoMenu != estadoAtual && !transicaoFade.IsAtiva()) {
+                    transicaoFade.Iniciar(acaoMenu);
+                }
+
+
 			} else if(estadoAtual == GameState::GAMEPLAY|| estadoAtual == GameState::PAUSE) {
           		// Desenhando
           		BeginTextureMode(canva);
@@ -147,9 +162,13 @@ int main() {
                 if (estadoAtual == GameState::GAMEPLAY) {
                     DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
                 } else if (estadoAtual == GameState::PAUSE) {
-                    estadoAtual = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+                    GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+                    if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
+                        transicaoFade.Iniciar(acaoPause);
+                    }
                 }
 			}
+			transicaoFade.Draw(WINDOW_WIDTH, WINDOW_HEIGHT);
 		EndDrawing();
 	}
 
