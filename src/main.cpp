@@ -3,6 +3,7 @@
 #include "interno/sistemas/trilhaSonora.hpp"
 #include "interno/estados/estados.hpp"
 #include "interno/estados/menu.hpp"
+#include "interno/estados/pause.hpp"
 #include "raylib.h"
 
 #define RAYGUI_IMPLEMENTATION
@@ -11,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include "interno/sistemas/camera.hpp"
+#include "interno/sistemas/transicao.hpp"
 #include "interno/entidades/inimigos/Tripulante/Tripulante.hpp"
 #include "interno/entidades/inimigos/Smilinguido/Smilinguido.hpp"
 #include "interno/sistemas/globais.hpp"
@@ -33,6 +35,8 @@ int main() {
 	SetTargetFPS(60);
 	GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
+	SetExitKey(0);
+
 	RenderTexture2D canva = LoadRenderTexture(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
 
@@ -47,6 +51,8 @@ int main() {
 
 	// Definindo Menu e estado atual
 	Menu menuPrincipal;
+	Pause menuPause;
+	Transicao transicaoFade(7.0f);
 	GameState estadoAnterior = GameState::GAME_MENU; // Isso aqui vai bugar a trilha sonora
 	GameState estadoAtual = GameState::GAME_MENU;
 
@@ -77,7 +83,7 @@ int main() {
 	NPC npc5 = NPC("../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
 	NPC npc6 = NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
 	NPC npc7 = NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
-	
+
 	Mapa mapa;
 
 	// Carrega o que vai ser renderizado
@@ -90,6 +96,10 @@ int main() {
 
     Espaco espaco;
 
+    for(int i = 0; i < 500; i++){
+        espaco.adiciona_estrela((std::rand() % (1000 -(-1000) + 1)), (rand() % (400 - (-400) + 1)));
+	}
+
 	// Camera
 	int x = 400;
   	MainCamera camera(&violeta, Vector2{ (float)VIRTUAL_WIDTH/2, (float)VIRTUAL_HEIGHT/2}, 0, 1.0f);
@@ -97,54 +107,81 @@ int main() {
 	{
 	    // Lidando com eventos #TODO
 
-		atualiza_estrelas(espaco.getEstrelas());
-		remove_estrelas(violeta.getPosicao().x - 500, espaco.getEstrelas());
 	    // Atualizações
-		if(estadoAtual == GameState::GAMEPLAY){
-		    if(IsKeyDown(KEY_ESCAPE)){
-				estadoAtual = GameState::GAME_MENU;
-			}
-    		violeta.Update();
-    		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
-    		camera.Update();
-    		inimigoManager.Update();
-		}
+		if (transicaoFade.IsAtiva()) {
+        // A transição assume o controle e altera o estadoAtual quando escurecer tudo
+        transicaoFade.Update(estadoAtual);
+        } else {
+
+    		if(estadoAtual == GameState::GAMEPLAY){
+    			if (IsKeyPressed(KEY_ESCAPE)) {
+    				estadoAtual = GameState::PAUSE;
+    			}
+      		violeta.Update();
+      		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
+      		camera.Update();
+      		inimigoManager.Update();
+    		} else if (estadoAtual == GameState::PAUSE) {
+                // Se o som de passos estiver ativo, silencia imediatamente para não travar em loop
+                PauseSound(violeta.passos);
+
+                // Se pressionar ESC novamente enquanto pausado, retorna ao gameplay
+                if (IsKeyPressed(KEY_ESCAPE)) {
+                estadoAtual = GameState::GAMEPLAY;
+                }
+            }
+        }
 
 		// Desenha
-		BeginTextureMode(canva);
-			ClearBackground(RAYWHITE);
-			if(estadoAtual == GameState::GAME_MENU){
-                estadoAtual = menuPrincipal.desenhar(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-			} else if(estadoAtual == GameState::GAMEPLAY) {
-                DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
-          		// Desenhando
-         		BeginMode2D(camera.GetCamera());
-					ClearBackground(BLACK);
-					DrawRectangle(0,0,40,40, RED); // Retangulo pra testar a camera
-					espaco.adiciona_estrela(violeta.getPosicao().x + 500, -400 + (rand() % (400 - (-400) + 1)));
-
-					for(Entidade * i : Globais::NPCS){
-					i->Draw();
-					}
-					mapa.Draw();
-					violeta.Draw();
-					inimigoManager.Draw();
-				EndMode2D();
-				violeta.DrawHUD();
-			}
-		EndTextureMode();
-
-		// Estica a tela para a resolução desejada
-		BeginDrawing();	
+		BeginDrawing();
 			ClearBackground(BLACK);
-			DrawTexturePro(	
-				canva.texture,
-				Rectangle{0,0,(float)VIRTUAL_WIDTH, (float)-VIRTUAL_HEIGHT},
-				Rectangle{0,0,(float)GetScreenWidth(), (float)GetScreenHeight()},
-				Vector2{0,0},
-				0.0f,
-				WHITE
-			);
+			if(estadoAtual == GameState::GAME_MENU){
+                atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
+
+                GameState acaoMenu = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+                // Engatilha a transição se o jogador clicou em algum botão
+                if (acaoMenu != estadoAtual && !transicaoFade.IsAtiva()) {
+                    transicaoFade.Iniciar(acaoMenu);
+                }
+
+
+			} else if(estadoAtual == GameState::GAMEPLAY|| estadoAtual == GameState::PAUSE) {
+          		// Desenhando
+          		BeginTextureMode(canva);
+                    ClearBackground(BLACK);
+                    atualiza_estrelas(espaco.getEstrelas(), VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+
+         			BeginMode2D(camera.GetCamera());
+                            mapa.Draw();
+
+            				for(Entidade * i : Globais::NPCS){
+               					i->Draw();
+            				}
+
+            				violeta.Draw();
+            				inimigoManager.Draw();
+         			EndMode2D();
+          		EndTextureMode();
+    			DrawTexturePro(
+    				canva.texture,
+    				Rectangle{0,0,(float)VIRTUAL_WIDTH, (float)-VIRTUAL_HEIGHT},
+    				Rectangle{0,0,(float)GetScreenWidth(), (float)GetScreenHeight()},
+    				Vector2{0,0},
+    				0.0f,
+    				WHITE
+    			);
+
+                if (estadoAtual == GameState::GAMEPLAY) {
+                    DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
+                } else if (estadoAtual == GameState::PAUSE) {
+                    GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+                    if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
+                        transicaoFade.Iniciar(acaoPause);
+                    }
+                }
+			}
+			transicaoFade.Draw(WINDOW_WIDTH, WINDOW_HEIGHT);
 		EndDrawing();
 	}
 
@@ -155,5 +192,5 @@ int main() {
 	CloseAudioDevice();
 	CloseWindow();
 	return 0;
-	
+
 }

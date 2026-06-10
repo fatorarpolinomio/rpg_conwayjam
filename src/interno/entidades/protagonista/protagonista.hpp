@@ -18,12 +18,14 @@ class Protagonista : public Entidade, public CameraTarget{
 		double oxigenio;
 		double nivelInfeccao;
 
-		// Audio
-		Sound passos;
 
 		Texture2D hudTexture;
+		Texture2D itemAtualTexture;
+		Image itemAtualImage;
 
 	public:
+		// Audio
+		Sound passos;
 		Protagonista(Vector2 pos);
 
 		Vector2 GetTargetPosicao() override;
@@ -52,7 +54,7 @@ class Protagonista : public Entidade, public CameraTarget{
 
 		void Update() override;
 		void Draw() override;
-		void DrawHUD();
+		void DrawHUD(int screenWidth, int screenHeight);
 
 };
 

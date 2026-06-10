@@ -22,5 +22,4 @@ class Espaco{
         }
 };
 
-void atualiza_estrelas(std::vector<estrela>& estrelas);
-void remove_estrelas(double limite_horizontal, std::vector<estrela>& estrelas);
+void atualiza_estrelas(std::vector<estrela>& estrelas, double largura_tela, double altura_tela);
