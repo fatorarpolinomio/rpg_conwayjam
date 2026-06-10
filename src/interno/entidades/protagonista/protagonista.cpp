@@ -10,6 +10,7 @@
 Protagonista::Protagonista(Vector2 pos) {
     velocidade = 1.0f;
     frameAtual = 0;
+    setDepth(10);
 
   spritesheet =
       LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");

@@ -9,11 +9,16 @@ class Globais{
 
     public:
         static vector<Inimigo*> Inimigos;
-        static vector<Entidade*> NPCS;
+        static vector<Entidade*>ListaDeRenderização;
+        static int listaRenderizacaoCount;
 
         Globais(Protagonista *player);
-        Globais(){}
+        Globais();
+        ~Globais();
 
         static Protagonista* GetPlayer(){return violeta;}
+        static void adicionaraListaRenderizacao(Entidade *entidade);
+        static void UpdateListaRenderizacao();
 
+        
 };

@@ -181,12 +181,11 @@ int main() {
          			BeginMode2D(camera.GetCamera());
 						mapa.Draw();
 
-						for(Entidade * i : Globais::NPCS){
+						Globais::UpdateListaRenderizacao();
+						for(Entidade * i : Globais::ListaDeRenderização){
 							i->Draw();
 						}
 
-						violeta.Draw();
-						inimigoManager.Draw();
          			EndMode2D();
 				EndTextureMode();
     			DrawTexturePro(
@@ -201,7 +200,7 @@ int main() {
 				violeta.DrawHUD();
                 
 				if (estadoAtual == GameState::GAMEPLAY) {
-                    DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
+
 					violeta.DrawHUD();
                 } else if (estadoAtual == GameState::PAUSE) {
                     GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
