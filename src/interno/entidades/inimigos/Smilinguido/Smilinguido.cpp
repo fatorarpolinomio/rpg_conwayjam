@@ -97,6 +97,9 @@ void Smilinguido::Update(){
     }
     
     if(getEstado() == ATACANDO){
+        TocarAudio(scare);
+        SetSoundVolume(gritar2, 1.5f);
+        TocarAudio(gritar2);
         setVelocidade(getVelocidade() + .2f);
         Seguir(getPosicao() + GetDir() * velocidade);
     }else if(getEstado() != ATACANDO){

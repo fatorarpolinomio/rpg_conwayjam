@@ -16,6 +16,7 @@ class Tentaculo : public Inimigo{
         void Ataque() override;
         void Update() override;
         void Draw() override;
+        void Seguir(Vector2 pos) override;
 };
 
 #endif
