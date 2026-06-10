@@ -3,7 +3,7 @@
 
 Protagonista* Globais::violeta;
 vector<Inimigo*> Globais::Inimigos;
-vector<Entidade*> Globais::ListaDeRenderização;
+vector<Entidade*> Globais::ListaDeRenderizacao;
 int Globais::listaRenderizacaoCount = 0;
 
 Globais::Globais(Protagonista *player){
@@ -11,11 +11,11 @@ Globais::Globais(Protagonista *player){
 }
 
 void Globais::adicionaraListaRenderizacao(Entidade *entidade){
-    ListaDeRenderização.push_back(entidade);
+    ListaDeRenderizacao.push_back(entidade);
 }
 
 void Globais::UpdateListaRenderizacao(){
-    std::sort(ListaDeRenderização.begin(), ListaDeRenderização.end(), [](const Entidade*a, const Entidade*b){
+    std::sort(ListaDeRenderizacao.begin(), ListaDeRenderizacao.end(), [](const Entidade*a, const Entidade*b){
         return a->getPosicao().y < b->getPosicao().y;
     });
 }

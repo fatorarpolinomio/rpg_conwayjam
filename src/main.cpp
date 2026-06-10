@@ -24,10 +24,13 @@
 #include "interno/cenario/cenario.hpp"
 #include "interno/cenario/mapa.hpp"
 
+#include <clocale>
+
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 
 int main() {
+	setlocale(LC_ALL, "Portuguese");
 
 	int VIRTUAL_WIDTH = 600;
 	int VIRTUAL_HEIGHT = 300;
@@ -46,9 +49,9 @@ int main() {
 		std::cout << "ERROR: Dispositivo de som não foi inicializado" << endl;
 	}
 
-	std::vector<Music> trilha = {LoadMusicStream("../assets/audio/musica/tema0.ogg"),
-	                              LoadMusicStream("../assets/audio/musica/tema1.ogg"),
-	                              LoadMusicStream("../assets/audio/musica/tema2.ogg")};
+	std::vector<Music> trilha = {LoadMusicStream("../../../assets/audio/musica/tema0.ogg"),
+	                              LoadMusicStream("../../../assets/audio/musica/tema1.ogg"),
+	                              LoadMusicStream("../../../assets/audio/musica/tema2.ogg")};
 
 	// Definindo Menu e estado atual
 	Menu menuPrincipal;
@@ -78,13 +81,13 @@ int main() {
 
 	// TESTE, MAS COM NPCS
 	// Entidade generica
-	NPC npc1 = NPC("../assets/Spritesheets/NPCS/tripulante1.png",Vector2{600,700});
-	NPC npc2 = NPC("../assets/Spritesheets/NPCS/tripulante2.png",Vector2{-80,-100});
-	NPC npc3 = NPC("../assets/Spritesheets/NPCS/tripulante3.png",Vector2{-60,-100});
-	NPC npc4 = NPC("../assets/Spritesheets/NPCS/tripulante4.png",Vector2{-40,-100});
-	NPC npc5 = NPC("../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
-	NPC npc6 = NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
-	NPC npc7 = NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
+	NPC npc1 = NPC("../../../assets/Spritesheets/NPCS/tripulante1.png",Vector2{600,700});
+	NPC npc2 = NPC("../../../assets/Spritesheets/NPCS/tripulante2.png",Vector2{-80,-100});
+	NPC npc3 = NPC("../../../assets/Spritesheets/NPCS/tripulante3.png",Vector2{-60,-100});
+	NPC npc4 = NPC("../../../assets/Spritesheets/NPCS/tripulante4.png",Vector2{-40,-100});
+	NPC npc5 = NPC("../../../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
+	NPC npc6 = NPC("../../../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
+	NPC npc7 = NPC("../../../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
 
 	Mapa mapa;
 
@@ -96,12 +99,12 @@ int main() {
 	Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa sem portas c sangue meteoro.png");
 
 	mapa.carregarImagensDeColisao({
-		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png")
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png")
 	});
 	mapa.carregarMapas({
 		mapaTextura1,
@@ -185,7 +188,7 @@ int main() {
 						mapa.Draw();
 
 						Globais::UpdateListaRenderizacao();
-						for(Entidade * i : Globais::ListaDeRenderização){
+						for(Entidade * i : Globais::ListaDeRenderizacao){
 							i->Draw();
 						}
 

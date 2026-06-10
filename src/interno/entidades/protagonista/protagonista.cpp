@@ -12,12 +12,12 @@ Protagonista::Protagonista(Vector2 pos) {
     setDepth(10);
 
   spritesheet =
-      LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
-  passos = LoadSound("../assets/audio/sfx/caminhando.wav");
+      LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista.png");
+  passos = LoadSound("../../../assets/audio/sfx/caminhando.wav");
   SetMasterVolume(0.3f);
 
-  hudTexture = LoadTexture("../assets/Spritesheets/UI/HUD.png");
-  itemAtualImage = LoadImage("../assets/Spritesheets/Itens/KeyCard.png");
+  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
+  itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/KeyCard.png");
   ImageResizeNN(&itemAtualImage, 96, 96);
   itemAtualTexture = LoadTextureFromImage(itemAtualImage);
   UnloadImage(itemAtualImage);
