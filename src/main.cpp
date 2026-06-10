@@ -26,6 +26,10 @@ int main() {
 	int VIRTUAL_HEIGHT = 450;
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "RPG");
+	SetMouseScale(
+		(float)VIRTUAL_WIDTH/WINDOW_WIDTH,
+		(float)VIRTUAL_HEIGHT/WINDOW_HEIGHT
+	);
 	SetTargetFPS(60);
 	GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
@@ -56,10 +60,10 @@ int main() {
 
 	// TESTE
 	Tripulante inimigoTeste(100,0,0,0);
-	inimigoTeste.setPosicao(Vector2{250,50});
+	inimigoTeste.setPosicao(Vector2{375,840});
 
 	Smilinguido inimigoTeste2(100,0,0,0);
-	inimigoTeste2.setPosicao(Vector2{250,150});
+	inimigoTeste2.setPosicao(Vector2{375,700});
 
 	Tripulante inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{350,50});
