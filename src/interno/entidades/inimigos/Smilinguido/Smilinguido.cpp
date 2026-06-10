@@ -12,7 +12,7 @@ Smilinguido::Smilinguido(double max, double regen, double infec, double dano)
         SetMaxVelocidade(.6f);
         setVelocidade(.6f);
 
-        spritesheet = LoadTexture("../assets/Spritesheets/Inimigos/smilinguido.png");
+        spritesheet = LoadTexture("../../../../../assets/Spritesheets/Inimigos/smilinguido.png");
 
         andarCima = {
             Rectangle{0, 128, 64, 64},
