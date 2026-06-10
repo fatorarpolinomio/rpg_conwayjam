@@ -181,11 +181,10 @@ int main() {
     				0.0f,
     				WHITE
     			);
-				
-				violeta.DrawHUD(WINDOW_WIDTH,WINDOW_HEIGHT);
-                
+
+				violeta.DrawHUD();
+
 				if (estadoAtual == GameState::GAMEPLAY) {
-                    DrawText("O jogo começou. A energia caiu...", 20, 20, 30, LIGHTGRAY);
 					violeta.DrawHUD();
                 } else if (estadoAtual == GameState::PAUSE) {
                     GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
