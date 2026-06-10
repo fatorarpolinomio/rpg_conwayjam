@@ -28,10 +28,6 @@ int main() {
 	int VIRTUAL_HEIGHT = 450;
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "RPG");
-	SetMouseScale(
-		(float)VIRTUAL_WIDTH/WINDOW_WIDTH,
-		(float)VIRTUAL_HEIGHT/WINDOW_HEIGHT
-	);
 	SetTargetFPS(60);
 	GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
