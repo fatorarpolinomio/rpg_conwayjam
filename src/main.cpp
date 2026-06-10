@@ -110,8 +110,6 @@ int main() {
     		inimigoManager.Update();
 		}
 
-
-
 		// Desenha
 		BeginTextureMode(canva);
 			ClearBackground(RAYWHITE);

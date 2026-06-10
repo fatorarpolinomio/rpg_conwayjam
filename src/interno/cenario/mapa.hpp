@@ -23,6 +23,6 @@ class Mapa{
 
         void Draw();
 
-        static bool estaCollidindo(Vector2 pos);
+        static bool estaCollidindo(Vector2 Offset, Rectangle colisao);
 
 };  

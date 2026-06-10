@@ -1,6 +1,6 @@
 #include "inimigos.hpp"
 #include <algorithm>
-
+#include "../../cenario/mapa.hpp"
 #include <vector>
 #include "../../sistemas/globais.hpp"
 #include "../protagonista/protagonista.hpp"
@@ -27,8 +27,10 @@ void Inimigo::Morrer(){
 void Inimigo::SeguirPlayer(Protagonista *player)
 {
     Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(), player->getPosicao(), velocidade);
-    setPosicao(seguindoPlayer);
-
+    Vector2 offset = Vector2Subtract(seguindoPlayer, getPosicao());
+    if(!Mapa::estaCollidindo(offset, getCaixaColisao())){
+        setPosicao(seguindoPlayer);
+    }
     // Mudar animação de acordo com sa posição do player
     Vector2 Offset = Vector2Subtract(player->getPosicao(), getPosicao());
 

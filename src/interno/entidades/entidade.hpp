@@ -58,6 +58,8 @@ public:
   vector<Rectangle> getAnimacaoAtual() { return AnimacaoAtual; }
   estadosEntidade getEstado(){ return estado;}
   Rectangle getCaixaColisao(){ return caixaDeColisaoAtualizada;}
+  float getCaixaColisaoWidth(){ return caixaDeColisao.width;}
+  float getCaixaColisaoHeight(){ return caixaDeColisao.height;}
 
 
   // Setters
