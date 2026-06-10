@@ -24,6 +24,7 @@ add_executable(rpg
     src/interno/entidades/itens/itens.cpp
     src/interno/entidades/itens/itens.cpp
     src/interno/sistemas/trilhaSonora.cpp
+    src/interno/sistemas/transicao.cpp
     src/interno/cenario/espaco.cpp
     src/interno/entidades/NPC/NPC.cpp
     src/interno/estados/estados.cpp
