@@ -39,15 +39,17 @@ protected:
   double tempoAteProxSprite;
   int frameAtual = 0;
 
+  int depth = 0;
+  
 public:
   // Construtor
-  Entidade(){}
+  Entidade();
 
   // Destrutor
   ~Entidade(){}
 
   // Getters
-  Vector2 getPosicao() { return posicao; }
+  Vector2 getPosicao() const { return posicao; }
   double getVelocidade() { return velocidade; }
   Texture2D getSpritesheet(){return spritesheet;}
   vector<Rectangle> getIdle() { return idle; }
@@ -60,7 +62,7 @@ public:
   Rectangle getCaixaColisao(){ return caixaDeColisaoAtualizada;}
   float getCaixaColisaoWidth(){ return caixaDeColisao.width;}
   float getCaixaColisaoHeight(){ return caixaDeColisao.height;}
-
+  int getDepth() const {return depth;}
 
   // Setters
   void setPosicao(Vector2 novaPosicao) { this->posicao = novaPosicao; }
@@ -78,6 +80,7 @@ public:
   void setEstadoPor(estadosEntidade newEstado, float tempo); // Mudar o estado por um tempo, ignora outras mudanças de estado se o tempo do estado não tiver acabado(a menos que use o setEstadoInstantaneo). Geralmente use esse com o tempo = 0
   void setEstadoPor(estadosEntidade newEstado, float tempo, bool override); // Mudar o estado por um tempo, ignora outras mudanças de estado se o tempo do estado não tiver acabado(a menos que use o override = true). Geralmente use esse com o tempo = 0
   void setCaixaColisao(Rectangle novaCaixa){ caixaDeColisao = novaCaixa;}
+  void setDepth(int novaDepth){depth = novaDepth;}
 
   virtual void Update(); // Atualização da entidade a cada frame
   virtual void Draw();   // Desenha entidade a cada frame

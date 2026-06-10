@@ -59,7 +59,7 @@ int main() {
 
 	// Colocando a trilha do ato 0 para rodar
 	PlayMusicStream(trilha[0]);
-
+		
   	Protagonista violeta(Vector2{15,1075});
 	Inimigo inimigoManager;
 
@@ -92,10 +92,10 @@ int main() {
 
 	// Carrega o que vai ser renderizado
 	// Carrega o que vai ser usado para detectar colisão
-	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapaMontadoSemPortas.png");
-	Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapas normais escuros/mapa montado sem portas escuro.png");
+	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapa montado sem portas.png.png");
+	Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapas normais escuros/mapa c meteoro sem portas escuro.png.png");
 	Texture2D mapaTextura3 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado c sangue.png");
-	Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado sem portas escuro c sangue.png");
+	Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa sem portas c sangue meteoro.png");
 
 	mapa.carregarImagensDeColisao({
 		LoadImage("../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
@@ -163,7 +163,7 @@ int main() {
 		BeginDrawing();
 			ClearBackground(BLACK);
 			if(estadoAtual == GameState::GAME_MENU){
-				Dialogue("interfone");
+				
                 atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
                 GameState acaoMenu = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -183,12 +183,11 @@ int main() {
          			BeginMode2D(camera.GetCamera());
 						mapa.Draw();
 
-						for(Entidade * i : Globais::NPCS){
+						Globais::UpdateListaRenderizacao();
+						for(Entidade * i : Globais::ListaDeRenderização){
 							i->Draw();
 						}
 
-						violeta.Draw();
-						inimigoManager.Draw();
          			EndMode2D();
 				EndTextureMode();
     			DrawTexturePro(
@@ -203,6 +202,8 @@ int main() {
 
 				if (estadoAtual == GameState::GAMEPLAY) {
 					violeta.DrawHUD();
+					if (IsDialogueActive && IsKeyPressed(KEY_C)) {IsDialogueActive = false;}
+					Dialogue("aperteC");
                 } else if (estadoAtual == GameState::PAUSE) {
                     GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
@@ -212,9 +213,13 @@ int main() {
                     GameState acaoMorte = telaMorte.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoMorte != estadoAtual && !transicaoFade.IsAtiva()) {
                         if(acaoMorte == GameState::GAMEPLAY) {
+                            violeta.setInfeccao(0);
                             violeta.setIntegridade(100);
                             violeta.setOxigenio(100);
+<<<<<<< HEAD
                             violeta.setInfeccao(0);
+=======
+>>>>>>> 553dc4c08ec405e76b676b2ad466c7a4587f94af
                             violeta.setPosicao(Vector2{15, 1075});
 
                             // Aqui, a gente reseta a posição dos inimigos

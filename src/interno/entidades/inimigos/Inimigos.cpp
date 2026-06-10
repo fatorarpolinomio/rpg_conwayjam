@@ -5,6 +5,7 @@
 #include "../../sistemas/globais.hpp"
 #include "../protagonista/protagonista.hpp"
 #include <raymath.h>
+#include <random>
 
 using namespace std;
 
@@ -26,7 +27,6 @@ void Inimigo::Morrer(){
 
 void Inimigo::Seguir(Vector2 pos)
 {
-
     
     Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(), pos, velocidade);
     Vector2 offset = Vector2Subtract(seguindoPlayer, getPosicao());
@@ -55,6 +55,14 @@ void Inimigo::Seguir(Vector2 pos)
         AnimacaoAtual = andarCima;
     }
     
+}
+
+
+void Inimigo::TocarAudio(Sound som){
+    if(!IsSoundPlaying(som)){
+        SetSoundVolume(som,0.25f);
+        PlaySound(som);
+    }
 }
 
 // Passar para globais? faz sentido? (pra poder colocar um que desenha TODAS as entidades)
