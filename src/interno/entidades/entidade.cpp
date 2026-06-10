@@ -31,10 +31,23 @@ void Entidade::Draw(){
 
 void Entidade::setEstadoPor(estadosEntidade newEstado, float tempo){
 
+  if(timer > 0) return;
+
+  
+  timer = tempo;
+
+  estado = newEstado;
+
+}
+
+void Entidade::setEstadoPor(estadosEntidade newEstado, float tempo, bool override){
+
+  if(!override){
     if(timer > 0) return;
+  }
+  
+  timer = tempo;
 
-    timer = tempo;
-
-    estado = newEstado;
+  estado = newEstado;
 
 }

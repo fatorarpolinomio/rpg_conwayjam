@@ -15,6 +15,8 @@
 #include "interno/sistemas/transicao.hpp"
 #include "interno/entidades/inimigos/Tripulante/Tripulante.hpp"
 #include "interno/entidades/inimigos/Smilinguido/Smilinguido.hpp"
+#include "interno/entidades/inimigos/Tentaculo/Tentaculo.hpp"
+#include "interno/entidades/inimigos/Amalgama/Amalgama.hpp"
 #include "interno/sistemas/globais.hpp"
 #include "interno/cenario/cenario.hpp"
 #include "interno/cenario/mapa.hpp"
@@ -24,8 +26,8 @@
 
 int main() {
 
-	int VIRTUAL_WIDTH = 800;
-	int VIRTUAL_HEIGHT = 450;
+	int VIRTUAL_WIDTH = 600;
+	int VIRTUAL_HEIGHT = 300;
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "RPG");
 	SetTargetFPS(60);
@@ -64,15 +66,15 @@ int main() {
 	Tripulante inimigoTeste(100,0,0,0);
 	inimigoTeste.setPosicao(Vector2{375,840});
 
-	Smilinguido inimigoTeste2(100,0,0,0);
+	Tentaculo inimigoTeste2(100,0,0,0);
 	inimigoTeste2.setPosicao(Vector2{375,700});
 
-	Tripulante inimigoTeste3(100,0,0,0);
-	inimigoTeste3.setPosicao(Vector2{350,50});
+	Amalgama inimigoTeste3(100,0,0,0);
+	inimigoTeste3.setPosicao(Vector2{374,450});
 
 	// TESTE, MAS COM NPCS
 	// Entidade generica
-	NPC npc1 = NPC("../assets/Spritesheets/NPCS/tripulante1.png",Vector2{-100,-100});
+	NPC npc1 = NPC("../assets/Spritesheets/NPCS/tripulante1.png",Vector2{600,700});
 	NPC npc2 = NPC("../assets/Spritesheets/NPCS/tripulante2.png",Vector2{-80,-100});
 	NPC npc3 = NPC("../assets/Spritesheets/NPCS/tripulante3.png",Vector2{-60,-100});
 	NPC npc4 = NPC("../assets/Spritesheets/NPCS/tripulante4.png",Vector2{-40,-100});
@@ -113,10 +115,10 @@ int main() {
     			if (IsKeyPressed(KEY_ESCAPE)) {
     				estadoAtual = GameState::PAUSE;
     			}
-      		violeta.Update();
-      		update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
-      		camera.Update();
-      		inimigoManager.Update();
+				violeta.Update();
+				update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
+				camera.Update();
+				inimigoManager.Update();
     		} else if (estadoAtual == GameState::PAUSE) {
                 // Se o som de passos estiver ativo, silencia imediatamente para não travar em loop
                 PauseSound(violeta.passos);

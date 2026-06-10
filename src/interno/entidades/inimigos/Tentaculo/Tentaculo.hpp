@@ -5,9 +5,17 @@
 
 class Tentaculo : public Inimigo{
 
+    private:
+        bool ativo = false;
+        bool aparecer = true;
+        bool sumir = true;
+
     public:
         Tentaculo(double max, double regen, double infec, double dano);
 
+        void Ataque() override;
+        void Update() override;
+        void Draw() override;
 };
 
 #endif
