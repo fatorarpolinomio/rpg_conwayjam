@@ -26,7 +26,6 @@ void Inimigo::Morrer(){
 
 void Inimigo::Seguir(Vector2 pos)
 {
-
     
     Vector2 seguindoPlayer = Vector2MoveTowards(getPosicao(), pos, velocidade);
     Vector2 offset = Vector2Subtract(seguindoPlayer, getPosicao());

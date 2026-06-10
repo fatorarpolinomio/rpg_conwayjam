@@ -1,5 +1,10 @@
 #include "entidade.hpp"
 #include <iostream>
+#include "../sistemas/globais.hpp"
+
+Entidade::Entidade(){
+  Globais::adicionaraListaRenderizacao(this);
+}
 
 void Entidade::Update(){
     if (tempoAteProxSprite <= 0) {
@@ -18,6 +23,7 @@ void Entidade::Update(){
     caixaDeColisaoAtualizada = col;
     
     if(timer > 0) timer -= 1 * GetFrameTime();
+
 }
 
 void Entidade::Draw(){

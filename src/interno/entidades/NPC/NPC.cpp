@@ -31,7 +31,6 @@ NPC::NPC(const char *caminhoSpritesheet, Vector2 Posicao){
     setPosicao(Posicao);
     setAnimacaoAtual(getIdle());
 
-    Globais::NPCS.push_back(this);
 }
 
 void NPC::Update() {
