@@ -6,7 +6,7 @@
 GameState Menu::desenhar(int screenWidth, int screenHeight){
     GameState proximoEstado = GameState::GAME_MENU;
 
-    DrawText("JOGO CONWAYJAM", screenWidth / 2 - MeasureText("JOGO CONWAYJAM",50)/2, 100, 50, RED);
+    DrawText("SOMEWHERE IN A SPACESHIP", screenWidth / 2 - MeasureText("SOMEWHERE IN A SPACESHIP",50)/2, 100, 50, RED);
 
     if(GuiButton({(float)screenWidth/2 - 100, 300, 200, 50}, "JOGAR")){
         proximoEstado = GameState::GAMEPLAY;
