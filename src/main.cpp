@@ -6,6 +6,7 @@
 #include "interno/estados/pause.hpp"
 #include "interno/estados/morte.hpp"
 #include "raylib.h"
+#include "interno/sistemas/dialogo.hpp"
 
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
@@ -37,6 +38,7 @@ int main() {
 	SetExitKey(0);
 
 	RenderTexture2D canva = LoadRenderTexture(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+	Font Kimberley = LoadFont("../assets/kimberley_bl.otf");
 
 
 	InitAudioDevice();
@@ -91,6 +93,8 @@ int main() {
 	// Carrega o que vai ser usado para detectar colisão
 	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapaMontadoSemPortas.png");
 
+	InicializarDialogoAssets();
+
 	mapa.carregarMapas(vector<Texture2D>{mapaTextura1});
 	mapa.carregarImagensDeColisao(vector<Image>{mapaImage1});
 
@@ -143,6 +147,7 @@ int main() {
 		BeginDrawing();
 			ClearBackground(BLACK);
 			if(estadoAtual == GameState::GAME_MENU){
+				Dialogue("interfone");
                 atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
                 GameState acaoMenu = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
