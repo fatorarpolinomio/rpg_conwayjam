@@ -134,7 +134,7 @@ int main() {
 
                 // Se pressionar ESC novamente enquanto pausado, retorna ao gameplay
                 if (IsKeyPressed(KEY_ESCAPE)) {
-                estadoAtual = GameState::GAMEPLAY;
+                	estadoAtual = GameState::GAMEPLAY;
                 }
             } else if (estadoAtual == GameState::DEATH) {
 				// Garante que o som de passos não continue tocando no além

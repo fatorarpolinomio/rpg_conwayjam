@@ -159,7 +159,7 @@ void Protagonista::aumentarOxigenio(int recuperacao) {
 }
 
 bool Protagonista::aumentarNivelInfeccao(int dano) {
-  nivelInfeccao += nivelInfeccao;
+  nivelInfeccao += dano - (integridade/10);
 
   // se passar de 100, envia um estado para morrer
   if (nivelInfeccao >= 100)
