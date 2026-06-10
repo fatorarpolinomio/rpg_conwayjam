@@ -163,7 +163,7 @@ int main() {
 		BeginDrawing();
 			ClearBackground(BLACK);
 			if(estadoAtual == GameState::GAME_MENU){
-				Dialogue("id");
+				
                 atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
                 GameState acaoMenu = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
