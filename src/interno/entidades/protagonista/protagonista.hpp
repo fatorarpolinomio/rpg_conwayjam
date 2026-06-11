@@ -25,7 +25,9 @@ class Protagonista : public Entidade, public CameraTarget{
 
 		Texture2D hudTexture;
 		Texture2D itemFundoTexture;
-		Texture2D itemAtualTexture;
+		Texture2D marteloIconTexture;
+		Texture2D taserIconTexture;
+		std::string itemAtual;
 
 		Direcao direcaoAtual;
         bool atacando;

@@ -24,7 +24,9 @@ Protagonista::Protagonista(Vector2 pos) {
 
     hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
     itemFundoTexture = LoadTexture("../../../assets/Spritesheets/UI/FundoItem.png");
-    itemAtualTexture = LoadTexture("../../../assets/Spritesheets/UI/MarteloIcon.png");
+    marteloIconTexture = LoadTexture("../../../assets/Spritesheets/UI/MarteloIcon.png");
+    taserIconTexture = LoadTexture("../../../assets/Spritesheets/UI/TaserIcon.png");
+    itemAtual = "Martelo";
 
     texturaMorte = LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista morte.png");
     for (int i = 0; i < 2; i++) {
@@ -258,7 +260,14 @@ void Protagonista::DrawHUD() {
   DrawTextureRec(hudTexture, {2*TamanhoBarraHUDX, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 150}, WHITE);
   
   DrawTextureRec(itemFundoTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60, 720 - 96 - 60 }, WHITE);
-  DrawTextureRec(itemAtualTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60 , 720 - 96 - 60 }, WHITE);
+  if (itemAtual == "Martelo") {
+      DrawTextureRec(marteloIconTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60 , 720 - 96 - 60 }, WHITE);
+  }
+  else if (itemAtual == "Taser") {
+      DrawTextureRec(taserIconTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60 , 720 - 96 - 60 }, WHITE);
+  }
+  else{}
+  
 }
 
 Rectangle Protagonista::getHitboxAtaque() {
