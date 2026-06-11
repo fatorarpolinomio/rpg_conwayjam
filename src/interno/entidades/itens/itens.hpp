@@ -26,7 +26,7 @@ public:
     void SetAlvo(std::string newAlvo) { alvo = newAlvo; }
     void SetSprite(Texture2D newSprite) { sprite = newSprite; }
 
-    void Get(Item item, Protagonista& protagonista);
+    void Get(Item item, Protagonista *protagonista);
 
     virtual void Draw();
 

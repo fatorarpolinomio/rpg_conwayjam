@@ -8,7 +8,7 @@
 #include <chrono>
 
 Menu::Menu() {
-    nave = LoadTexture("../assets/Backgrounds/nave.png");
+    nave = LoadTexture("../../../assets/Backgrounds/nave.png");
 }
 
 GameState Menu::desenhar(int screenWidth, int screenHeight){
