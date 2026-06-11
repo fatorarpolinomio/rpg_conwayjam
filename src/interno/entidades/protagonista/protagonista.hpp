@@ -55,6 +55,8 @@ class Protagonista : public Entidade, public CameraTarget{
 		Vector2 getPosicao(){ return posicao; }
 
 		Rectangle getHitboxAtaque();
+		bool isAtacando() const { return atacando; }
+        Direcao getDirecaoAtual() const { return direcaoAtual; }
 
 		bool diminuirIntegridade(int dano);
 		bool diminuirOxigenio(int vazamento);

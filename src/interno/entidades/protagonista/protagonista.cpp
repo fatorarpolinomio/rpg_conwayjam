@@ -122,7 +122,7 @@ void Protagonista::Update() {
         // GATILHO DO ATAQUE
         if (IsKeyPressed(KEY_SPACE)) {
             atacando = true;
-            tempoAtaque = 0.3f; // Ajuste para ficar sincronizado com os frames da arma
+            tempoAtaque = 0.2f; // Ajuste para ficar sincronizado com os frames da arma
 
             if (direcaoAtual == ESQUERDA || direcaoAtual == BAIXO) {
                 AnimacaoAtual = atacarEsquerda;

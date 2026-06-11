@@ -146,6 +146,36 @@ int main() {
 				camera.Update();
 				inimigoManager.Update();
 
+				if (violeta.isAtacando()) {
+
+                    Rectangle hitboxAtaque = violeta.getHitboxAtaque();
+
+                    // Varre todas as entidades ativas na tela
+                    for (Entidade* entidade : Globais::ListaDeRenderizacao) {
+
+                        // Trava de Segurança: A Violeta não pode dar dano nela mesma
+                        if (entidade == &violeta) continue;
+
+                        // Checa se o machado encostou na entidade
+                        if (CheckCollisionRecs(hitboxAtaque, entidade->getCaixaColisao())) {
+
+                            // Força pequena que acumula pelos frames de animação
+                            float forcaRepulsao = 8.0f;
+
+                            Vector2 posInimigo = entidade->getPosicao();
+                            Direcao dir = violeta.getDirecaoAtual();
+
+                            // Empurra de acordo com o lado que a Violeta olha
+                            if (dir == Direcao::DIREITA)  posInimigo.x += forcaRepulsao;
+                            if (dir == Direcao::ESQUERDA) posInimigo.x -= forcaRepulsao;
+                            if (dir == Direcao::BAIXO)    posInimigo.y += forcaRepulsao;
+                            if (dir == Direcao::CIMA)     posInimigo.y -= forcaRepulsao;
+
+                            entidade->setPosicao(posInimigo);
+                        }
+                    }
+                }
+
 				if(!violeta.getOxigenio() || violeta.getInfeccao() >= 100){
 				    violeta.Morrer();
 				    transicaoFade.Iniciar(GameState::DEATH);
