@@ -204,7 +204,7 @@ void Protagonista::Update() {
     // Era pra ser lista só de renderização mas serve para outras coisas
     for(Entidade *entidade : Globais::ListaDeRenderizacao){
       if(Item* item = dynamic_cast<Item*>(entidade)){
-        if(Vector2Distance(item->getPosicao(), getPosicao()) < 20.0f){
+        if(Vector2Distance(Vector2{item->getPosicao().x+16, item->getPosicao().y+16}, Vector2{getPosicao().x+32, getPosicao().y+32}) < 30.0f){
           item->Get(*item,this);
           Globais::removerListaRenderizacao(item);
         }
