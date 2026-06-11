@@ -43,54 +43,54 @@ void Atos::iniciarAto(HistoryState novoAto) {
         };
         // - Dar spawn nos NPCs iniciais
     } else if(novoAto == HistoryState::ACT_1){
-        this->mapa->setMapa(1);
+        this->mapa->setMapa(2);
         PlayMusicStream((*trilha)[1]);
 
         for(NPC *npc : npcs){
             Globais::removerListaRenderizacao(npc);
-        } 
+        }
 
-        Inimigo *inimigo1 = new Tripulante(100,10,10,10); 
+        Inimigo *inimigo1 = new Tripulante(100,10,10,10);
         inimigo1->setPosicao(Vector2{20,540});
         inimigos.push_back(inimigo1);
-        
-        Inimigo *inimigo2 = new Smilinguido(100,10,10,30); 
+
+        Inimigo *inimigo2 = new Smilinguido(100,10,10,30);
         inimigo2->setPosicao(Vector2{920,910});
         inimigos.push_back(inimigo2);
-        
-        Inimigo *inimigo3 = new Tripulante(100,10,10,10); 
+
+        Inimigo *inimigo3 = new Tripulante(100,10,10,10);
         inimigo3->setPosicao(Vector2{1160,260});
         inimigos.push_back(inimigo3);
-        
-        Inimigo *inimigo4 = new Smilinguido(100,10,10,30); 
+
+        Inimigo *inimigo4 = new Smilinguido(100,10,10,30);
         inimigo4->setPosicao(Vector2{1475,450});
         inimigos.push_back(inimigo4);
-        
-        Inimigo *inimigo5 = new Tentaculo(100,10,30,20); 
+
+        Inimigo *inimigo5 = new Tentaculo(100,10,30,20);
         inimigo5->setPosicao(Vector2{725,650});
         inimigos.push_back(inimigo5);
-        
-        Inimigo *inimigo6 = new Tripulante(100,10,10,10); 
+
+        Inimigo *inimigo6 = new Tripulante(100,10,10,10);
         inimigo6->setPosicao(Vector2{1180,660});
         inimigos.push_back(inimigo6);
-        
-        Inimigo *inimigo7 = new Amalgama(100,10,0,0); 
+
+        Inimigo *inimigo7 = new Amalgama(100,10,0,0);
         inimigo7->setPosicao(Vector2{700,240});
         inimigos.push_back(inimigo7);
 
-        Inimigo *inimigo8 = new Tentaculo(100,10,30,20); 
+        Inimigo *inimigo8 = new Tentaculo(100,10,30,20);
         inimigo8->setPosicao(Vector2{1800,910});
         inimigos.push_back(inimigo8);
-        
 
-        
 
-        
+
+
+
 
         // - Dar spawn nos inimigos novos
         // - Remover NPCs antigos
     } else if(novoAto == HistoryState::ACT_2){
-        this->mapa->setMapa(2);
+        this->mapa->setMapa(3);
         PlayMusicStream((*trilha)[2]);
     }
 }
@@ -104,13 +104,44 @@ void Atos::Update(){
         UpdateMusicStream((*trilha)[2]);
     }
 
+    Vector2 posVioleta = violeta->getPosicao();
+
     // GATILHOS DE MUDANÇA DE ESTADO
     if (atoAtual == HistoryState::ACT_0) {
-        // Exemplo: Se a Violeta andar até a porta (ex: X for maior que 2000), vai pro Ato 1
-        if (violeta->getPosicao().x > 1800) {
-            iniciarAto(HistoryState::ACT_1);
+
+            // 1. Diálogo Inicial
+            if (!ativouDialogoInicial) {
+                idDialogoAtual = "interfone"; // Violeta recebe o chamado
+                IsDialogueActive = true;
+                ativouDialogoInicial = true;
+            }
+
+            // 2. Ir até o Meteoro para Consertar
+            if (!consertouMeteoro) {
+
+                // Se ela chegar perto do meteoro
+                if (violeta->getPosicao().x > 1800) {
+                    consertouMeteoro = true; // Liberada para voltar a dormir
+                    this->mapa->setMapa(1);
+                }
+            }
+            // 3. Voltar para o quarto e dormir
+            else if (!foiDormir) {
+                Vector2 posCama = { 15.0f, 1075.0f }; // Substitua pela coordenada da cama dela
+
+                // Se ela voltou pra cama e fechou qualquer diálogo anterior
+                if (Vector2Distance(posVioleta, posCama) < 60.0f && !IsDialogueActive) {
+                    idDialogoAtual = "mimir"; // Toca o texto "ZZZ..."
+                    IsDialogueActive = true;
+                    foiDormir = true;
+
+                    // A MÁGICA DA TRANSIÇÃO ACONTECE AQUI
+                    iniciarAto(HistoryState::ACT_1); // Troca o mapa, a música e spawna os inimigos nas costas dela
+                    violeta->setPosicao(posCama); // Crava ela na cama para garantir que não dê spawn fora do quarto
+                }
+            }
         }
-    } else if (atoAtual == HistoryState::ACT_1) {
+    else if (atoAtual == HistoryState::ACT_1) {
         // Exemplo: Se a infecção chegar a 50, muda pro Ato 2
         // if (violeta->getInfeccao() > 50) { IniciarAto(HistoryState::ACT_2); }
     } else if (atoAtual == HistoryState::ACT_2) {

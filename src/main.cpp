@@ -29,6 +29,8 @@
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 
+std::string idDialogoAtual = "interfone"; // Diálogo que começará ativo, se houver
+
 int main() {
 	setlocale(LC_ALL, "Portuguese");
 
@@ -68,7 +70,7 @@ int main() {
 
 	// TESTE, MAS COM NPCS
 	// Entidade generica
-	
+
 	Mapa mapa;
 
 	// Carrega o que vai ser renderizado
@@ -217,14 +219,25 @@ int main() {
 
 				if (estadoAtual == GameState::GAMEPLAY) {
 					violeta.DrawHUD();
-					if (IsDialogueActive && IsKeyPressed(KEY_C)) {IsDialogueActive = false;}
-					Dialogue("aperteC");
-                } else if (estadoAtual == GameState::PAUSE) {
-                    GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
-                    if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
-                        transicaoFade.Iniciar(acaoPause);
-                    }
-                } else if (estadoAtual == GameState::DEATH){
+					if (IsDialogueActive) {
+						// Desenha o diálogo determinado pelo sistema de Atos
+						Dialogue(idDialogoAtual);
+
+						// Gerencia o avanço de páginas com a tecla C
+						if (IsKeyPressed(KEY_C)) {
+							if (idDialogoAtual == "naoSobrouNada_a") {
+								idDialogoAtual = "naoSobrouNada_b"; // Avança para a parte B
+							} else {
+								IsDialogueActive = false; // Fecha a caixa se não houver próxima parte
+							}
+						}
+					}
+				} else if (estadoAtual == GameState::PAUSE) {
+					GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
+					if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
+						transicaoFade.Iniciar(acaoPause);
+					}
+				} else if (estadoAtual == GameState::DEATH){
                     GameState acaoMorte = telaMorte.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoMorte != estadoAtual && !transicaoFade.IsAtiva()) {
                         if(acaoMorte == GameState::GAMEPLAY) {
