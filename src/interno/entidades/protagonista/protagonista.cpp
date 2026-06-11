@@ -11,18 +11,26 @@ Protagonista::Protagonista(Vector2 pos) {
     frameAtual = 0;
     setDepth(10);
 
-  spritesheet =
-      LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista.png");
-  passos = LoadSound("../../../assets/audio/sfx/caminhando.wav");
-  SetMasterVolume(0.3f);
+    spritesheet = LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
+    passos = LoadSound("../assets/audio/sfx/caminhando.wav");
+    SetMasterVolume(0.3f);
 
-  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
-  itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/KeyCard.png");
+    hudTexture = LoadTexture("../assets/Spritesheets/UI/HUD.png");
+    itemAtualImage = LoadImage("../assets/Spritesheets/Itens/KeyCard.png");
   ImageResizeNN(&itemAtualImage, 96, 96);
   itemAtualTexture = LoadTextureFromImage(itemAtualImage);
   UnloadImage(itemAtualImage);
 
   // Animações
+  atacarEsquerda = {
+        Rectangle{64, 192, 64, 64},  // Levanta o machado
+        Rectangle{128, 192, 64, 64}  // Desce o machado
+    };
+
+  atacarDireita = {
+        Rectangle{192, 192, 64, 64}, // Levanta o machado
+        Rectangle{0, 256, 64, 64}    // Desce o machado
+    };
   andarCima = {
       Rectangle{128, 64, 64, 64},
       Rectangle{192, 64, 64, 64},
@@ -61,49 +69,92 @@ Protagonista::Protagonista(Vector2 pos) {
 // funcoes ------------------------------------
 
 void Protagonista::Update() {
-  Entidade::Update();
-  if (!IsSoundPlaying(passos)) {
-    PlaySound(passos);
-  }
+    if (!IsSoundPlaying(passos)) {
+        PlaySound(passos);
+    }
+
+    setEstadoPor(PARADO, 0);
 
 
-  setEstadoPor(PARADO,0);
+    if (atacando) {
+            tempoAtaque -= GetFrameTime();
 
-  // Fazer um metodo pra Input?
-  if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !Mapa::estaCollidindo(Vector2{(float)(1+velocidade),0}, getCaixaColisao())){
-    posicao.x += velocidade;
-    AnimacaoAtual = andarDireita;
+            // Controle manual dos frames do machado
+            if (tempoAtaque > 0.15f|| AnimacaoAtual.size() <= 1) {
+                frameAtual = 0; // Primeiros 0.15s: Mantém no Frame 0 (Levantando o machado)
+            } else {
+                frameAtual = 1; // Últimos 0.15s: Pula para o Frame 1 (Descendo o machado)
+            }
 
-    setEstadoPor(ANDANDO, 0);
-  }
-  if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && !Mapa::estaCollidindo(Vector2{(float)(-1-velocidade),0}, getCaixaColisao())) {
-    posicao.x -= velocidade;
-    AnimacaoAtual = andarEsquerda;
+            if (tempoAtaque <= 0.0f) {
+                atacando = false;
+                AnimacaoAtual = idle; // Terminou de bater
+                frameAtual = 0;       // Reseta o frame para não dar erro
+            }
+        }
 
-    setEstadoPor(ANDANDO, 0);
-  }
-  if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && !Mapa::estaCollidindo(Vector2{0,(float)(-1-velocidade)}, getCaixaColisao())){
-    posicao.y -= velocidade;
-    AnimacaoAtual = andarCima;
+    if (!atacando) {
+        // GATILHO DO ATAQUE
+        if (IsKeyPressed(KEY_SPACE)) {
+            atacando = true;
+            tempoAtaque = 0.3f; // Ajuste para ficar sincronizado com os frames da arma
 
-    setEstadoPor(ANDANDO, 0);
-  }
-  if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && !Mapa::estaCollidindo(Vector2{0,(float)(1+velocidade)}, getCaixaColisao())){
-    posicao.y += velocidade;
-    AnimacaoAtual = andarBaixo;
+            if (direcaoAtual == ESQUERDA || direcaoAtual == BAIXO) {
+                AnimacaoAtual = atacarEsquerda;
+            } else {
+                AnimacaoAtual = atacarDireita;
+            }
+        }
+        else {
+            if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !Mapa::estaCollidindo(Vector2{(float)(1+velocidade),0}, getCaixaColisao())){
+                posicao.x += velocidade;
+                AnimacaoAtual = andarDireita;
+                direcaoAtual = DIREITA;
+                setEstadoPor(ANDANDO, 0);
+            }
+            else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && !Mapa::estaCollidindo(Vector2{(float)(-1-velocidade),0}, getCaixaColisao())) {
+                posicao.x -= velocidade;
+                AnimacaoAtual = andarEsquerda;
+                direcaoAtual = ESQUERDA;
+                setEstadoPor(ANDANDO, 0);
+            }
+            else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && !Mapa::estaCollidindo(Vector2{0,(float)(-1-velocidade)}, getCaixaColisao())){
+                posicao.y -= velocidade;
+                AnimacaoAtual = andarCima;
+                direcaoAtual = CIMA;
+                setEstadoPor(ANDANDO, 0);
+            }
+            else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && !Mapa::estaCollidindo(Vector2{0,(float)(1+velocidade)}, getCaixaColisao())){
+                posicao.y += velocidade;
+                AnimacaoAtual = andarBaixo;
+                direcaoAtual = BAIXO;
+                setEstadoPor(ANDANDO, 0);
+            }
+        }
+    }
 
-    setEstadoPor(ANDANDO, 0);
-  }
+    // Controle do áudio dos passos
+    if (getEstado() == ANDANDO) {
+        ResumeSound(passos);
+    } else {
+        PauseSound(passos);
+    }
 
-  if(getEstado() == ANDANDO) {
-    ResumeSound(passos);
-  }else {
-    PauseSound(passos);
-  }
+    Entidade::Update();
 }
 
 void Protagonista::Draw() {
-  Entidade::Draw();
+    // 1ª Camada de Segurança: Nunca tenta desenhar se o vetor estiver vazio
+    if (AnimacaoAtual.empty()) return;
+
+    if (atacando) {
+        // 2ª Camada de Segurança: O Módulo (%) força o frame a "dar a volta"
+        // e nunca ultrapassar o limite do vetor, impedindo o jogo de fechar.
+        int frameSeguro = frameAtual % AnimacaoAtual.size();
+        DrawTextureRec(spritesheet, AnimacaoAtual[frameSeguro], getPosicao(), WHITE);
+    } else {
+        Entidade::Draw();
+    }
 }
 
 void Protagonista::DrawHUD() {
@@ -116,6 +167,29 @@ void Protagonista::DrawHUD() {
   DrawTextureRec(hudTexture, {1*TamanhoBarraHUDX, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 100}, WHITE);
   DrawTextureRec(hudTexture, {2*TamanhoBarraHUDX, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 150}, WHITE);
   //Nn precisa mais do item no HUD, pq arma tem sprite, e consumível e chave só some.
+}
+
+Rectangle Protagonista::getHitboxAtaque() {
+    // Pega a base de colisão atual da Violeta
+    Rectangle caixa = getCaixaColisao();
+
+    float alcance = 32.0f; // O quão longe a arma acerta
+    float larguraGolpe = 45.0f; // A "largura" do arco do golpe
+
+    if (direcaoAtual == ESQUERDA) {
+        caixa.x -= alcance; // Joga para a esquerda
+        caixa.width = alcance;
+        caixa.height = larguraGolpe;
+        caixa.y -= (larguraGolpe - getCaixaColisao().height) / 2.0f; // Centraliza no eixo Y
+    }
+    else if (direcaoAtual == DIREITA) {
+        caixa.x += getCaixaColisao().width; // Joga para a direita
+        caixa.width = alcance;
+        caixa.height = larguraGolpe;
+        caixa.y -= (larguraGolpe - getCaixaColisao().height) / 2.0f; // Centraliza no eixo Y
+    }
+
+    return caixa;
 }
 
 bool Protagonista::diminuirIntegridade(int dano) {

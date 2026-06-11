@@ -9,8 +9,9 @@
 #include <vector>
 #include "../entidade.hpp"
 
-using namespace std;
 
+using namespace std;
+enum Direcao { CIMA, DIREITA, BAIXO, ESQUERDA };
 class Protagonista : public Entidade, public CameraTarget{
 
 	private:
@@ -23,6 +24,13 @@ class Protagonista : public Entidade, public CameraTarget{
 		Texture2D itemAtualTexture;
 		Image itemAtualImage;
 
+		Direcao direcaoAtual;
+        bool atacando;
+        float tempoAtaque;
+
+		std::vector<Rectangle> atacarEsquerda;
+		std::vector<Rectangle> atacarDireita;
+
 	public:
 		// Audio
 		Sound passos;
@@ -31,6 +39,8 @@ class Protagonista : public Entidade, public CameraTarget{
 		Vector2 GetTargetPosicao() override;
 
 		Vector2 getPosicao(){ return posicao; }
+
+		Rectangle getHitboxAtaque();
 
 		bool diminuirIntegridade(int dano);
 		bool diminuirOxigenio(int vazamento);
