@@ -5,6 +5,8 @@
 #include <cmath>
 #include "../../cenario/mapa.hpp"
 #include "protagonista.hpp"
+#include <raymath.h>                 
+#include "../../sistemas/globais.hpp" 
 
 Protagonista::Protagonista(Vector2 pos) {
     velocidade = 1.0f;
@@ -76,11 +78,18 @@ Protagonista::Protagonista(Vector2 pos) {
 
   setCaixaColisao(Rectangle{10,48,40,16});
 
+  somProximidade = LoadSound("../../../assets/audio/sfx/scare.wav");
+  SetSoundVolume(somProximidade, 0.0f); 
 }
 
 // funcoes ------------------------------------
 
 void Protagonista::Update() {
+    float raioMaximo = 100.0f;
+    float menorDistancia = raioMaximo;
+    bool inimigoPerto = false;
+
+
     if (!IsSoundPlaying(passos)) {
         PlaySound(passos);
     }
@@ -164,6 +173,32 @@ void Protagonista::Update() {
     } else {
         PauseSound(passos);
     }
+
+
+    for (Inimigo* inimigo : Globais::Inimigos) {
+        if (inimigo != nullptr) {
+            float distancia = Vector2Distance(this->getPosicao(), inimigo->getPosicao());
+            if (distancia < raioMaximo) {
+                inimigoPerto = true;
+                if (distancia < menorDistancia) {
+                    menorDistancia = distancia; 
+                }
+            }
+        }
+    }
+
+    if (inimigoPerto && estadoDanoAtual != EstadoProtagonista::MORTO) {
+        if (!IsSoundPlaying(somProximidade)) {
+            PlaySound(somProximidade);
+        }
+        SetSoundVolume(somProximidade, 1.0f);
+    }
+    else {
+        if (IsSoundPlaying(somProximidade)) {
+            StopSound(somProximidade);
+        }
+    }
+
 
     Entidade::Update();
 }

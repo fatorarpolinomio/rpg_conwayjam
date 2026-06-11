@@ -17,6 +17,8 @@ enum class EstadoProtagonista {NORMAL, TOMANDO_DANO, MORTO};
 class Protagonista : public Entidade, public CameraTarget{
 
 	private:
+		Sound somProximidade;
+
 		double integridade;
 		double oxigenio;
 		double nivelInfeccao;
@@ -48,6 +50,9 @@ class Protagonista : public Entidade, public CameraTarget{
 	public:
 		// Audio
 		Sound passos;
+
+		void PausarSons(); 
+
 		Protagonista(Vector2 pos);
 
 		Vector2 GetTargetPosicao() override;
