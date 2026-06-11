@@ -53,6 +53,16 @@ Protagonista::Protagonista(Vector2 pos) {
         Rectangle{ 0, 320, 64, 64 },
         Rectangle{ 0, 320, 64, 64 }
     };
+    atacarEsquerdaMartelo = {
+        Rectangle{ 64, 192, 64, 64 },
+        Rectangle{ 128, 192, 64, 64 },
+        Rectangle{ 128, 192, 64, 64 },
+    };
+    atacarDireitaMartelo = {
+        Rectangle{ 192, 192, 64, 64 },
+        Rectangle{ 0, 256, 64, 64 },
+        Rectangle{ 0, 256, 64, 64 }
+    };
 
   idle = {
       Rectangle{0, 0, 64, 64},
@@ -64,7 +74,7 @@ Protagonista::Protagonista(Vector2 pos) {
   integridade = 100;
   oxigenio = 100;
   nivelInfeccao = 0;
-  setArma("None");
+  setArma("Taser");
 
   setCaixaColisao(Rectangle{10,48,40,16});
 
@@ -84,8 +94,16 @@ void Protagonista::Update() {
   // Fazer um metodo pra Input?
   if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !Mapa::estaCollidindo(Vector2{(float)(1+velocidade),0}, getCaixaColisao())){
     posicao.x += velocidade;
+    AnimacaoAtual = andarDireita;
 
-    AnimacaoAtual = atacarDireitaTaser;
+    if (IsKeyPressed(KEY_E)) {
+        if (Protagonista::getArma() == "Taser") {
+            AnimacaoAtual = atacarDireitaTaser;
+        }
+        if (Protagonista::getArma() == "Martelo") {
+            AnimacaoAtual = atacarDireitaMartelo;
+        }
+    }
     //Eu não entendo pq que mesmo estando assim a animação ainda é a de andar
 
     setEstadoPor(ANDANDO, 0);
@@ -93,6 +111,15 @@ void Protagonista::Update() {
   if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && !Mapa::estaCollidindo(Vector2{(float)(-1-velocidade),0}, getCaixaColisao())) {
     posicao.x -= velocidade;
     AnimacaoAtual = andarEsquerda;
+
+    if (IsKeyPressed(KEY_E)) {
+        if (Protagonista::getArma() == "Taser") {
+            AnimacaoAtual = atacarEsquerdaTaser;
+        }
+        if (Protagonista::getArma() == "Martelo") {
+            AnimacaoAtual = atacarEsquerdaMartelo;
+        }
+    }
 
     setEstadoPor(ANDANDO, 0);
   }

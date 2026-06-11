@@ -32,6 +32,8 @@ protected:
 
   vector<Rectangle> atacarEsquerdaTaser;
   vector<Rectangle> atacarDireitaTaser;
+  vector<Rectangle> atacarEsquerdaMartelo;
+  vector<Rectangle> atacarDireitaMartelo;
 
   float timer = 0;
 
@@ -68,6 +70,8 @@ public:
   int getDepth() const {return depth;}
   vector<Rectangle> getAtacarEsquerdaTaser() { return atacarEsquerdaTaser; }
   vector<Rectangle> getAtacarDireitaTaser() { return atacarDireitaTaser; }
+  vector<Rectangle> getAtacarEsquerdaMartelo() { return atacarEsquerdaMartelo; }
+  vector<Rectangle> getAtacarDireitaMartelo() { return atacarDireitaMartelo; }
 
   // Setters
   void setPosicao(Vector2 novaPosicao) { this->posicao = novaPosicao; }
@@ -88,6 +92,8 @@ public:
   void setDepth(int novaDepth){depth = novaDepth;}
   void setAtacarEsquerdaTaser(vector<Rectangle> newAtacarEsquerdaTaser) { this->atacarEsquerdaTaser = newAtacarEsquerdaTaser; }
   void setAtacarDireitaTaser(vector<Rectangle> newAtacarDireitaTaser) { this->atacarDireitaTaser = newAtacarDireitaTaser; }
+  void setAtacarEsquerdaMartelo(vector<Rectangle> newAtacarEsquerdaMartelo) { this->atacarEsquerdaMartelo = newAtacarEsquerdaMartelo; }
+  void setAtacarDireitaMartelo(vector<Rectangle> newAtacarDireitaMartelo) { this->atacarDireitaMartelo = newAtacarDireitaMartelo; }
 
   virtual void Update(); // Atualização da entidade a cada frame
   virtual void Draw();   // Desenha entidade a cada frame
