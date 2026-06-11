@@ -5,15 +5,19 @@
 #include "../protagonista/protagonista.hpp"
 #include "itens.hpp"
 
-Item::Item() {
-    nome = "";
-    tipo = "";
-    dano = 0.0;
-    regeneracao = 0.0;
-    alvo = "";
-    // spritesheet deve ser inicializado conforme necessário no seu projeto
+Item::Item(std::string tipo, double taxa, std::string alvo, const char* caminhoSpritesheet, Vector2 Posicao) {
+    SetTipo(tipo);
+    SetTaxa(taxa);
+    SetAlvo(alvo);
+    SetSprite(LoadTexture(caminhoSpritesheet));
+    SetPosicao(Posicao);
 }
 
+void Item::Draw() {
+    DrawTextureRec(spritesheet, { 0, 0, 32, 32 }, getPosicao(), WHITE);
+}
+
+/*
 Item Xarope() {
   Item xarope;
   xarope.SetTipo("Consumível");
@@ -61,7 +65,7 @@ Item Taser() {
     Item taser;
     taser.SetTipo("Arma");
     taser.SetDano(50);
-	taser.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/Taser.png"));
+    taser.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/Taser.png"));
     return taser;
 }
 
@@ -86,35 +90,37 @@ Item Ferramentas() {
   ferramentas.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/CaixaDeFerramentas.png"));
   return ferramentas;
 }
+*/
 
-
-void Item::Use(Item item, Protagonista& protagonista, Inimigo& inimigo) {
+void Item::Get(Item item, Protagonista& protagonista) {
     if (item.GetTipo() == "Consumível") {
         if (item.GetAlvo() == "Infecção") {
-            protagonista.diminuirNivelInfeccao(item.GetRegeneracao());
+            protagonista.diminuirNivelInfeccao(item.GetTaxa());
         }
         else if (item.GetAlvo() == "Integridade") {
-            protagonista.aumentarIntegridade(item.GetRegeneracao());
+            protagonista.aumentarIntegridade(item.GetTaxa());
         }
         else if (item.GetAlvo() == "Oxigênio") {
-            protagonista.aumentarOxigenio(item.GetRegeneracao());
+            protagonista.aumentarOxigenio(item.GetTaxa());
         }
     }
     else if (item.GetTipo() == "Arma") {
-        inimigo.TomarDano(item.GetDano());
+        //protagonista equipa arma;
     }
 }
 
+/*
 void usarItem(Item item, Protagonista &protagonista, Inimigo &inimigo) {
   if (item.GetTipo() == "Consumível") {
     if (item.GetAlvo() == "Infecção") {
-      protagonista.diminuirNivelInfeccao(item.GetRegeneracao());
+      protagonista.diminuirNivelInfeccao(item.GetTaxa());
     } else if (item.GetAlvo() == "Integridade") {
-      protagonista.aumentarIntegridade(item.GetRegeneracao());
+      protagonista.aumentarIntegridade(item.GetTaxa());
     } else if (item.GetAlvo() == "Oxigênio") {
-      protagonista.aumentarOxigenio(item.GetRegeneracao());
+      protagonista.aumentarOxigenio(item.GetTaxa());
     }
   } else if (item.GetTipo() == "Arma") {
-    inimigo.TomarDano(item.GetDano());
+    inimigo.TomarDano(item.GetTaxa());
   }
 }
+*/
