@@ -45,13 +45,13 @@ void Atos::iniciarAto(HistoryState novoAto) {
         };
 
        	new Item ("Consumível", 50, "Infecção", "../../../assets/Spritesheets/Itens/Xarope.png", { 600,750 });
-        new Item ("Consumível", 100, "Oxigênio", "../../../assets/Spritesheets/Itens/TanqueO2.png", { 1000, 1000 });
-        new Item ("Consumível", 30, "Integridade", "../../../assets/Spritesheets/Itens/SilverTape.png", { 1000,1000 });
-        new Item ("Consumível", 100, "Integridade", "../../../assets/Spritesheets/Itens/Capacete.png", { 1000,1000 });
-        new Item ("Arma", 20, "", "../../../assets/Spritesheets/Itens/Martelo.png", { 1000,1000 });
+       	new Item ("Consumível", 50, "Infecção", "../../../assets/Spritesheets/Itens/Xarope.png", { 540,1080 });
+        new Item ("Consumível", 100, "Oxigênio", "../../../assets/Spritesheets/Itens/TanqueO2.png", { 1000, 430 });
+        new Item ("Consumível", 30, "Integridade", "../../../assets/Spritesheets/Itens/SilverTape.png", {725,650});
+        new Item ("Arma", 20, "", "../../../assets/Spritesheets/Itens/Martelo.png", { 100, 750 });
         new Item ("Arma", 50, "", "../../../assets/Spritesheets/Itens/Taser.png", { 1000,1000 });
-        new Item ("Chave", 0, "", "../../../assets/Spritesheets/Itens/KeyCard.png", { 1000,1000 });
-        new Item ("Chave", 0, "", "../../../assets/Spritesheets/Itens/CaixaDeFerramentas.png", { 1000,1000 });
+        new Item ("Chave", 0, "", "../../../assets/Spritesheets/Itens/KeyCard.png", { 1030,840 });
+        new Item ("Consumível", 100, "Integridade", "../../../assets/Spritesheets/Itens/Capacete.png", { 180,1150 });
         new Item ("Consumivel", 0, "Chave", "../../../assets/Spritesheets/Itens/CaixaDeFerramentas.png", Vector2{200,1150});
 
         // - Dar spawn nos NPCs iniciais
