@@ -1,5 +1,6 @@
 #include "interno/entidades/protagonista/protagonista.hpp"
 #include "interno/entidades/NPC/NPC.hpp"
+#include "interno/entidades/itens/itens.hpp"
 #include "interno/sistemas/trilhaSonora.hpp"
 #include "interno/estados/estados.hpp"
 #include "interno/estados/menu.hpp"
