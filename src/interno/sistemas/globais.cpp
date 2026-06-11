@@ -14,6 +14,11 @@ void Globais::adicionaraListaRenderizacao(Entidade *entidade){
     ListaDeRenderizacao.push_back(entidade);
 }
 
+void Globais::removerListaRenderizacao(Entidade *entidade){
+    ListaDeRenderizacao.erase(std::remove(ListaDeRenderizacao.begin(), ListaDeRenderizacao.end(), entidade), ListaDeRenderizacao.end());
+}
+
+
 void Globais::UpdateListaRenderizacao(){
     std::sort(ListaDeRenderizacao.begin(), ListaDeRenderizacao.end(), [](const Entidade*a, const Entidade*b){
         return a->getPosicao().y < b->getPosicao().y;

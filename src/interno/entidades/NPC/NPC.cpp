@@ -5,7 +5,7 @@
 
 NPC::NPC(const char *caminhoSpritesheet, Vector2 Posicao){
     setSpritesheet(LoadTexture(caminhoSpritesheet));
-
+  
     setAndarCima({
         Rectangle{0, 128, 64, 64},
         Rectangle{64, 128, 64, 64},
@@ -30,7 +30,7 @@ NPC::NPC(const char *caminhoSpritesheet, Vector2 Posicao){
     
     setPosicao(Posicao);
     setAnimacaoAtual(getIdle());
-
+    
 }
 
 void NPC::Update() {

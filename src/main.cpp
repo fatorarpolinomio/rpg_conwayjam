@@ -66,36 +66,16 @@ int main() {
 
 	Globais globais(&violeta);
 
-	// TESTE
-	Tripulante inimigoTeste(100,0,20,10);
-	inimigoTeste.setPosicao(Vector2{375,840});
-
-	Smilinguido inimigoTeste2(100,0,30,10);
-	inimigoTeste2.setPosicao(Vector2{675,450});
-
-	Tentaculo inimigoTeste4(100,0,0,0);
-	inimigoTeste4.setPosicao(Vector2{575,650});
-
-	Amalgama inimigoTeste3(100,0,0,0);
-	inimigoTeste3.setPosicao(Vector2{374,450});
-
 	// TESTE, MAS COM NPCS
 	// Entidade generica
-	NPC npc1 = NPC("../assets/Spritesheets/NPCS/tripulante1.png",Vector2{600,700});
-	NPC npc2 = NPC("../assets/Spritesheets/NPCS/tripulante2.png",Vector2{-80,-100});
-	NPC npc3 = NPC("../assets/Spritesheets/NPCS/tripulante3.png",Vector2{-60,-100});
-	NPC npc4 = NPC("../assets/Spritesheets/NPCS/tripulante4.png",Vector2{-40,-100});
-	NPC npc5 = NPC("../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
-	NPC npc6 = NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
-	NPC npc7 = NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
-
+	
 	Mapa mapa;
 
 	// Carrega o que vai ser renderizado
 	// Carrega o que vai ser usado para detectar colisão
-	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapa montado sem portas.png");
-    Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapas normais escuros/mapa c meteoro sem portas escuro.png");
-    Texture2D mapaTextura3 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado c sangue.png");
+	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapa c meteoro sem portas.png");
+    Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapasNormais/mapa c meteoro sem portas silvertape.png");
+    Texture2D mapaTextura3 = LoadTexture("../assets/mapas/mapas normais escuros/mapa c meteoro sem portas escuro.png");
     Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa sem portas c sangue meteoro.png");
 
 	mapa.carregarImagensDeColisao({

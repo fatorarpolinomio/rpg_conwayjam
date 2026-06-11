@@ -17,6 +17,7 @@ class Globais{
         ~Globais();
 
         static Protagonista* GetPlayer(){return violeta;}
+        static void removerListaRenderizacao(Entidade *entidade);
         static void adicionaraListaRenderizacao(Entidade *entidade);
         static void UpdateListaRenderizacao();
 
