@@ -17,11 +17,7 @@ class Inimigo : public Entidade{
         Sound gritar2 = LoadSound("../assets/audio/sfx/gritoInimigo2.wav");
         Sound gritar3 = LoadSound("../assets/audio/sfx/gritoInimigo3.wav");
         Sound scare = LoadSound("../assets/audio/sfx/scare.wav");
-<<<<<<< HEAD
-=======
-
->>>>>>> 1f8a25f41c20539b3ed171618a492d86ed6575f4
-
+        
     private:
 
         double MaxVida;
