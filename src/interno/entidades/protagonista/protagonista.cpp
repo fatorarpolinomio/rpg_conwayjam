@@ -21,16 +21,8 @@ Protagonista::Protagonista(Vector2 pos) {
     SetMasterVolume(0.3f);
 
     hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
-
-    Image itemFundoImage = LoadImage("../../../assets/Spritesheets/UI/FundoItem.png");
-    ImageResizeNN(&itemFundoImage, 96, 96);
-    Texture2D itemFundoTexture = LoadTextureFromImage(itemFundoImage);
-    UnloadImage(itemFundoImage);
-
-    Image itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/Martelo.png");
-    ImageResizeNN(&itemAtualImage, 96, 96);
-    Texture2D itemAtualTexture = LoadTextureFromImage(itemAtualImage);
-    UnloadImage(itemAtualImage);
+    itemFundoTexture = LoadTexture("../../../assets/Spritesheets/UI/FundoItem.png");
+    itemAtualTexture = LoadTexture("../../../assets/Spritesheets/UI/MarteloIcon.png");
 
     texturaMorte = LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista morte.png");
     for (int i = 0; i < 2; i++) {
@@ -230,8 +222,8 @@ void Protagonista::DrawHUD() {
   DrawTextureRec(hudTexture, {1*TamanhoBarraHUDX, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 100}, WHITE);
   DrawTextureRec(hudTexture, {2*TamanhoBarraHUDX, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 150}, WHITE);
   
-  DrawTextureRec(itemFundoTexture, { 0, 0, 96, 96 }, { 20, 200 }, WHITE);
-  DrawTextureRec(itemAtualTexture, { 0, 0, 96, 96 }, { 20, 200 }, WHITE);
+  DrawTextureRec(itemFundoTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60, 720 - 96 - 60 }, WHITE);
+  DrawTextureRec(itemAtualTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60 , 720 - 96 - 60 }, WHITE);
 }
 
 Rectangle Protagonista::getHitboxAtaque() {

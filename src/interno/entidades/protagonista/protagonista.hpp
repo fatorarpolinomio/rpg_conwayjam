@@ -21,11 +21,9 @@ class Protagonista : public Entidade, public CameraTarget{
 		double oxigenio;
 		double nivelInfeccao;
 
-
 		Texture2D hudTexture;
 		Texture2D itemFundoTexture;
 		Texture2D itemAtualTexture;
-		Image itemAtualImage;
 
 		Direcao direcaoAtual;
         bool atacando;
