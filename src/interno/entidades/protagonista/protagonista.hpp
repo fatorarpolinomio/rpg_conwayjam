@@ -33,8 +33,11 @@ private:
 	bool atacando;
 	float tempoAtaque;
 
-	std::vector<Rectangle> atacarEsquerda;
-	std::vector<Rectangle> atacarDireita;
+	std::vector<Rectangle> atacarEsquerdaMartelo;
+	std::vector<Rectangle> atacarDireitaMartelo;
+	std::vector<Rectangle> atacarEsquerdaTaser;
+	std::vector<Rectangle> atacarDireitaTaser;
+	
 
 	// VARIÁVEIS DE ANIMAÇÃO DE DANO
 	EstadoProtagonista estadoDanoAtual;
