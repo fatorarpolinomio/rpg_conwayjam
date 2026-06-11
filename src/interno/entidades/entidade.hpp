@@ -46,7 +46,7 @@ public:
   Entidade();
 
   // Destrutor
-  ~Entidade(){}
+  ~Entidade();
 
   // Getters
   Vector2 getPosicao() const { return posicao; }

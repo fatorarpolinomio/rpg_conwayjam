@@ -14,75 +14,79 @@ using namespace std;
 enum Direcao { CIMA, DIREITA, BAIXO, ESQUERDA };
 enum class EstadoProtagonista {NORMAL, TOMANDO_DANO, MORTO};
 
-class Protagonista : public Entidade, public CameraTarget{
+class Protagonista : public Entidade, public CameraTarget {
 
-	private:
-		double integridade;
-		double oxigenio;
-		double nivelInfeccao;
+private:
+	Sound somProximidade;
 
+	double integridade;
+	double oxigenio;
+	double nivelInfeccao;
 
-		Texture2D hudTexture;
-		Texture2D itemAtualTexture;
-		Image itemAtualImage;
+	Texture2D hudTexture;
+	Texture2D itemFundoTexture;
+	Texture2D marteloIconTexture;
+	Texture2D taserIconTexture;
+	std::string itemAtual;
 
-		Direcao direcaoAtual;
-        bool atacando;
-        float tempoAtaque;
+	Direcao direcaoAtual;
+	bool atacando;
+	float tempoAtaque;
 
-		std::vector<Rectangle> atacarEsquerda;
-		std::vector<Rectangle> atacarDireita;
+	std::vector<Rectangle> atacarEsquerda;
+	std::vector<Rectangle> atacarDireita;
 
-		// VARIÁVEIS DE ANIMAÇÃO DE DANO
-		EstadoProtagonista estadoDanoAtual;
-        float tempoAnimacaoDano;
-        float duracaoDano;
-        Rectangle spriteDano;
+	// VARIÁVEIS DE ANIMAÇÃO DE DANO
+	EstadoProtagonista estadoDanoAtual;
+	float tempoAnimacaoDano;
+	float duracaoDano;
+	Rectangle spriteDano;
 
-        // VARIÁVEIS DE MORTE
-        Texture2D texturaMorte;
-        std::vector<Rectangle> framesMorte;
-        int frameMorteAtual;
-        float temporizadorMorte;
+	// VARIÁVEIS DE MORTE
+	Texture2D texturaMorte;
+	std::vector<Rectangle> framesMorte;
+	int frameMorteAtual;
+	float temporizadorMorte;
 
-	public:
-		// Audio
-		Sound passos;
-		Protagonista(Vector2 pos);
+public:
+	// Audio
+	Sound passos;
 
-		Vector2 GetTargetPosicao() override;
+	void PausarSons();
 
-		Vector2 getPosicao(){ return posicao; }
+	Protagonista(Vector2 pos);
 
-		Rectangle getHitboxAtaque();
-		bool isAtacando() const { return atacando; }
-        Direcao getDirecaoAtual() const { return direcaoAtual; }
+	Vector2 GetTargetPosicao() override;
 
-		bool diminuirIntegridade(int dano);
-		bool diminuirOxigenio(int vazamento);
-		void diminuirNivelInfeccao(int recuperacao);
+	Vector2 getPosicao() { return posicao; }
 
-		void aumentarIntegridade(int recuperacao);
-		void aumentarOxigenio(int recuperacao);
-		bool aumentarNivelInfeccao(int dano);
+	Rectangle getHitboxAtaque();
+	bool isAtacando() const { return atacando; }
+	Direcao getDirecaoAtual() const { return direcaoAtual; }
 
-		void setIntegridade(int novaIntegridade) {integridade = novaIntegridade;}
+	bool diminuirIntegridade(int dano);
+	bool diminuirOxigenio(int vazamento);
+	void diminuirNivelInfeccao(int recuperacao);
 
-		void setOxigenio(int novoOxigenio) {oxigenio = novoOxigenio;}
+	void aumentarIntegridade(int recuperacao);
+	void aumentarOxigenio(int recuperacao);
+	bool aumentarNivelInfeccao(int dano);
 
-		void setInfeccao(int novoNivelInfeccao) {nivelInfeccao = novoNivelInfeccao;}
+	void setIntegridade(int novaIntegridade) { integridade = novaIntegridade; }
+	void setOxigenio(int novoOxigenio) { oxigenio = novoOxigenio; }
+	void setInfeccao(int novoNivelInfeccao) { nivelInfeccao = novoNivelInfeccao; }
+	void setItemAtual(std::string novoItem) { itemAtual = novoItem; }
 
-		int getIntegridade() {return integridade;}
+	int getIntegridade() { return integridade; }
+	int getOxigenio() { return oxigenio; }
+	int getInfeccao() { return nivelInfeccao; }
+	std::string getItemAtual(){return itemAtual;}
 
-		int getOxigenio() {return oxigenio;}
-
-		int getInfeccao() {return nivelInfeccao;}
-
-		void TomaDano();
-		void Update() override;
-		void Draw() override;
-		void DrawHUD();
-		void Morrer();
+	void TomaDano();
+	void Update() override;
+	void Draw() override;
+	void DrawHUD();
+	void Morrer();
 
 };
 

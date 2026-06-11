@@ -33,14 +33,15 @@ void Atos::iniciarAto(HistoryState novoAto) {
         this->mapa->setMapa(0);
         PlayMusicStream((*trilha)[0]);
 
+        violeta->setInfeccao(50);
         npcs = {
-            new NPC("../assets/Spritesheets/NPCS/tripulante1.png",Vector2{35,900}),
-            new NPC("../assets/Spritesheets/NPCS/tripulante2.png",Vector2{800,700}),
-            new NPC("../assets/Spritesheets/NPCS/tripulante3.png",Vector2{1000,150}),
-            new NPC("../assets/Spritesheets/NPCS/tripulante4.png",Vector2{1080,660}),
-            new NPC("../assets/Spritesheets/NPCS/tripulante5.png",Vector2{500,450}),
-            new NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{920,900}),
-            new NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{800,150})
+            new NPC("../../../assets/Spritesheets/NPCS/tripulante1.png",Vector2{35,900}),
+            new NPC("../../../assets/Spritesheets/NPCS/tripulante2.png",Vector2{800,700}),
+            new NPC("../../../assets/Spritesheets/NPCS/tripulante3.png",Vector2{1000,150}),
+            new NPC("../../../assets/Spritesheets/NPCS/tripulante4.png",Vector2{1080,660}),
+            new NPC("../../../assets/Spritesheets/NPCS/tripulante5.png",Vector2{500,450}),
+            new NPC("../../../assets/Spritesheets/NPCS/tripulante6.png",Vector2{920,900}),
+            new NPC("../../../assets/Spritesheets/NPCS/tripulante7.png",Vector2{800,150})
         };
 
        	new Item ("Consumível", 50, "Infecção", "../assets/Spritesheets/Itens/Xarope.png", { 600,750 });

@@ -4,7 +4,7 @@
 
 Tentaculo::Tentaculo(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
-        setSpritesheet(LoadTexture("../assets/Spritesheets/Inimigos/Tentaculo.png"));
+        setSpritesheet(LoadTexture("../../../assets/Spritesheets/Inimigos/Tentaculo.png"));
 
         SetMaxVelocidade(.8f);
         setVelocidade(.8f);

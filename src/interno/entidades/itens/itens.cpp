@@ -14,7 +14,7 @@ Item::Item(std::string tipo, double taxa, std::string alvo, const char* caminhoS
 }
 
 void Item::Draw() {
-    DrawTexture(getSpritesheet(), getPosicao().x, getPosicao().y, WHITE);
+    DrawTextureRec(getSpritesheet(), { 0, 0, 32, 32 }, getPosicao(), WHITE);
 }
 
 /*
@@ -92,20 +92,20 @@ Item Ferramentas() {
 }
 */
 
-void Item::Get(Item item, Protagonista& protagonista) {
+void Item::Get(Item item, Protagonista *protagonista) {
     if (item.GetTipo() == "Consumível") {
         if (item.GetAlvo() == "Infecção") {
-            protagonista.diminuirNivelInfeccao(item.GetTaxa());
+            protagonista->diminuirNivelInfeccao(item.GetTaxa());
         }
         else if (item.GetAlvo() == "Integridade") {
-            protagonista.aumentarIntegridade(item.GetTaxa());
+            protagonista->aumentarIntegridade(item.GetTaxa());
         }
         else if (item.GetAlvo() == "Oxigênio") {
-            protagonista.aumentarOxigenio(item.GetTaxa());
+            protagonista->aumentarOxigenio(item.GetTaxa());
         }
     }
     else if (item.GetTipo() == "Arma") {
-        //protagonista equipa arma;
+        protagonista->setItemAtual(item.GetAlvo());
     }
 }
 
