@@ -9,6 +9,7 @@
 #include "../entidades/inimigos/Smilinguido/Smilinguido.hpp"
 #include "../entidades/inimigos/Tentaculo/Tentaculo.hpp"
 #include "../entidades/inimigos/Amalgama/Amalgama.hpp"
+#include "../entidades/itens/itens.hpp"
 
 Atos::Atos(Mapa* mapa, Protagonista* violeta, std::vector<Music>* trilha) {
     this->mapa = mapa;
@@ -41,6 +42,18 @@ void Atos::iniciarAto(HistoryState novoAto) {
             new NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{920,900}),
             new NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{800,150})
         };
+
+       	new Item ("Consumível", 50, "Infecção", "../assets/Spritesheets/Itens/Xarope.png", { 600,750 });
+        new Item ("Consumível", 100, "Oxigênio", "../assets/Spritesheets/Itens/TanqueO2.png", { 1000, 1000 });
+        new Item ("Consumível", 30, "Integridade", "../assets/Spritesheets/Itens/SilverTape.png", { 1000,1000 });
+        new Item ("Consumível", 100, "Integridade", "../assets/Spritesheets/Itens/Capacete.png", { 1000,1000 });
+        new Item ("Arma", 20, "", "../assets/Spritesheets/Itens/Martelo.png", { 1000,1000 });
+        new Item ("Arma", 50, "", "../assets/Spritesheets/Itens/Taser.png", { 1000,1000 });
+        new Item ("Chave", 0, "", "../assets/Spritesheets/Itens/KeyCard.png", { 1000,1000 });
+        new Item ("Chave", 0, "", "../assets/Spritesheets/Itens/CaixaDeFerramentas.png", { 1000,1000 });
+
+        new Item ("Consumivel", 0, "Chave", "../assets/Spritesheets/Itens/CaixaDeFerramentas.png", Vector2{200,1150});
+
         // - Dar spawn nos NPCs iniciais
     } else if(novoAto == HistoryState::ACT_1){
         this->mapa->setMapa(1);

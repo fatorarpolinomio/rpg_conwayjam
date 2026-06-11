@@ -9,12 +9,12 @@ Item::Item(std::string tipo, double taxa, std::string alvo, const char* caminhoS
     SetTipo(tipo);
     SetTaxa(taxa);
     SetAlvo(alvo);
-    SetSprite(LoadTexture(caminhoSpritesheet));
-    SetPosicao(Posicao);
+    setSpritesheet(LoadTexture(caminhoSpritesheet));
+    setPosicao(Posicao);
 }
 
 void Item::Draw() {
-    DrawTextureRec(spritesheet, { 0, 0, 32, 32 }, getPosicao(), WHITE);
+    DrawTexture(getSpritesheet(), getPosicao().x, getPosicao().y, WHITE);
 }
 
 /*
