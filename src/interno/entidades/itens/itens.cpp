@@ -19,7 +19,7 @@ Item Xarope() {
   xarope.SetTipo("Consumível");
   xarope.SetRegeneracao(50);
   xarope.SetAlvo("Infecção");
-  xarope.SetSprite(LoadTexture("../assets/Spritesheets/Itens/Xarope.png"));
+  xarope.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/Xarope.png"));
   return xarope;
 }
 
@@ -28,7 +28,7 @@ Item Tanque() {
   tanque.SetTipo("Consumível");
   tanque.SetRegeneracao(100);
   tanque.SetAlvo("Oxigênio");
-  tanque.SetSprite(LoadTexture("../assets/Spritesheets/Itens/TanqueO2.png"));
+  tanque.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/TanqueO2.png"));
   return tanque;
 }
 
@@ -37,7 +37,7 @@ Item SilverTape() {
     silverTape.SetTipo("Consumível");
     silverTape.SetRegeneracao(20);
     silverTape.SetAlvo("Integridade");
-    silverTape.SetSprite(LoadTexture("../assets/Spritesheets/Itens/SilverTape.png"));
+    silverTape.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/SilverTape.png"));
     return silverTape;
 }
 
@@ -53,7 +53,7 @@ Item Martelo() {
   Item martelo;
   martelo.SetTipo("Arma");
   martelo.SetDano(20);
-  martelo.SetSprite(LoadTexture("../assets/Spritesheets/Itens/Martelo.png"));
+  martelo.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/Martelo.png"));
   return martelo;
 }
 
@@ -61,7 +61,7 @@ Item Taser() {
     Item taser;
     taser.SetTipo("Arma");
     taser.SetDano(50);
-	taser.SetSprite(LoadTexture("../assets/Spritesheets/Itens/Taser.png"));
+	taser.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/Taser.png"));
     return taser;
 }
 
@@ -69,21 +69,21 @@ Item Makita(){
     Item makita;
     makita.SetTipo("Arma");
     makita.SetDano(100);
-    makita.SetSprite(LoadTexture("../assets/Spritesheets/Itens/Makita.png"));
+    makita.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/Makita.png"));
     return makita;
 }
 
 Item KeyCard() {
   Item keycard;
   keycard.SetTipo("Chave");
-  keycard.SetSprite(LoadTexture("../assets/Spritesheets/Itens/KeyCard.png"));
+  keycard.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/KeyCard.png"));
   return keycard;
 }
 
 Item Ferramentas() {
   Item ferramentas;
   ferramentas.SetTipo("Chave");
-  ferramentas.SetSprite(LoadTexture("../assets/Spritesheets/Itens/CaixaDeFerramentas.png"));
+  ferramentas.SetSprite(LoadTexture("../../../assets/Spritesheets/Itens/CaixaDeFerramentas.png"));
   return ferramentas;
 }
 
