@@ -12,6 +12,8 @@ Texture2D CxDialogoTexture;
 Font font;
 bool IsDialogueActive = true;
 
+Sound somNotifica;
+
 // Função de inicialização para carregar e redimensionar a imagem
 inline void InicializarDialogoAssets()
 {
@@ -19,6 +21,8 @@ inline void InicializarDialogoAssets()
     ImageResizeNN(&CxDialogoImage, 1280, 720);
     CxDialogoTexture = LoadTextureFromImage(CxDialogoImage);
     UnloadImage(CxDialogoImage);
+
+    somNotifica = LoadSound("../../../assets/audio/sfx/notifica.wav");
 };
 
 void DesenharTexto(const char* speaker, const char* message, const char* message2) {
@@ -29,6 +33,27 @@ void DesenharTexto(const char* speaker, const char* message, const char* message
 };
 
 void Dialogue(const std::string& id) {
+   
+    static bool jaTocou=false;
+    static std::string ultimoId = "";
+
+    if (!IsDialogueActive) {
+        ultimoId = "";
+        jaTocou = false;
+        return;
+    }
+
+    if (id != ultimoId) {
+        jaTocou = false;   
+        ultimoId = id;     
+    }
+
+    if (!jaTocou) {
+        PlaySound(somNotifica);
+        jaTocou = true;
+    }
+    
+
 	if (!IsDialogueActive) return;
        if (id == "interfone") {
             DesenharTexto("INTERCOM", "Violeta, your repair services are required", "We've been hit by a non-identified body on C++ aisle");
@@ -93,6 +118,7 @@ void Dialogue(const std::string& id) {
        if (id == "idd") {
            DesenharTexto("VIOLETA", "", "");
        }
+
         // Adicione outros casos conforme necessário
 };
 
