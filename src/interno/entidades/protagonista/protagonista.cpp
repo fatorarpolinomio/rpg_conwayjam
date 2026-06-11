@@ -11,7 +11,7 @@
 #include "../itens/itens.hpp"
 
 Protagonista::Protagonista(Vector2 pos) {
-    velocidade = 1.0f;
+    velocidade = 3.0f;
     frameAtual = 0;
     setDepth(10);
 

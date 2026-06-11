@@ -222,17 +222,25 @@ int main() {
 				if (estadoAtual == GameState::GAMEPLAY) {
 					violeta.DrawHUD();
 					if (IsDialogueActive) {
-						// Desenha o diálogo determinado pelo sistema de Atos
-						Dialogue(idDialogoAtual);
+					    Dialogue(idDialogoAtual);
 
-						// Gerencia o avanço de páginas com a tecla C
-						if (IsKeyPressed(KEY_C)) {
-							if (idDialogoAtual == "naoSobrouNada_a") {
-								idDialogoAtual = "naoSobrouNada_b"; // Avança para a parte B
-							} else {
-								IsDialogueActive = false; // Fecha a caixa se não houver próxima parte
-							}
-						}
+					    if (IsKeyPressed(KEY_C)) {
+                            // Encadeamentos baseados EXATAMENTE no seu dialogo.hpp
+                            if (idDialogoAtual == "cafe1") {
+                                idDialogoAtual = "cafe2";
+                            } else if (idDialogoAtual == "npc1_a") {
+                                idDialogoAtual = "npc1_b";
+                            } else if (idDialogoAtual == "tripulantes") {
+                                idDialogoAtual = "alaNRG_a"; // Conecta o susto com a missão da energia
+                            } else if (idDialogoAtual == "alaNRG_a") {
+                                idDialogoAtual = "alaNRG_b";
+                            } else if (idDialogoAtual == "naoSobrouNada_a") {
+                                idDialogoAtual = "naoSobrouNada_b";
+                            } else {
+                                // Se for um diálogo único (como "oxiB", "cadeTodoMundo" ou "acesso"), apenas fecha
+                                IsDialogueActive = false;
+                            }
+					    }
 					}
 				} else if (estadoAtual == GameState::PAUSE) {
 					GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
