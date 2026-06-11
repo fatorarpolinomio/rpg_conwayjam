@@ -4,7 +4,7 @@
 
 Tentaculo::Tentaculo(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
-        setSpritesheet(LoadTexture("../../../../../assets/Spritesheets/Inimigos/Tentaculo.png"));
+        setSpritesheet(LoadTexture("../assets/Spritesheets/Inimigos/Tentaculo.png"));
 
         SetMaxVelocidade(.8f);
         setVelocidade(.8f);
@@ -47,9 +47,9 @@ void Tentaculo::Ataque(){
 
 void Tentaculo::Update(){
     Entidade::Update();
-    
+
     Protagonista *player = Globais::GetPlayer();
-    
+
     if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao()) && getEstado() != STUNNED){
         player->diminuirIntegridade(GetDano());
         player->aumentarNivelInfeccao(GetInfec());
@@ -104,11 +104,11 @@ void Tentaculo::Update(){
     }
 
     if(getEstado() == ANDANDO){
-        
+
         tempoAteProxSprite -= GetFrameTime() * 3;
         Seguir(player->getPosicao());
     }
-    
+
 }
 
 void Tentaculo::Draw(){
@@ -127,5 +127,5 @@ void Tentaculo::Seguir(Vector2 pos){
     if(posAnterior == getPosicao() && getEstado() == ATACANDO){
         setEstadoPor(STUNNED, 5, true);
     }
-    
+
 }

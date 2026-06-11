@@ -10,9 +10,9 @@ Tripulante::Tripulante(double max, double regen, double infec, double dano)
     : Inimigo(max,regen,infec,dano){
         SetMaxVelocidade(0.2f);
         SetVelocidade(0.2f);
-        
 
-        spritesheet = LoadTexture("../../../../../assets/Spritesheets/Inimigos/tripulanteInfectados.png");
+
+        spritesheet = LoadTexture("../assets/Spritesheets/Inimigos/tripulanteInfectados.png");
 
         andarCima = {
             Rectangle{0, 128, 64, 64},
@@ -53,7 +53,7 @@ void Tripulante::Update(){
 
 
     Protagonista *player = Globais::GetPlayer();
-    
+
     // Seguir player
 
     if(getEstado() != STUNNED){
@@ -75,7 +75,7 @@ void Tripulante::Update(){
         if(chance < 1){
             TocarAudio(grunir);
         }
-    
+
         setVelocidade(GetMaxVelocidade());
         setEstadoPor(ANDANDO,0);
     }
@@ -93,7 +93,7 @@ void Tripulante::Draw(){
 void Tripulante::Ataque(){
     setEstadoPor(ATACANDO,0);
     setVelocidade(3.5f);
-    
+
     TocarAudio(scare);
     SetSoundVolume(gritar,2.0f);
     TocarAudio(gritar);

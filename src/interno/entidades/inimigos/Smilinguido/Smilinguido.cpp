@@ -12,7 +12,7 @@ Smilinguido::Smilinguido(double max, double regen, double infec, double dano)
         SetMaxVelocidade(.6f);
         setVelocidade(.6f);
 
-        spritesheet = LoadTexture("../../../../../assets/Spritesheets/Inimigos/smilinguido.png");
+        spritesheet = LoadTexture("../assets/Spritesheets/Inimigos/smilinguido.png");
 
         andarCima = {
             Rectangle{0, 128, 64, 64},
@@ -95,7 +95,7 @@ void Smilinguido::Update(){
         player->aumentarNivelInfeccao(GetInfec());
         setEstadoPor(STUNNED, 1);
     }
-    
+
     if(getEstado() == ATACANDO){
         TocarAudio(scare);
         SetSoundVolume(gritar2, 1.5f);
@@ -105,7 +105,7 @@ void Smilinguido::Update(){
     }else if(getEstado() != ATACANDO){
         setVelocidade(GetMaxVelocidade());
     }
-    
+
     if(getEstado() == ANDANDO){
         Seguir(player->getPosicao());
     }
