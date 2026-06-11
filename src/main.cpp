@@ -73,7 +73,6 @@ int main() {
 	Mapa mapa;
 
 
-
 	// Carrega o que vai ser renderizado
 	// Carrega o que vai ser usado para detectar colisão
 	Texture2D mapaTextura1 = LoadTexture("../../../assets/mapas/mapasNormais/mapa c meteoro sem portas.png");
