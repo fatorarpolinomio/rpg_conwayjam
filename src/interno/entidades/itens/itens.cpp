@@ -11,6 +11,7 @@ Item::Item(std::string tipo, double taxa, std::string alvo, const char* caminhoS
     SetAlvo(alvo);
     setSpritesheet(LoadTexture(caminhoSpritesheet));
     setPosicao(Posicao);
+    somPegaItem = LoadSound("../../../assets/audio/sfx/pop.wav");
 }
 
 void Item::Draw() {
@@ -94,6 +95,14 @@ Item Ferramentas() {
 
 void Item::Get(Item item, Protagonista *protagonista) {
     if (item.GetTipo() == "Consumível") {
+        static bool jaTocou = false;
+        static std::string ultimoId = "";
+
+        if (!jaTocou) {
+            PlaySound(somPegaItem);
+            jaTocou = true;
+        }
+
         if (item.GetAlvo() == "Infecção") {
             protagonista->diminuirNivelInfeccao(item.GetTaxa());
         }

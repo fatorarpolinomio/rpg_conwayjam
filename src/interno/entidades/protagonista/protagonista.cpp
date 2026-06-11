@@ -38,15 +38,22 @@ Protagonista::Protagonista(Vector2 pos) {
     temporizadorMorte = 0.0f;
 
   // Animações
-  atacarEsquerda = {
+  atacarEsquerdaMartelo = {
         Rectangle{64, 192, 64, 64},  // Levanta o machado
         Rectangle{128, 192, 64, 64}  // Desce o machado
     };
-
-  atacarDireita = {
+  atacarDireitaMartelo = {
         Rectangle{192, 192, 64, 64}, // Levanta o machado
         Rectangle{0, 256, 64, 64}    // Desce o machado
     };
+  atacarEsquerdaTaser = {
+        Rectangle{64, 256, 64, 64},  // Taser desligado
+        Rectangle{128, 256, 64, 64}  // Taser ligado
+  };
+  atacarDireitaTaser = {
+        Rectangle{192, 256, 64, 64}, // Taser desligado
+        Rectangle{0, 320, 64, 64}    // Taser ligado
+  };
   andarCima = {
       Rectangle{128, 64, 64, 64},
       Rectangle{192, 64, 64, 64},
@@ -136,9 +143,11 @@ void Protagonista::Update() {
             tempoAtaque = 0.2f; // Ajuste para ficar sincronizado com os frames da arma
 
             if (direcaoAtual == ESQUERDA || direcaoAtual == BAIXO) {
-                AnimacaoAtual = atacarEsquerda;
+                if (itemAtual == "Martelo") { AnimacaoAtual = atacarEsquerdaMartelo; }
+                else if (itemAtual == "Taser") { AnimacaoAtual = atacarEsquerdaTaser; }
             } else {
-                AnimacaoAtual = atacarDireita;
+                if (itemAtual == "Martelo") {AnimacaoAtual = atacarDireitaMartelo;}
+                else if (itemAtual == "Taser") { AnimacaoAtual = atacarDireitaTaser; }
             }
         }
         else {
@@ -204,7 +213,7 @@ void Protagonista::Update() {
     // Era pra ser lista só de renderização mas serve para outras coisas
     for(Entidade *entidade : Globais::ListaDeRenderizacao){
       if(Item* item = dynamic_cast<Item*>(entidade)){
-        if(Vector2Distance(item->getPosicao(), getPosicao()) < 40.0f){
+        if(Vector2Distance(Vector2{item->getPosicao().x+16, item->getPosicao().y+16}, Vector2{getPosicao().x+32, getPosicao().y+32}) < 30.0f){
           item->Get(*item,this);
           Globais::removerListaRenderizacao(item);
         }
