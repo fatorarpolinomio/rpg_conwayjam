@@ -21,9 +21,15 @@ Protagonista::Protagonista(Vector2 pos) {
     SetMasterVolume(0.3f);
 
     hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
-    itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/KeyCard.png");
+
+    Image itemFundoImage = LoadImage("../../../assets/Spritesheets/UI/FundoItem.png");
+    ImageResizeNN(&itemFundoImage, 96, 96);
+    Texture2D itemFundoTexture = LoadTextureFromImage(itemFundoImage);
+    UnloadImage(itemFundoImage);
+
+    Image itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/Martelo.png");
     ImageResizeNN(&itemAtualImage, 96, 96);
-    itemAtualTexture = LoadTextureFromImage(itemAtualImage);
+    Texture2D itemAtualTexture = LoadTextureFromImage(itemAtualImage);
     UnloadImage(itemAtualImage);
 
     texturaMorte = LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista morte.png");
@@ -223,7 +229,9 @@ void Protagonista::DrawHUD() {
   DrawTextureRec(hudTexture, {0*TamanhoBarraHUDX, TamanhoBarraHUDY * infeccaoTreze, TamanhoBarraHUDX, TamanhoBarraHUDY} , {20, 40}, WHITE);
   DrawTextureRec(hudTexture, {1*TamanhoBarraHUDX, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 100}, WHITE);
   DrawTextureRec(hudTexture, {2*TamanhoBarraHUDX, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 150}, WHITE);
-  //Nn precisa mais do item no HUD, pq arma tem sprite, e consumível e chave só some.
+  
+  DrawTextureRec(itemFundoTexture, { 0, 0, 96, 96 }, { 20, 200 }, WHITE);
+  DrawTextureRec(itemAtualTexture, { 0, 0, 96, 96 }, { 20, 200 }, WHITE);
 }
 
 Rectangle Protagonista::getHitboxAtaque() {
