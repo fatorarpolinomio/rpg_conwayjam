@@ -72,15 +72,6 @@ int main() {
 	
 	Mapa mapa;
 
-	//Spawn dos Itens, só mudar as coordenadas no final
-	Item xarope("Consumível", 50, "Infecção", "../../../assets/Spritesheets/Itens/Xarope.png", { 600,750 });
-	Item tanque("Consumível", 100, "Oxigênio", "../../../assets/Spritesheets/Itens/TanqueO2.png", { 1000, 1000 });
-	Item silvertape("Consumível", 30, "Integridade", "../../../assets/Spritesheets/Itens/SilverTape.png", { 1000,1000 });
-	Item capacete("Consumível", 100, "Integridade", "../../../assets/Spritesheets/Itens/Capacete.png", { 1000,1000 });
-	Item martelo("Arma", 20, "", "../../../assets/Spritesheets/Itens/Martelo.png", { 1000,1000 });
-	Item taser("Arma", 50, "", "../../../assets/Spritesheets/Itens/Taser.png", { 1000,1000 });
-	Item keycard("Chave", 0, "", "../../../assets/Spritesheets/Itens/KeyCard.png", { 1000,1000 });
-	Item ferramentas("Chave", 0, "", "../../../assets/Spritesheets/Itens/CaixaDeFerramentas.png", { 1000,1000 });
 
 
 	// Carrega o que vai ser renderizado
