@@ -25,6 +25,7 @@ class Protagonista : public Entidade, public CameraTarget{
 
 
 		Texture2D hudTexture;
+		Texture2D itemFundoTexture;
 		Texture2D itemAtualTexture;
 		Image itemAtualImage;
 
