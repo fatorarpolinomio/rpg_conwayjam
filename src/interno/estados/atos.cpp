@@ -9,6 +9,7 @@
 #include "../entidades/inimigos/Smilinguido/Smilinguido.hpp"
 #include "../entidades/inimigos/Tentaculo/Tentaculo.hpp"
 #include "../entidades/inimigos/Amalgama/Amalgama.hpp"
+#include "../entidades/itens/itens.hpp"
 
 Atos::Atos(Mapa* mapa, Protagonista* violeta, std::vector<Music>* trilha) {
     this->mapa = mapa;
@@ -32,6 +33,7 @@ void Atos::iniciarAto(HistoryState novoAto) {
         this->mapa->setMapa(0);
         PlayMusicStream((*trilha)[0]);
 
+        violeta->setInfeccao(50);
         npcs = {
             new NPC("../../../assets/Spritesheets/NPCS/tripulante1.png",Vector2{35,900}),
             new NPC("../../../assets/Spritesheets/NPCS/tripulante2.png",Vector2{800,700}),
@@ -41,6 +43,9 @@ void Atos::iniciarAto(HistoryState novoAto) {
             new NPC("../../../assets/Spritesheets/NPCS/tripulante6.png",Vector2{920,900}),
             new NPC("../../../assets/Spritesheets/NPCS/tripulante7.png",Vector2{800,150})
         };
+
+        new Item("Consumível",0,"Chave", "../../../assets/Spritesheets/Itens/CaixaDeFerramentas.png", Vector2{200,1100});
+        new Item("Consumível",10,"Infecção", "../../../assets/Spritesheets/Itens/Xarope.png", Vector2{400,800});
         // - Dar spawn nos NPCs iniciais
     } else if(novoAto == HistoryState::ACT_1){
         this->mapa->setMapa(1);

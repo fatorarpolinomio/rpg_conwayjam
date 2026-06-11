@@ -3,10 +3,12 @@
 #include <string>
 #include <iostream>
 #include <cmath>
+#include <typeinfo>
 #include "../../cenario/mapa.hpp"
 #include "protagonista.hpp"
 #include <raymath.h>                 
 #include "../../sistemas/globais.hpp" 
+#include "../itens/itens.hpp"
 
 Protagonista::Protagonista(Vector2 pos) {
     velocidade = 1.0f;
@@ -206,6 +208,16 @@ void Protagonista::Update() {
         if (IsSoundPlaying(somProximidade)) {
             StopSound(somProximidade);
         }
+    }
+
+    // Era pra ser lista só de renderização mas serve para outras coisas
+    for(Entidade *entidade : Globais::ListaDeRenderizacao){
+      if(Item* item = dynamic_cast<Item*>(entidade)){
+        if(Vector2Distance(item->getPosicao(), getPosicao()) < 40.0f){
+          item->Get(*item,this);
+          Globais::removerListaRenderizacao(item);
+        }
+      }
     }
 
 

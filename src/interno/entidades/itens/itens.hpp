@@ -20,15 +20,13 @@ public:
     double GetTaxa() { return taxa; }
     std::string GetAlvo() { return alvo; }
     Texture2D GetSprite() { return sprite; }
-    Vector2 GetPosicao() { return posicao; }
 
     void SetTipo(std::string newTipo) { tipo = newTipo; }
     void SetTaxa(double newTaxa) { taxa = newTaxa; }
     void SetAlvo(std::string newAlvo) { alvo = newAlvo; }
     void SetSprite(Texture2D newSprite) { sprite = newSprite; }
-    void SetPosicao(Vector2 newPosicao) { posicao = newPosicao; }
 
-    void Get(Item item, Protagonista& protagonista);
+    void Get(Item item, Protagonista *protagonista);
 
     virtual void Draw();
 

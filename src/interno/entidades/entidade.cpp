@@ -6,6 +6,10 @@ Entidade::Entidade(){
   Globais::adicionaraListaRenderizacao(this);
 }
 
+Entidade::~Entidade(){
+  Globais::removerListaRenderizacao(this);
+}
+
 void Entidade::Update(){
     if (tempoAteProxSprite <= 0) {
         frameAtual++;
