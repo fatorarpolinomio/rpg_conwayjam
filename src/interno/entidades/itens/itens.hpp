@@ -11,6 +11,7 @@ private:
     std::string alvo;
     Vector2 posicao;
     Texture2D sprite;
+    Sound somPegaItem;
 
 public:
     Item(std::string tipo, double taxa, std::string alvo, const char* caminhoSpritesheet, Vector2 Posicao);
