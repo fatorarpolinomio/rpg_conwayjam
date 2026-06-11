@@ -27,20 +27,16 @@ void Entidade::Update(){
 }
 
 void Entidade::Draw(){
-    // 1ª Camada de Segurança
     if (AnimacaoAtual.empty()) return;
 
-    // Aproveitei para corrigir um pequeno bug de precedência lógica do C++ aqui:
-    // O correto é getEstado() != ANDANDO em vez de !getEstado() == ANDANDO
-    if (getEstado() != ANDANDO) {
+    if (!getEstado() == ANDANDO) {
         frameAtual = 0;
     } else if(getEstado() == ANDANDO) {
         if(frameAtual == 0) frameAtual = 1;
     }
 
-    // 2ª Camada de Segurança Anti-Crash
-    int frameSeguro = frameAtual % AnimacaoAtual.size();
-    DrawTextureRec(spritesheet, AnimacaoAtual[frameSeguro], getPosicao(), WHITE);
+    int frame = frameAtual % AnimacaoAtual.size();
+    DrawTextureRec(spritesheet, AnimacaoAtual[frame], getPosicao(), WHITE);
 }
 
 void Entidade::setEstadoPor(estadosEntidade newEstado, float tempo){

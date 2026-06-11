@@ -117,7 +117,9 @@ void Tentaculo::Draw(){
     }else if(getEstado() == ANDANDO){ // Talvez tenha um jeito melhor, mas foi assim que eu tirei aquele delay antes de começar a animação
         if(frameAtual == 0) frameAtual = 1;
     }
-    DrawTextureRec(spritesheet, AnimacaoAtual[frameAtual], {getPosicao().x, getPosicao().y-64}, WHITE);
+    if(AnimacaoAtual.empty()) return;
+    int frame = frameAtual % AnimacaoAtual.size();
+    DrawTextureRec(spritesheet, AnimacaoAtual[frame], {getPosicao().x, getPosicao().y-64}, WHITE);
 }
 
 void Tentaculo::Seguir(Vector2 pos){
