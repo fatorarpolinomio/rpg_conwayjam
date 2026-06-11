@@ -93,7 +93,7 @@ void Smilinguido::Update(){
     if(CheckCollisionRecs(getCaixaColisao(), player->getCaixaColisao()) && getEstado() != STUNNED){
         player->diminuirIntegridade(GetDano());
         player->aumentarNivelInfeccao(GetInfec());
-        setEstadoPor(STUNNED, 1);
+        setEstadoPor(STUNNED, 1,true);
     }
 
     if(getEstado() == ATACANDO){
