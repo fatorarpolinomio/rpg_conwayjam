@@ -33,6 +33,8 @@
 int main() {
 	setlocale(LC_ALL, "Portuguese");
 
+	InitAudioDevice();
+
 	int VIRTUAL_WIDTH = 600;
 	int VIRTUAL_HEIGHT = 300;
 
@@ -45,7 +47,7 @@ int main() {
 	RenderTexture2D canva = LoadRenderTexture(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 	InicializarDialogoAssets();
 
-	InitAudioDevice();
+	
 	if (!IsAudioDeviceReady()) {
 		std::cout << "ERROR: Dispositivo de som não foi inicializado" << endl;
 	}
@@ -220,7 +222,7 @@ int main() {
 				if (estadoAtual == GameState::GAMEPLAY) {
 					violeta.DrawHUD();
 					if (IsDialogueActive && IsKeyPressed(KEY_C)) {IsDialogueActive = false;}
-					Dialogue("aperteC");
+					
                 } else if (estadoAtual == GameState::PAUSE) {
                     GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
