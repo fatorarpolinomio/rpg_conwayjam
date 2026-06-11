@@ -23,6 +23,8 @@ class Protagonista : public Entidade, public CameraTarget{
 		Texture2D itemAtualTexture;
 		Image itemAtualImage;
 
+		std::string Arma;
+
 	public:
 		// Audio
 		Sound passos;
@@ -41,16 +43,14 @@ class Protagonista : public Entidade, public CameraTarget{
 		bool aumentarNivelInfeccao(int dano);
 
 		void setIntegridade(int novaIntegridade) {integridade = novaIntegridade;}
-
 		void setOxigenio(int novoOxigenio) {oxigenio = novoOxigenio;}
-
 		void setInfeccao(int novoNivelInfeccao) {nivelInfeccao = novoNivelInfeccao;}
+		void setArma(std::string novaArma) { Arma = novaArma; }
 
 		int getIntegridade() {return integridade;}
-
 		int getOxigenio() {return oxigenio;}
-
 		int getInfeccao() {return nivelInfeccao;}
+		std::string getArma() {return Arma;}
 
 		void Update() override;
 		void Draw() override;

@@ -30,6 +30,9 @@ protected:
   vector<Rectangle> andarEsquerda;
   vector<Rectangle> andarDireita;
 
+  vector<Rectangle> atacarEsquerdaTaser;
+  vector<Rectangle> atacarDireitaTaser;
+
   float timer = 0;
 
   // Variaveis da animação
@@ -63,6 +66,8 @@ public:
   float getCaixaColisaoWidth(){ return caixaDeColisao.width;}
   float getCaixaColisaoHeight(){ return caixaDeColisao.height;}
   int getDepth() const {return depth;}
+  vector<Rectangle> getAtacarEsquerdaTaser() { return atacarEsquerdaTaser; }
+  vector<Rectangle> getAtacarDireitaTaser() { return atacarDireitaTaser; }
 
   // Setters
   void setPosicao(Vector2 novaPosicao) { this->posicao = novaPosicao; }
@@ -81,6 +86,8 @@ public:
   void setEstadoPor(estadosEntidade newEstado, float tempo, bool override); // Mudar o estado por um tempo, ignora outras mudanças de estado se o tempo do estado não tiver acabado(a menos que use o override = true). Geralmente use esse com o tempo = 0
   void setCaixaColisao(Rectangle novaCaixa){ caixaDeColisao = novaCaixa;}
   void setDepth(int novaDepth){depth = novaDepth;}
+  void setAtacarEsquerdaTaser(vector<Rectangle> newAtacarEsquerdaTaser) { this->atacarEsquerdaTaser = newAtacarEsquerdaTaser; }
+  void setAtacarDireitaTaser(vector<Rectangle> newAtacarDireitaTaser) { this->atacarDireitaTaser = newAtacarDireitaTaser; }
 
   virtual void Update(); // Atualização da entidade a cada frame
   virtual void Draw();   // Desenha entidade a cada frame

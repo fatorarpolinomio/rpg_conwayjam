@@ -11,38 +11,49 @@ Protagonista::Protagonista(Vector2 pos) {
     frameAtual = 0;
     setDepth(10);
 
-  spritesheet =
-      LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista.png");
-  passos = LoadSound("../../../assets/audio/sfx/caminhando.wav");
-  SetMasterVolume(0.3f);
+    spritesheet =
+        LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista.png");
+    passos = LoadSound("../../../assets/audio/sfx/caminhando.wav");
+    SetMasterVolume(0.3f);
 
-  hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
-  itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/KeyCard.png");
-  ImageResizeNN(&itemAtualImage, 96, 96);
-  itemAtualTexture = LoadTextureFromImage(itemAtualImage);
-  UnloadImage(itemAtualImage);
+    hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
+    itemAtualImage = LoadImage("../../../assets/Spritesheets/Itens/KeyCard.png");
+    ImageResizeNN(&itemAtualImage, 96, 96);
+    itemAtualTexture = LoadTextureFromImage(itemAtualImage);
+    UnloadImage(itemAtualImage);
 
-  // Animações
-  andarCima = {
-      Rectangle{128, 64, 64, 64},
-      Rectangle{192, 64, 64, 64},
-      Rectangle{0, 128, 64, 64},
-  };
-  andarDireita = {
-      Rectangle{64, 128, 64, 64},
-      Rectangle{128, 128, 64, 64},
-      Rectangle{192, 128, 64, 64},
-  };
-  andarEsquerda = {
-      Rectangle{192, 0, 64, 64},
-      Rectangle{0, 64, 64, 64},
-      Rectangle{64, 64, 64, 64}
-  };
-  andarBaixo = {
-      Rectangle{0, 0, 64, 64},
-      Rectangle{64, 0, 64, 64},
-      Rectangle{128, 0, 64, 64},
-  };
+    // Animações
+    andarCima = {
+        Rectangle{128, 64, 64, 64},
+        Rectangle{192, 64, 64, 64},
+        Rectangle{0, 128, 64, 64},
+    };
+    andarDireita = {
+        Rectangle{64, 128, 64, 64},
+        Rectangle{128, 128, 64, 64},
+        Rectangle{192, 128, 64, 64},
+    };
+    andarEsquerda = {
+        Rectangle{192, 0, 64, 64},
+        Rectangle{0, 64, 64, 64},
+        Rectangle{64, 64, 64, 64}
+    };
+    andarBaixo = {
+        Rectangle{0, 0, 64, 64},
+        Rectangle{64, 0, 64, 64},
+        Rectangle{128, 0, 64, 64},
+    };
+    atacarEsquerdaTaser = {
+        Rectangle{64, 256, 64, 64},
+        Rectangle{128, 256, 64, 64},
+        Rectangle{128, 256, 64, 64},
+    };
+    atacarDireitaTaser = {
+        Rectangle{ 192, 256, 64, 64 },
+        Rectangle{ 0, 320, 64, 64 },
+        Rectangle{ 0, 320, 64, 64 }
+    };
+
   idle = {
       Rectangle{0, 0, 64, 64},
   };
@@ -53,6 +64,7 @@ Protagonista::Protagonista(Vector2 pos) {
   integridade = 100;
   oxigenio = 100;
   nivelInfeccao = 0;
+  setArma("None");
 
   setCaixaColisao(Rectangle{10,48,40,16});
 
@@ -72,7 +84,9 @@ void Protagonista::Update() {
   // Fazer um metodo pra Input?
   if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !Mapa::estaCollidindo(Vector2{(float)(1+velocidade),0}, getCaixaColisao())){
     posicao.x += velocidade;
-    AnimacaoAtual = andarDireita;
+
+    AnimacaoAtual = atacarDireitaTaser;
+    //Eu não entendo pq que mesmo estando assim a animação ainda é a de andar
 
     setEstadoPor(ANDANDO, 0);
   }
@@ -94,7 +108,6 @@ void Protagonista::Update() {
 
     setEstadoPor(ANDANDO, 0);
   }
-
   if(getEstado() == ANDANDO) {
     ResumeSound(passos);
   }else {
