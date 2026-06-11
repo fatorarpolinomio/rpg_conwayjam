@@ -12,6 +12,8 @@
 
 using namespace std;
 enum Direcao { CIMA, DIREITA, BAIXO, ESQUERDA };
+enum class EstadoProtagonista {NORMAL, TOMANDO_DANO, MORTO};
+
 class Protagonista : public Entidade, public CameraTarget{
 
 	private:
@@ -30,6 +32,18 @@ class Protagonista : public Entidade, public CameraTarget{
 
 		std::vector<Rectangle> atacarEsquerda;
 		std::vector<Rectangle> atacarDireita;
+
+		// VARIÁVEIS DE ANIMAÇÃO DE DANO
+		EstadoProtagonista estadoDanoAtual;
+        float tempoAnimacaoDano;
+        float duracaoDano;
+        Rectangle spriteDano;
+
+        // VARIÁVEIS DE MORTE
+        Texture2D texturaMorte;
+        std::vector<Rectangle> framesMorte;
+        int frameMorteAtual;
+        float temporizadorMorte;
 
 	public:
 		// Audio
@@ -62,9 +76,11 @@ class Protagonista : public Entidade, public CameraTarget{
 
 		int getInfeccao() {return nivelInfeccao;}
 
+		void TomaDano();
 		void Update() override;
 		void Draw() override;
 		void DrawHUD();
+		void Morrer();
 
 };
 

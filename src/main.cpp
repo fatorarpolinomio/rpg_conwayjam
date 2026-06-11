@@ -147,6 +147,7 @@ int main() {
 				inimigoManager.Update();
 
 				if(!violeta.getOxigenio() || violeta.getInfeccao() >= 100){
+				    violeta.Morrer();
 				    transicaoFade.Iniciar(GameState::DEATH);
 				}
     		} else if (estadoAtual == GameState::PAUSE) {

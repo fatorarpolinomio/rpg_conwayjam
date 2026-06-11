@@ -11,15 +11,27 @@ Protagonista::Protagonista(Vector2 pos) {
     frameAtual = 0;
     setDepth(10);
 
+    estadoDanoAtual = EstadoProtagonista::NORMAL;
+    tempoAnimacaoDano = 0.0f;
+    duracaoDano = 0.4f;
+    spriteDano = Rectangle{0, 192, 64, 64};
+
     spritesheet = LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
     passos = LoadSound("../assets/audio/sfx/caminhando.wav");
     SetMasterVolume(0.3f);
 
     hudTexture = LoadTexture("../assets/Spritesheets/UI/HUD.png");
     itemAtualImage = LoadImage("../assets/Spritesheets/Itens/KeyCard.png");
-  ImageResizeNN(&itemAtualImage, 96, 96);
-  itemAtualTexture = LoadTextureFromImage(itemAtualImage);
-  UnloadImage(itemAtualImage);
+    ImageResizeNN(&itemAtualImage, 96, 96);
+    itemAtualTexture = LoadTextureFromImage(itemAtualImage);
+    UnloadImage(itemAtualImage);
+
+    texturaMorte = LoadTexture("../assets/Spritesheets/Protagonista/protagonista morte.png");
+    for (int i = 0; i < 2; i++) {
+        framesMorte.push_back(Rectangle{0, (float)i * 64, 64, 64});
+    }
+    frameMorteAtual = 0;
+    temporizadorMorte = 0.0f;
 
   // Animações
   atacarEsquerda = {
@@ -74,6 +86,19 @@ void Protagonista::Update() {
     }
 
     setEstadoPor(PARADO, 0);
+
+    if (estadoDanoAtual == EstadoProtagonista::MORTO) return;
+
+    if (estadoDanoAtual == EstadoProtagonista::MORTO) {
+            return;
+    }
+
+    if (tempoAnimacaoDano > 0) {
+        tempoAnimacaoDano -= GetFrameTime(); // Conta os segundos para trás
+        if (tempoAnimacaoDano <= 0) {
+            estadoDanoAtual = EstadoProtagonista::NORMAL;
+        }
+    }
 
 
     if (atacando) {
@@ -143,13 +168,45 @@ void Protagonista::Update() {
     Entidade::Update();
 }
 
+void Protagonista::Morrer() {
+    if (estadoDanoAtual != EstadoProtagonista::MORTO) {
+        estadoDanoAtual = EstadoProtagonista::MORTO;
+        frameMorteAtual = 0;
+        temporizadorMorte = 0.0f;
+    }
+}
+
 void Protagonista::Draw() {
     // 1ª Camada de Segurança: Nunca tenta desenhar se o vetor estiver vazio
     if (AnimacaoAtual.empty()) return;
 
-    if (atacando) {
-        // 2ª Camada de Segurança: O Módulo (%) força o frame a "dar a volta"
-        // e nunca ultrapassar o limite do vetor, impedindo o jogo de fechar.
+    if (estadoDanoAtual == EstadoProtagonista::MORTO) {
+
+            temporizadorMorte += GetFrameTime();
+            if (temporizadorMorte >= 0.15f) {
+                temporizadorMorte = 0.0f;
+
+                if (frameMorteAtual < framesMorte.size() - 1) {
+                    frameMorteAtual++;
+                }
+            }
+
+            // Desenha a textura específica de morte
+            DrawTextureRec(texturaMorte, framesMorte[frameMorteAtual], getPosicao(), WHITE);
+
+    }
+    else if (estadoDanoAtual == EstadoProtagonista::TOMANDO_DANO) {
+
+            Color tintura = WHITE;
+            if ((int)(tempoAnimacaoDano * 15) % 2 == 0) {
+                tintura = RED;
+            } else {
+                tintura = Color{255, 255, 255, 150};
+            }
+
+            DrawTextureRec(spritesheet, spriteDano, getPosicao(), tintura);
+    }
+    else if (atacando) {
         int frameSeguro = frameAtual % AnimacaoAtual.size();
         DrawTextureRec(spritesheet, AnimacaoAtual[frameSeguro], getPosicao(), WHITE);
     } else {
@@ -192,13 +249,22 @@ Rectangle Protagonista::getHitboxAtaque() {
     return caixa;
 }
 
+void Protagonista::TomaDano() {
+    if (estadoDanoAtual != EstadoProtagonista::TOMANDO_DANO) {
+        estadoDanoAtual = EstadoProtagonista::TOMANDO_DANO;
+        tempoAnimacaoDano = duracaoDano;
+    }
+}
+
 bool Protagonista::diminuirIntegridade(int dano) {
   integridade -= dano;
   setEstadoPor(DANO, 1);
 
+  TomaDano();
+
   // retorna um estado caso sofra mais dado que deveria
-  if (integridade <= 0)
-    return false;
+  if (integridade <= 0) return false;
+
   return true;
 }
 
