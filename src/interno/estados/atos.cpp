@@ -35,24 +35,24 @@ void Atos::iniciarAto(HistoryState novoAto) {
 
         violeta->setInfeccao(50);
         npcs = {
-            new NPC("../../../assets/Spritesheets/NPCS/tripulante1.png",Vector2{35,900}),
-            new NPC("../../../assets/Spritesheets/NPCS/tripulante2.png",Vector2{800,700}),
-            new NPC("../../../assets/Spritesheets/NPCS/tripulante3.png",Vector2{1000,150}),
-            new NPC("../../../assets/Spritesheets/NPCS/tripulante4.png",Vector2{1080,660}),
-            new NPC("../../../assets/Spritesheets/NPCS/tripulante5.png",Vector2{500,450}),
-            new NPC("../../../assets/Spritesheets/NPCS/tripulante6.png",Vector2{920,900}),
-            new NPC("../../../assets/Spritesheets/NPCS/tripulante7.png",Vector2{800,150})
+            new NPC("../assets/Spritesheets/NPCS/tripulante1.png",Vector2{35,900}),
+            new NPC("../assets/Spritesheets/NPCS/tripulante2.png",Vector2{800,700}),
+            new NPC("../assets/Spritesheets/NPCS/tripulante3.png",Vector2{1000,150}),
+            new NPC("../assets/Spritesheets/NPCS/tripulante4.png",Vector2{1080,660}),
+            new NPC("../assets/Spritesheets/NPCS/tripulante5.png",Vector2{500,450}),
+            new NPC("../assets/Spritesheets/NPCS/tripulante6.png",Vector2{920,900}),
+            new NPC("../assets/Spritesheets/NPCS/tripulante7.png",Vector2{800,150})
         };
 
-       	new Item ("Consumível", 50, "Infecção", "../../../assets/Spritesheets/Itens/Xarope.png", { 600,750 });
-        new Item ("Consumível", 100, "Oxigênio", "../../../assets/Spritesheets/Itens/TanqueO2.png", { 1000, 1000 });
-        new Item ("Consumível", 30, "Integridade", "../../../assets/Spritesheets/Itens/SilverTape.png", { 1000,1000 });
-        new Item ("Consumível", 100, "Integridade", "../../../assets/Spritesheets/Itens/Capacete.png", { 1000,1000 });
-        new Item ("Arma", 20, "", "../../../assets/Spritesheets/Itens/Martelo.png", { 1000,1000 });
-        new Item ("Arma", 50, "", "../../../assets/Spritesheets/Itens/Taser.png", { 1000,1000 });
-        new Item ("Chave", 0, "", "../../../assets/Spritesheets/Itens/KeyCard.png", { 1000,1000 });
-        new Item ("Chave", 0, "", "../../../assets/Spritesheets/Itens/CaixaDeFerramentas.png", { 1000,1000 });
-        new Item ("Consumivel", 0, "Chave", "../../../assets/Spritesheets/Itens/CaixaDeFerramentas.png", Vector2{200,1150});
+        new Item ("Consumível", 50, "Infecção", "../assets/Spritesheets/Itens/Xarope.png", { 600,750 });
+        new Item ("Consumível", 100, "Oxigênio", "../assets/Spritesheets/Itens/TanqueO2.png", { 1000, 1000 });
+        new Item ("Consumível", 30, "Integridade", "../assets/Spritesheets/Itens/SilverTape.png", { 1000,1000 });
+        new Item ("Consumível", 100, "Integridade", "../assets/Spritesheets/Itens/Capacete.png", { 1000,1000 });
+        new Item ("Arma", 20, "", "../assets/Spritesheets/Itens/Martelo.png", { 1000,1000 });
+        new Item ("Arma", 50, "", "../assets/Spritesheets/Itens/Taser.png", { 1000,1000 });
+        new Item ("Chave", 0, "", "../assets/Spritesheets/Itens/KeyCard.png", { 1000,1000 });
+        new Item ("Chave", 0, "", "../assets/Spritesheets/Itens/CaixaDeFerramentas.png", { 1000,1000 });
+        new Item ("Consumivel", 0, "Chave", "../assets/Spritesheets/Itens/CaixaDeFerramentas.png", Vector2{200,1150});
 
         // - Dar spawn nos NPCs iniciais
     } else if(novoAto == HistoryState::ACT_1){

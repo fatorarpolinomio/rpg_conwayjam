@@ -10,14 +10,14 @@ using namespace std;
 class Inimigo : public Entidade{
     protected:
 
-        Sound grunir = LoadSound("../../../assets/audio/sfx/somInimigo1.wav");
-        Sound grunir2 = LoadSound("../../../assets/audio/sfx/somInimigo2.wav");
-        Sound grunir3 = LoadSound("../../../assets/audio/sfx/somInimigo3.wav");
-        Sound gritar = LoadSound("../../../assets/audio/sfx/gritoInimigo1.wav");
-        Sound gritar2 = LoadSound("../../../assets/audio/sfx/gritoInimigo2.wav");
-        Sound gritar3 = LoadSound("../../../assets/audio/sfx/gritoInimigo3.wav");
-        Sound scare = LoadSound("../../../assets/audio/sfx/scare.wav");
-        
+        Sound grunir = LoadSound("../assets/audio/sfx/somInimigo1.wav");
+        Sound grunir2 = LoadSound("../assets/audio/sfx/somInimigo2.wav");
+        Sound grunir3 = LoadSound("../assets/audio/sfx/somInimigo3.wav");
+        Sound gritar = LoadSound("../assets/audio/sfx/gritoInimigo1.wav");
+        Sound gritar2 = LoadSound("../assets/audio/sfx/gritoInimigo2.wav");
+        Sound gritar3 = LoadSound("../assets/audio/sfx/gritoInimigo3.wav");
+        Sound scare = LoadSound("../assets/audio/sfx/scare.wav");
+
     private:
 
         double MaxVida;

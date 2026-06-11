@@ -4,11 +4,11 @@
 #include "raygui.h"
 #include <cmath>
 #include <iostream>
-#include <thread> 
+#include <thread>
 #include <chrono>
 
 Menu::Menu() {
-    nave = LoadTexture("../../../assets/Backgrounds/nave.png");
+    nave = LoadTexture("../assets/Backgrounds/nave.png");
 }
 
 GameState Menu::desenhar(int screenWidth, int screenHeight){
@@ -17,19 +17,19 @@ GameState Menu::desenhar(int screenWidth, int screenHeight){
 
     GameState proximoEstado = GameState::GAME_MENU;
 
-    float posYBase = 0.0f;    
-    float amplitude = 20.0f;    
-    float velocidade = 1.5f;     
+    float posYBase = 0.0f;
+    float amplitude = 20.0f;
+    float velocidade = 1.5f;
 
     float posYAnimada = posYBase + sin(GetTime() * velocidade) * amplitude;
 
     DrawTexturePro(
         nave,
-        Rectangle{ 0, 0, (float)nave.width, (float)nave.height }, 
-        Rectangle{ 150, posYAnimada, (float)screenWidth, (float)screenHeight }, 
-        Vector2{ 0, 0 }, 
-        0.0f,            
-        WHITE            
+        Rectangle{ 0, 0, (float)nave.width, (float)nave.height },
+        Rectangle{ 150, posYAnimada, (float)screenWidth, (float)screenHeight },
+        Vector2{ 0, 0 },
+        0.0f,
+        WHITE
     );
 
 

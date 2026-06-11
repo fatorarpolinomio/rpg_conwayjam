@@ -11,16 +11,16 @@ Tripulante::Tripulante(double max, double regen, double infec, double dano)
         SetMaxVelocidade(0.2f);
         SetVelocidade(0.2f);
 
-        grunir = LoadSound("../../../assets/audio/sfx/somInimigo1.wav"); // Use "som" para grunhido
+        grunir = LoadSound("../assets/audio/sfx/somInimigo1.wav"); // Use "som" para grunhido
         SetSoundVolume(grunir, 0.8f); // Volume do grunhido
 
-        scare = LoadSound("../../../assets/audio/sfx/scare.wav");
+        scare = LoadSound("../assets/audio/sfx/scare.wav");
         SetSoundVolume(scare, 1.5f); // Volume alto para o susto
 
-        gritar = LoadSound("../../../assets/audio/sfx/gritoInimigo2.wav");
+        gritar = LoadSound("../assets/audio/sfx/gritoInimigo2.wav");
         SetSoundVolume(gritar, 1.0f); // Volume normal para o grito de perseguição
 
-        spritesheet = LoadTexture("../../../assets/Spritesheets/Inimigos/tripulanteInfectados.png");
+        spritesheet = LoadTexture("../assets/Spritesheets/Inimigos/tripulanteInfectados.png");
 
         andarCima = {
             Rectangle{0, 128, 64, 64},

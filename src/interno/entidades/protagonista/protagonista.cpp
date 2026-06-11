@@ -6,8 +6,8 @@
 #include <typeinfo>
 #include "../../cenario/mapa.hpp"
 #include "protagonista.hpp"
-#include <raymath.h>                 
-#include "../../sistemas/globais.hpp" 
+#include <raymath.h>
+#include "../../sistemas/globais.hpp"
 #include "../itens/itens.hpp"
 
 Protagonista::Protagonista(Vector2 pos) {
@@ -20,17 +20,17 @@ Protagonista::Protagonista(Vector2 pos) {
     duracaoDano = 0.4f;
     spriteDano = Rectangle{0, 192, 64, 64};
 
-    spritesheet = LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista.png");
-    passos = LoadSound("../../../assets/audio/sfx/caminhando.wav");
+    spritesheet = LoadTexture("../assets/Spritesheets/Protagonista/protagonista.png");
+    passos = LoadSound("../assets/audio/sfx/caminhando.wav");
     SetMasterVolume(0.3f);
 
-    hudTexture = LoadTexture("../../../assets/Spritesheets/UI/HUD.png");
-    itemFundoTexture = LoadTexture("../../../assets/Spritesheets/UI/FundoItem.png");
-    marteloIconTexture = LoadTexture("../../../assets/Spritesheets/UI/MarteloIcon.png");
-    taserIconTexture = LoadTexture("../../../assets/Spritesheets/UI/TaserIcon.png");
+    hudTexture = LoadTexture("../assets/Spritesheets/UI/HUD.png");
+    itemFundoTexture = LoadTexture("../assets/Spritesheets/UI/FundoItem.png");
+    marteloIconTexture = LoadTexture("../assets/Spritesheets/UI/MarteloIcon.png");
+    taserIconTexture = LoadTexture("../assets/Spritesheets/UI/TaserIcon.png");
     itemAtual = "Martelo";
 
-    texturaMorte = LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista morte.png");
+    texturaMorte = LoadTexture("../assets/Spritesheets/Protagonista/protagonista morte.png");
     for (int i = 0; i < 2; i++) {
         framesMorte.push_back(Rectangle{0, (float)i * 64, 64, 64});
     }
@@ -80,8 +80,8 @@ Protagonista::Protagonista(Vector2 pos) {
 
   setCaixaColisao(Rectangle{10,48,40,16});
 
-  somProximidade = LoadSound("../../../assets/audio/sfx/scare.wav");
-  SetSoundVolume(somProximidade, 0.0f); 
+  somProximidade = LoadSound("../assets/audio/sfx/scare.wav");
+  SetSoundVolume(somProximidade, 0.0f);
 }
 
 // funcoes ------------------------------------
@@ -183,7 +183,7 @@ void Protagonista::Update() {
             if (distancia < raioMaximo) {
                 inimigoPerto = true;
                 if (distancia < menorDistancia) {
-                    menorDistancia = distancia; 
+                    menorDistancia = distancia;
                 }
             }
         }
@@ -270,7 +270,7 @@ void Protagonista::DrawHUD() {
   DrawTextureRec(hudTexture, {0*TamanhoBarraHUDX, TamanhoBarraHUDY * infeccaoTreze, TamanhoBarraHUDX, TamanhoBarraHUDY} , {20, 40}, WHITE);
   DrawTextureRec(hudTexture, {1*TamanhoBarraHUDX, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 100}, WHITE);
   DrawTextureRec(hudTexture, {2*TamanhoBarraHUDX, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 150}, WHITE);
-  
+
   DrawTextureRec(itemFundoTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60, 720 - 96 - 60 }, WHITE);
   if (itemAtual == "Martelo") {
       DrawTextureRec(marteloIconTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60 , 720 - 96 - 60 }, WHITE);
@@ -279,7 +279,7 @@ void Protagonista::DrawHUD() {
       DrawTextureRec(taserIconTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60 , 720 - 96 - 60 }, WHITE);
   }
   else{}
-  
+
 }
 
 Rectangle Protagonista::getHitboxAtaque() {
