@@ -122,14 +122,12 @@ void Atos::Update(){
     // GATILHOS DE MUDANÇA DE ESTADO
     if (atoAtual == HistoryState::ACT_0) {
 
-            // 1. Diálogo Inicial
             if (!ativouDialogoInicial) {
                 idDialogoAtual = "interfone"; // Violeta recebe o chamado
                 IsDialogueActive = true;
                 ativouDialogoInicial = true;
             }
 
-            // 2. Ir até o Meteoro para Consertar
             if (!consertouMeteoro) {
 
                 // Se ela chegar perto do meteoro
@@ -138,26 +136,97 @@ void Atos::Update(){
                     this->mapa->setMapa(1);
                 }
             }
-            // 3. Voltar para o quarto e dormir
+
             else if (!foiDormir) {
-                Vector2 posCama = { 15.0f, 1075.0f }; // Substitua pela coordenada da cama dela
+                Vector2 posCama = { 15.0f, 1075.0f };
 
                 // Se ela voltou pra cama e fechou qualquer diálogo anterior
                 if (Vector2Distance(posVioleta, posCama) < 60.0f && !IsDialogueActive) {
-                    idDialogoAtual = "mimir"; // Toca o texto "ZZZ..."
+                    idDialogoAtual = "mimir";
                     IsDialogueActive = true;
                     foiDormir = true;
 
-                    // A MÁGICA DA TRANSIÇÃO ACONTECE AQUI
-                    iniciarAto(HistoryState::ACT_1); // Troca o mapa, a música e spawna os inimigos nas costas dela
-                    violeta->setPosicao(posCama); // Crava ela na cama para garantir que não dê spawn fora do quarto
+                    iniciarAto(HistoryState::ACT_1);
+                    violeta->setPosicao(posCama);
                 }
             }
-        }
-    else if (atoAtual == HistoryState::ACT_1) {
-        // Exemplo: Se a infecção chegar a 50, muda pro Ato 2
-        // if (violeta->getInfeccao() > 50) { IniciarAto(HistoryState::ACT_2); }
-    } else if (atoAtual == HistoryState::ACT_2) {
-
     }
+    else if (atoAtual == HistoryState::ACT_1) {
+
+            if (!ativouCafe && !IsDialogueActive && foiDormir) {
+                idDialogoAtual = "cafe";
+                IsDialogueActive = true;
+                ativouCafe = true;
+            }
+
+            if (ativouCafe && !ativouCadeTodoMundo && posVioleta.y < 1000.0f && !IsDialogueActive) {
+                idDialogoAtual = "cadeTodoMundo";
+                IsDialogueActive = true;
+                ativouCadeTodoMundo = true;
+            }
+
+            if (ativouCadeTodoMundo && !ativouQuedaEnergia && posVioleta.x > 300.0f && !IsDialogueActive) {
+                idDialogoAtual = "oxiB";
+                IsDialogueActive = true;
+                ativouQuedaEnergia = true;
+
+            }
+
+            if (ativouQuedaEnergia && !ativouPerseguicao && !IsDialogueActive) {
+                idDialogoAtual = "tripulantes";
+                IsDialogueActive = true;
+                ativouPerseguicao = true;
+
+            }
+
+            Vector2 posAlaNRG = { 675.0f, 450.0f };
+            if (ativouPerseguicao && !ativouEnergiaVoltou && Vector2Distance(posVioleta, posAlaNRG) < 60.0f && !IsDialogueActive) {
+                idDialogoAtual = "acesso";
+                IsDialogueActive = true;
+                ativouEnergiaVoltou = true;
+            }
+
+            Vector2 posSalaComando = { 900.0f, 500.0f };
+            if (ativouEnergiaVoltou && !ativouSalaControle && Vector2Distance(posVioleta, posSalaComando) < 60.0f && !IsDialogueActive) {
+                idDialogoAtual = "naoSobrouNada_a";
+                IsDialogueActive = true;
+                ativouSalaControle = true;
+                iniciarAto(HistoryState::ACT_2);
+            }
+        }
+    else if (atoAtual == HistoryState::ACT_2) {
+
+            Vector2 posQuartoComandante = { 200.0f, 300.0f };
+
+            if (!pegouChave && Vector2Distance(posVioleta, posQuartoComandante) < 60.0f && !IsDialogueActive) {
+                idDialogoAtual = "chave";
+                IsDialogueActive = true;
+                pegouChave = true;
+            }
+
+            Vector2 posCapsula = { 1800.0f, 800.0f };
+
+            if (pegouChave && !tentouFugirSemGasosa && Vector2Distance(posVioleta, posCapsula) < 60.0f && !IsDialogueActive) {
+                idDialogoAtual = "combustivel";
+                IsDialogueActive = true;
+                tentouFugirSemGasosa = true;
+            }
+
+            Vector2 posSalaCombustivel = { 800.0f, 100.0f };
+
+            if (tentouFugirSemGasosa && !pegouCombustivel && Vector2Distance(posVioleta, posSalaCombustivel) < 60.0f && !IsDialogueActive) {
+                pegouCombustivel = true;
+            }
+
+            if (pegouCombustivel && !fugiu && Vector2Distance(posVioleta, posCapsula) < 60.0f && !IsDialogueActive) {
+                idDialogoAtual = "final";
+                IsDialogueActive = true;
+                fugiu = true;
+            }
+
+
+            if (fugiu && !IsDialogueActive) {
+                // Finalizar o jogo
+            }
+        }
 }

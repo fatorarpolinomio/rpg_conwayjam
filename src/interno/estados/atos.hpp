@@ -25,6 +25,19 @@ private:
     bool consertouMeteoro = false;
     bool foiDormir = false;
     bool acordouInfectados = false;
+
+    bool ativouCafe = false;
+    bool ativouCadeTodoMundo = false;
+    bool ativouQuedaEnergia = false;
+    bool ativouPerseguicao = false;
+    bool ativouEnergiaVoltou = false;
+    bool ativouSalaControle = false;
+
+    // TRAVAS DO ATO 2 (A FUGA)
+    bool pegouChave = false;
+    bool tentouFugirSemGasosa = false;
+    bool pegouCombustivel = false;
+    bool fugiu = false;
 public:
     Atos(Mapa* mapa, Protagonista* violeta, std::vector<Music>* trilha);
     HistoryState getAtoAtual() const{return this->atoAtual;}
