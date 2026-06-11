@@ -30,5 +30,7 @@ public:
 
     void Get(Item item, Protagonista& protagonista);
 
+    virtual void Draw();
+
 };
 #endif

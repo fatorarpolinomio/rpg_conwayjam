@@ -13,6 +13,9 @@ Item::Item(std::string tipo, double taxa, std::string alvo, const char* caminhoS
     SetPosicao(Posicao);
 }
 
+void Item::Draw() {
+    DrawTextureRec(spritesheet, {0, 0, 32, 32}, getPosicao(), WHITE);
+}
 
 /*
 Item Xarope() {
