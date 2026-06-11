@@ -220,7 +220,6 @@ int main() {
 				if (estadoAtual == GameState::GAMEPLAY) {
 					violeta.DrawHUD();
 					if (IsDialogueActive && IsKeyPressed(KEY_C)) {IsDialogueActive = false;}
-					Dialogue("aperteC");
                 } else if (estadoAtual == GameState::PAUSE) {
                     GameState acaoPause = menuPause.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
                     if (acaoPause != estadoAtual && !transicaoFade.IsAtiva()) {
