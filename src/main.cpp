@@ -1,11 +1,11 @@
 #include "interno/entidades/protagonista/protagonista.hpp"
 #include "interno/entidades/NPC/NPC.hpp"
+#include "interno/entidades/itens/itens.hpp"
 #include "interno/sistemas/trilhaSonora.hpp"
 #include "interno/estados/estados.hpp"
 #include "interno/estados/menu.hpp"
 #include "interno/estados/pause.hpp"
 #include "interno/estados/morte.hpp"
-#include "interno/estados/atos.hpp"
 #include "raylib.h"
 #include "interno/sistemas/dialogo.hpp"
 
@@ -49,9 +49,9 @@ int main() {
 		std::cout << "ERROR: Dispositivo de som não foi inicializado" << endl;
 	}
 
-	std::vector<Music> trilha = {LoadMusicStream("../../assets/audio/musica/tema0.ogg"),
-	                              LoadMusicStream("../../assets/audio/musica/tema1.ogg"),
-	                              LoadMusicStream("../../assets/audio/musica/tema2.ogg")};
+	std::vector<Music> trilha = {LoadMusicStream("../../../assets/audio/musica/tema0.ogg"),
+	                              LoadMusicStream("../../../assets/audio/musica/tema1.ogg"),
+	                              LoadMusicStream("../../../assets/audio/musica/tema2.ogg")};
 
 	// Definindo Menu e estado atual
 	Menu menuPrincipal;
@@ -61,6 +61,9 @@ int main() {
 	GameState estadoAnterior = GameState::GAME_MENU; // Isso aqui vai bugar a trilha sonora
 	GameState estadoAtual = GameState::GAME_MENU;
 
+	// Colocando a trilha do ato 0 para rodar
+	PlayMusicStream(trilha[0]);
+		
   	Protagonista violeta(Vector2{15,1075});
 	Inimigo inimigoManager;
 
@@ -79,39 +82,42 @@ int main() {
 	Amalgama inimigoTeste3(100,0,0,0);
 	inimigoTeste3.setPosicao(Vector2{374,450});
 
+	//Spawn dos Itens, só mudar as coordenadas no final
+	Item xarope("Consumível", 50, "Infecção", ".. / assets / Spritesheets / Itens / Xarope.png", { 1000,1000 });
+	Item tanque("Consumível", 100, "Oxigênio", "../assets/Spritesheets/Itens/TanqueO2.png", { 1000, 1000 });
+	Item silvertape("Consumível", 30, "Integridade", "../assets/Spritesheets/Itens/SilverTape.png", { 1000,1000 });
+	Item capacete("Consumível", 100, "Integridade", "../assets/Spritesheets/Itens/Capacete.png", { 1000,1000 });
+	Item martelo("Arma", 20, "", "../assets/Spritesheets/Itens/Martelo.png", { 1000,1000 });
+	Item taser("Arma", 50, "", "../assets/Spritesheets/Itens/Taser.png", { 1000,1000 });
+
 	// TESTE, MAS COM NPCS
 	// Entidade generica
-	NPC npc1 = NPC("../../assets/Spritesheets/NPCS/tripulante1.png",Vector2{600,700});
-	NPC npc2 = NPC("../../assets/Spritesheets/NPCS/tripulante2.png",Vector2{-80,-100});
-	NPC npc3 = NPC("../../assets/Spritesheets/NPCS/tripulante3.png",Vector2{-60,-100});
-	NPC npc4 = NPC("../../assets/Spritesheets/NPCS/tripulante4.png",Vector2{-40,-100});
-	NPC npc5 = NPC("../../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
-	NPC npc6 = NPC("../../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
-	NPC npc7 = NPC("../../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
+	NPC npc1 = NPC("../../../assets/Spritesheets/NPCS/tripulante1.png",Vector2{600,700});
+	NPC npc2 = NPC("../../../assets/Spritesheets/NPCS/tripulante2.png",Vector2{-80,-100});
+	NPC npc3 = NPC("../../../assets/Spritesheets/NPCS/tripulante3.png",Vector2{-60,-100});
+	NPC npc4 = NPC("../../../assets/Spritesheets/NPCS/tripulante4.png",Vector2{-40,-100});
+	NPC npc5 = NPC("../../../assets/Spritesheets/NPCS/tripulante5.png",Vector2{-20,-100});
+	NPC npc6 = NPC("../../../assets/Spritesheets/NPCS/tripulante6.png",Vector2{0,-100});
+	NPC npc7 = NPC("../../../assets/Spritesheets/NPCS/tripulante7.png",Vector2{20,-100});
+
+	//DrawTextureRec(spritesheet, AnimacaoAtual[frameAtual], getPosicao(), WHITE);
 
 	Mapa mapa;
 
 	// Carrega o que vai ser renderizado
 	// Carrega o que vai ser usado para detectar colisão
-<<<<<<< HEAD
-	Texture2D mapaTextura1 = LoadTexture("../assets/mapas/mapasNormais/mapa montado sem portas.png.png");
-	Texture2D mapaTextura2 = LoadTexture("../assets/mapas/mapas normais escuros/mapa c meteoro sem portas escuro.png");
-	Texture2D mapaTextura3 = LoadTexture("../assets/mapas/mapas c sangue/mapa montado c sangue.png");
-	Texture2D mapaTextura4 = LoadTexture("../assets/mapas/mapas c sangue/mapa sem portas c sangue meteoro.png");
-=======
-	Texture2D mapaTextura1 = LoadTexture("../../assets/mapas/mapasNormais/mapa montado sem portas.png.png");
-	Texture2D mapaTextura2 = LoadTexture("../../assets/mapas/mapas normais escuros/mapa c meteoro sem portas escuro.png.png");
-	Texture2D mapaTextura3 = LoadTexture("../../assets/mapas/mapas c sangue/mapa montado c sangue.png");
-	Texture2D mapaTextura4 = LoadTexture("../../assets/mapas/mapas c sangue/mapa sem portas c sangue meteoro.png");
->>>>>>> eb4c57bedc10ea0c864f5cf794d970463c1102d8
+	Texture2D mapaTextura1 = LoadTexture("../../../assets/mapas/mapasNormais/mapa montado sem portas.png.png");
+	Texture2D mapaTextura2 = LoadTexture("../../../assets/mapas/mapas normais escuros/mapa c meteoro sem portas escuro.png.png");
+	Texture2D mapaTextura3 = LoadTexture("../../../assets/mapas/mapas c sangue/mapa montado c sangue.png");
+	Texture2D mapaTextura4 = LoadTexture("../../../assets/mapas/mapas c sangue/mapa sem portas c sangue meteoro.png");
 
 	mapa.carregarImagensDeColisao({
-		LoadImage("../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
-		LoadImage("../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png")
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png"),
+		LoadImage("../../../assets/mapas/mapasNormais/mapaMontadoSemPortasCol.png")
 	});
 	mapa.carregarMapas({
 		mapaTextura1,
@@ -121,11 +127,8 @@ int main() {
 	});
 
 	mapa.setMapa(3);
-
+	
     Espaco espaco;
-
-    Atos gerenciadorDeHistoria(&mapa, &violeta, &trilha);
-    gerenciadorDeHistoria.iniciarAto(HistoryState::ACT_0);
 
     for(int i = 0; i < 500; i++){
         espaco.adiciona_estrela((std::rand() % (1000 -(-1000) + 1)), (rand() % (400 - (-400) + 1)));
@@ -149,7 +152,7 @@ int main() {
     				estadoAtual = GameState::PAUSE;
     			}
 				violeta.Update();
-				gerenciadorDeHistoria.Update();
+				update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
 				camera.Update();
 				inimigoManager.Update();
 
@@ -174,7 +177,7 @@ int main() {
 		BeginDrawing();
 			ClearBackground(BLACK);
 			if(estadoAtual == GameState::GAME_MENU){
-
+				
                 atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
                 GameState acaoMenu = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -209,8 +212,9 @@ int main() {
     				0.0f,
     				WHITE
     			);
-
-
+				
+				violeta.DrawHUD();
+                
 				if (estadoAtual == GameState::GAMEPLAY) {
 					violeta.DrawHUD();
 					if (IsDialogueActive && IsKeyPressed(KEY_C)) {IsDialogueActive = false;}
@@ -227,7 +231,6 @@ int main() {
                             violeta.setInfeccao(0);
                             violeta.setIntegridade(100);
                             violeta.setOxigenio(100);
-                            violeta.setInfeccao(0);
                             violeta.setPosicao(Vector2{15, 1075});
 
                             // Aqui, a gente reseta a posição dos inimigos
