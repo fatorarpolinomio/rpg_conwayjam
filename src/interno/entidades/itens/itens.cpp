@@ -105,7 +105,7 @@ void Item::Get(Item item, Protagonista& protagonista) {
         }
     }
     else if (item.GetTipo() == "Arma") {
-        //protagonista equipa arma;
+        protagonista.setItemAtual(item.GetAlvo());
     }
 }
 
