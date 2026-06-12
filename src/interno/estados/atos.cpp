@@ -59,6 +59,8 @@ void Atos::iniciarAto(HistoryState novoAto) {
        	new Item ("Consumível", 50, "Infecção", "../../../assets/Spritesheets/Itens/Xarope.png", { 600,750 });
        	new Item ("Consumível", 50, "Infecção", "../../../assets/Spritesheets/Itens/Xarope.png", { 540,1080 });
         new Item ("Consumível", 100, "Oxigênio", "../../../assets/Spritesheets/Itens/TanqueO2.png", { 1000, 430 });
+        new Item ("Consumível", 100, "Oxigênio", "../../../assets/Spritesheets/Itens/TanqueO2.png", { 260, 560 });
+        new Item ("Consumível", 100, "Oxigênio", "../../../assets/Spritesheets/Itens/TanqueO2.png", { 1410, 1025 });
         new Item ("Consumível", 30, "Integridade", "../../../assets/Spritesheets/Itens/SilverTape.png", {725,650});
         new Item ("Arma", 20, "Martelo", "../../../assets/Spritesheets/Itens/Martelo.png", { 100, 750 });
         new Item ("Arma", 50, "Taser", "../../../assets/Spritesheets/Itens/Taser.png", { 1460,1110 });

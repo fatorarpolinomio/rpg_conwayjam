@@ -104,7 +104,7 @@ int main() {
     Espaco espaco;
 
     Atos gerenciadorDeHistoria(&mapa, &violeta, &trilha);
-    gerenciadorDeHistoria.iniciarAto(HistoryState::ACT_0);
+    gerenciadorDeHistoria.iniciarAto(HistoryState::ACT_1);
 
     for(int i = 0; i < 500; i++){
         espaco.adiciona_estrela((std::rand() % (1000 -(-1000) + 1)), (rand() % (400 - (-400) + 1)));
@@ -152,10 +152,13 @@ int main() {
                             Direcao dir = violeta.getDirecaoAtual();
 
                             // Empurra de acordo com o lado que a Violeta olha
-                            if (dir == Direcao::DIREITA)  posInimigo.x += forcaRepulsao;
-                            if (dir == Direcao::ESQUERDA) posInimigo.x -= forcaRepulsao;
-                            if (dir == Direcao::BAIXO)    posInimigo.y += forcaRepulsao;
-                            if (dir == Direcao::CIMA)     posInimigo.y -= forcaRepulsao;
+							
+							entidade->setEstadoPor(STUNNED, 1, true);
+							
+                            if (dir == Direcao::DIREITA && !Mapa::estaCollidindo(Vector2{(float)(1+forcaRepulsao),0}, entidade->getCaixaColisao()))  posInimigo.x += forcaRepulsao;
+                            if (dir == Direcao::ESQUERDA && !Mapa::estaCollidindo(Vector2{(float)(-1-forcaRepulsao),0}, entidade->getCaixaColisao())) posInimigo.x -= forcaRepulsao;
+                            if (dir == Direcao::BAIXO && !Mapa::estaCollidindo(Vector2{(float)(-1-forcaRepulsao)}, entidade->getCaixaColisao()))    posInimigo.y += forcaRepulsao;
+                            if (dir == Direcao::CIMA && !Mapa::estaCollidindo(Vector2{(float)(1+forcaRepulsao)}, entidade->getCaixaColisao()))     posInimigo.y -= forcaRepulsao;
 
                             entidade->setPosicao(posInimigo);
                         }
