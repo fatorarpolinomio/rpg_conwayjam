@@ -104,7 +104,7 @@ int main() {
     Espaco espaco;
 
     Atos gerenciadorDeHistoria(&mapa, &violeta, &trilha);
-    gerenciadorDeHistoria.iniciarAto(HistoryState::ACT_1);
+    gerenciadorDeHistoria.iniciarAto(HistoryState::ACT_0);
 
     for(int i = 0; i < 500; i++){
         espaco.adiciona_estrela((std::rand() % (1000 -(-1000) + 1)), (rand() % (400 - (-400) + 1)));
