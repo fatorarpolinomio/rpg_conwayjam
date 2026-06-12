@@ -179,14 +179,14 @@ void Atos::Update(){
 
             }
 
-            Vector2 posAlaNRG = { 675.0f, 450.0f };
+            Vector2 posAlaNRG = { 675.0f, 730.0f };
             if (ativouPerseguicao && !ativouEnergiaVoltou && Vector2Distance(posVioleta, posAlaNRG) < 60.0f && !IsDialogueActive) {
                 idDialogoAtual = "acesso";
                 IsDialogueActive = true;
                 ativouEnergiaVoltou = true;
             }
 
-            Vector2 posSalaComando = { 900.0f, 500.0f };
+            Vector2 posSalaComando = { 940.0f, 260.0f };
             if (ativouEnergiaVoltou && !ativouSalaControle && Vector2Distance(posVioleta, posSalaComando) < 60.0f && !IsDialogueActive) {
                 idDialogoAtual = "naoSobrouNada_a";
                 IsDialogueActive = true;
@@ -196,7 +196,7 @@ void Atos::Update(){
         }
     else if (atoAtual == HistoryState::ACT_2) {
 
-            Vector2 posQuartoComandante = { 200.0f, 300.0f };
+            Vector2 posQuartoComandante = { 1280.0f, 850.0f };
 
             if (!pegouChave && Vector2Distance(posVioleta, posQuartoComandante) < 60.0f && !IsDialogueActive) {
                 idDialogoAtual = "chave";
@@ -204,7 +204,7 @@ void Atos::Update(){
                 pegouChave = true;
             }
 
-            Vector2 posCapsula = { 1800.0f, 800.0f };
+            Vector2 posCapsula = { 1260.0f, 1111.0f };
 
             if (pegouChave && !tentouFugirSemGasosa && Vector2Distance(posVioleta, posCapsula) < 60.0f && !IsDialogueActive) {
                 idDialogoAtual = "combustivel";
@@ -212,7 +212,7 @@ void Atos::Update(){
                 tentouFugirSemGasosa = true;
             }
 
-            Vector2 posSalaCombustivel = { 800.0f, 100.0f };
+            Vector2 posSalaCombustivel = { 670.0f, 730.0f };
 
             if (tentouFugirSemGasosa && !pegouCombustivel && Vector2Distance(posVioleta, posSalaCombustivel) < 60.0f && !IsDialogueActive) {
                 pegouCombustivel = true;
