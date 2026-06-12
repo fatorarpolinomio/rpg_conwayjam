@@ -6,7 +6,6 @@
 #include "interno/estados/menu.hpp"
 #include "interno/estados/pause.hpp"
 #include "interno/estados/morte.hpp"
-#include "interno/estados/atos.hpp"
 #include "raylib.h"
 #include "interno/sistemas/dialogo.hpp"
 
@@ -66,6 +65,9 @@ int main() {
 	GameState estadoAnterior = GameState::GAME_MENU; // Isso aqui vai bugar a trilha sonora
 	GameState estadoAtual = GameState::GAME_MENU;
 
+	// Colocando a trilha do ato 0 para rodar
+	PlayMusicStream(trilha[0]);
+		
   	Protagonista violeta(Vector2{15,1075});
 	Inimigo inimigoManager;
 
@@ -100,11 +102,8 @@ int main() {
 	});
 
 	mapa.setMapa(3);
-
+	
     Espaco espaco;
-
-    Atos gerenciadorDeHistoria(&mapa, &violeta, &trilha);
-    gerenciadorDeHistoria.iniciarAto(HistoryState::ACT_0);
 
     for(int i = 0; i < 500; i++){
         espaco.adiciona_estrela((std::rand() % (1000 -(-1000) + 1)), (rand() % (400 - (-400) + 1)));
@@ -128,7 +127,7 @@ int main() {
     				estadoAtual = GameState::PAUSE;
     			}
 				violeta.Update();
-				gerenciadorDeHistoria.Update();
+				update_trilha_sonora(estadoAnterior, estadoAtual, trilha);
 				camera.Update();
 				inimigoManager.Update();
 
@@ -187,7 +186,7 @@ int main() {
 		BeginDrawing();
 			ClearBackground(BLACK);
 			if(estadoAtual == GameState::GAME_MENU){
-
+				
                 atualiza_estrelas(espaco.getEstrelas(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
                 GameState acaoMenu = menuPrincipal.desenhar(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -224,8 +223,9 @@ int main() {
     				0.0f,
     				WHITE
     			);
-
-
+				
+				violeta.DrawHUD();
+                
 				if (estadoAtual == GameState::GAMEPLAY) {
 					violeta.DrawHUD();
 					if (IsDialogueActive) {
@@ -261,7 +261,6 @@ int main() {
                             violeta.setInfeccao(0);
                             violeta.setIntegridade(100);
                             violeta.setOxigenio(100);
-                            violeta.setInfeccao(0);
                             violeta.setPosicao(Vector2{15, 1075});
 
                             // Aqui, a gente reseta a posição dos inimigos

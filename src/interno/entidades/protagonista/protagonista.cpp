@@ -84,6 +84,7 @@ Protagonista::Protagonista(Vector2 pos) {
   integridade = 100;
   oxigenio = 100;
   nivelInfeccao = 0;
+  setArma("Taser");
 
   setCaixaColisao(Rectangle{10,48,40,16});
 

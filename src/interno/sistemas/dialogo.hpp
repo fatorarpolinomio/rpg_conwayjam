@@ -70,6 +70,9 @@ void Dialogue(const std::string& id) {
        if (id == "npc3") {
            DesenharTexto("CREW MEMBER", "Shh, don't tell him the helmet is transparent.", "");
        }
+       if (id == "npc4") {
+           DesenharTexto("CREW MEMBER", "I WANT COFFEEEEEEE!", "I WANT COFFEEEEEEE!");
+       }
        if (id == "acesso") {
            DesenharTexto("VIOLETA", "ok... I think I can acess it now.", "I hope it isn't too late.");
        }
