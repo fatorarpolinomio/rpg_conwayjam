@@ -36,16 +36,16 @@ sudo pacman -S base-devel cmake
 Na raiz do projeto, abra o terminal e execute:
 
 ```sh
-mkdir build
-cd build
-cmake ..
+mkdir -p build/build/build
+cd build/build/build
+cmake ../../..
 make -j4
 ```
 
 Ainda dentro da pasta build, execute o binário gerado:
 
 ```
-./meu_rpg
+./rpg
 ```
 
 # Setup e Execução (Windows)
