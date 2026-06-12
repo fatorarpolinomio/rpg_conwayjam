@@ -28,7 +28,7 @@ Protagonista::Protagonista(Vector2 pos) {
     itemFundoTexture = LoadTexture("../../../assets/Spritesheets/UI/FundoItem.png");
     marteloIconTexture = LoadTexture("../../../assets/Spritesheets/UI/MarteloIcon.png");
     taserIconTexture = LoadTexture("../../../assets/Spritesheets/UI/TaserIcon.png");
-    itemAtual = "Martelo";
+    itemAtual = "";
 
     texturaMorte = LoadTexture("../../../assets/Spritesheets/Protagonista/protagonista morte.png");
     for (int i = 0; i < 2; i++) {

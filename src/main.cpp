@@ -212,6 +212,8 @@ int main() {
 							i->Draw();
 						}
 
+						gerenciadorDeHistoria.Missoes();
+
          			EndMode2D();
 				EndTextureMode();
     			DrawTexturePro(

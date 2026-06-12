@@ -43,5 +43,5 @@ public:
     HistoryState getAtoAtual() const{return this->atoAtual;}
     void iniciarAto(HistoryState novoAto);
     void Update();
-
+    void Missoes();
 };

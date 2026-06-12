@@ -132,7 +132,6 @@ void Atos::Update(){
             }
 
             if (!consertouMeteoro) {
-
                 // Se ela chegar perto do meteoro
                 if (violeta->getPosicao().x > 1800) {
                     consertouMeteoro = true; // Liberada para voltar a dormir
@@ -232,4 +231,15 @@ void Atos::Update(){
                 // Finalizar o jogo
             }
         }
+}
+
+void Atos::Missoes(){
+
+    if (!consertouMeteoro) {
+        DrawText("Fix the meteor", 1000, 0, 25, WHITE);
+    }
+    if (!foiDormir) {
+        DrawText("Go to bed", 1000, 100, 25, WHITE);
+    }
+
 }

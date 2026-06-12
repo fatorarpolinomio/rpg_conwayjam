@@ -6,7 +6,7 @@
 #include <vector>
 #include <locale.h>
 
-// Variáveis globais apenas declaradas
+// Variï¿½veis globais apenas declaradas
 Image CxDialogoImage;
 Texture2D CxDialogoTexture;
 Font font;
@@ -14,7 +14,7 @@ bool IsDialogueActive = true;
 
 Sound somNotifica;
 
-// Função de inicialização para carregar e redimensionar a imagem
+// Funï¿½ï¿½o de inicializaï¿½ï¿½o para carregar e redimensionar a imagem
 inline void InicializarDialogoAssets()
 {
     CxDialogoImage = LoadImage("../../../assets/Spritesheets/UI/CaixaDeDialogo.png");
@@ -113,13 +113,13 @@ void Dialogue(const std::string& id) {
            DesenharTexto("VIOLETA", "Guys... You're scaring me.", "Back off!!");
        }
        if (id == "aperteC") {
-           DesenharTexto("NOME", "Aperte C para fechar o diálogo", "");
+           DesenharTexto("NOME", "Aperte C para fechar o diï¿½logo", "");
        }
        if (id == "idd") {
            DesenharTexto("VIOLETA", "", "");
        }
 
-        // Adicione outros casos conforme necessário
+        // Adicione outros casos conforme necessï¿½rio
 };
 
 #endif
