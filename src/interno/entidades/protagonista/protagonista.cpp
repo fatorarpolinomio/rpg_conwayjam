@@ -6,12 +6,12 @@
 #include <typeinfo>
 #include "../../cenario/mapa.hpp"
 #include "protagonista.hpp"
-#include <raymath.h>                 
-#include "../../sistemas/globais.hpp" 
+#include <raymath.h>
+#include "../../sistemas/globais.hpp"
 #include "../itens/itens.hpp"
 
 Protagonista::Protagonista(Vector2 pos) {
-    velocidade = 1.0f;
+    velocidade = 2.0f;
     frameAtual = 0;
     setDepth(10);
 
@@ -88,7 +88,7 @@ Protagonista::Protagonista(Vector2 pos) {
   setCaixaColisao(Rectangle{10,48,40,16});
 
   somProximidade = LoadSound("../../../assets/audio/sfx/scare.wav");
-  SetSoundVolume(somProximidade, 0.0f); 
+  SetSoundVolume(somProximidade, 0.0f);
 }
 
 // funcoes ------------------------------------
@@ -192,7 +192,7 @@ void Protagonista::Update() {
             if (distancia < raioMaximo) {
                 inimigoPerto = true;
                 if (distancia < menorDistancia) {
-                    menorDistancia = distancia; 
+                    menorDistancia = distancia;
                 }
             }
         }
@@ -279,7 +279,7 @@ void Protagonista::DrawHUD() {
   DrawTextureRec(hudTexture, {0*TamanhoBarraHUDX, TamanhoBarraHUDY * infeccaoTreze, TamanhoBarraHUDX, TamanhoBarraHUDY} , {20, 40}, WHITE);
   DrawTextureRec(hudTexture, {1*TamanhoBarraHUDX, TamanhoBarraHUDY * oxigenioTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 100}, WHITE);
   DrawTextureRec(hudTexture, {2*TamanhoBarraHUDX, TamanhoBarraHUDY * integridadeTreze, TamanhoBarraHUDX, TamanhoBarraHUDY }, {20, 150}, WHITE);
-  
+
   DrawTextureRec(itemFundoTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60, 720 - 96 - 60 }, WHITE);
   if (itemAtual == "Martelo") {
       DrawTextureRec(marteloIconTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60 , 720 - 96 - 60 }, WHITE);
@@ -288,7 +288,7 @@ void Protagonista::DrawHUD() {
       DrawTextureRec(taserIconTexture, { 0, 0, 96, 96 }, { 1280 - 96 - 60 , 720 - 96 - 60 }, WHITE);
   }
   else{}
-  
+
 }
 
 Rectangle Protagonista::getHitboxAtaque() {

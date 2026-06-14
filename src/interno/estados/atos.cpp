@@ -156,7 +156,7 @@ void Atos::Update(){
     else if (atoAtual == HistoryState::ACT_1) {
 
             if (!ativouCafe && !IsDialogueActive && foiDormir) {
-                idDialogoAtual = "cafe";
+                idDialogoAtual = "cafe1";
                 IsDialogueActive = true;
                 ativouCafe = true;
             }
